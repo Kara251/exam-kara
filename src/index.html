@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXAM KARA</title>
+  <meta name="description" content="Kara 的互動測試首頁，集中展示目前可用與準備中的測試頁。">
+  <meta property="og:title" content="EXAM KARA">
+  <meta property="og:description" content="集中展示目前可用與準備中的互動測試頁。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="marquee marquee-top" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">EXAM KARA</span>
+      <span class="marquee-item">TEST INDEX</span>
+      <span class="marquee-item">ANIME PERSONALITY</span>
+      <span class="marquee-item">EDITORIAL LAB</span>
+      <span class="marquee-item">SUMMER 2026</span>
+      <span class="marquee-item">EXAM KARA</span>
+      <span class="marquee-item">TEST INDEX</span>
+      <span class="marquee-item">ANIME PERSONALITY</span>
+      <span class="marquee-item">EDITORIAL LAB</span>
+      <span class="marquee-item">SUMMER 2026</span>
+    </div>
+  </div>
+
+  <main class="site-main">
+    <section class="hero-band">
+      <div class="hero-rail hero-rail-left" aria-hidden="true">試験案内</div>
+      <div class="hero-rail hero-rail-right" aria-hidden="true">exam.kara251.com</div>
+
+      <div class="hero-shell">
+        <div class="rule-double"></div>
+        <div class="hero-header">
+          <span class="hero-tag">号外 EXTRA</span>
+          <span class="hero-date">VOL. 01 ── EXAM INDEX</span>
+        </div>
+        <div class="stripe"></div>
+
+        <div class="hero-title">
+          <span class="hero-year">2026</span>
+          <h1>
+            <span>EXAM</span>
+            <span>KARA</span>
+          </h1>
+        </div>
+
+        <div class="rule"></div>
+
+        <div class="hero-copy">
+          <span class="hero-copy-tag">── 測試集合 ──</span>
+          <p>把已完成與進行中的互動測試，集中掛在同一個首頁與同一個網域下。</p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn-primary" href="#tests">查看測試</a>
+          <a class="btn-secondary" href="/tests/anime-summer-2026/">進入動漫測試</a>
+        </div>
+
+        <div class="hero-meta">
+          <span>DOMAIN: exam.kara251.com</span>
+          <span>ROUTE PATTERN: /tests/&lt;slug&gt;/</span>
+        </div>
+
+        <div class="rule-double"></div>
+      </div>
+    </section>
+
+    <section class="catalog-band" id="tests">
+      <div class="catalog-shell">
+        <div class="catalog-heading">
+          <div>
+            <p class="section-kicker">TEST INDEX</p>
+            <h2>目前可用與準備中的頁面</h2>
+          </div>
+          <p class="section-note">版面與字體延續動漫測試的編輯感，讓後續新測試直接併進來。</p>
+        </div>
+
+        <div class="rule"></div>
+
+        <div class="test-list" id="test-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="marquee marquee-bottom" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">SUBROUTE READY</span>
+      <span class="marquee-item">CLOUDFLARE PAGES</span>
+      <span class="marquee-item">STATIC DEPLOY</span>
+      <span class="marquee-item">EXAM KARA</span>
+      <span class="marquee-item">SUBROUTE READY</span>
+      <span class="marquee-item">CLOUDFLARE PAGES</span>
+      <span class="marquee-item">STATIC DEPLOY</span>
+      <span class="marquee-item">EXAM KARA</span>
+    </div>
+  </div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
+
