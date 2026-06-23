@@ -172,6 +172,148 @@ a:focus-visible {
   }
 }
 
+/* Rule lines insert from left edge */
+.rule.anim {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.rule.anim.anim-in {
+  animation: rule-from-left 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--d, 0) * 0.08s);
+}
+
+@keyframes rule-from-left {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Rule-double inserts from right edge */
+.rule-double.anim {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+
+.rule-double.anim.anim-in {
+  animation: rule-from-right 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--d, 0) * 0.08s);
+}
+
+@keyframes rule-from-right {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Stripe wipes in from left edge */
+.stripe.anim {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+}
+
+.stripe.anim.anim-in {
+  animation: stripe-from-left 0.5s ease-out forwards;
+  animation-delay: calc(var(--d, 0) * 0.08s);
+}
+
+@keyframes stripe-from-left {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+/* Character-by-character text animation */
+.char {
+  display: inline-block;
+  opacity: 0;
+  animation: char-in 0.22s ease forwards;
+  animation-delay: calc(var(--ci, 0) * 42ms + var(--char-base, 250ms));
+}
+
+@keyframes char-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Page transition animations */
+.page.page-leaving {
+  display: flex;
+  animation: page-out 0.24s ease forwards;
+  pointer-events: none;
+}
+
+.page.page-entering {
+  animation: page-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-16px); }
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Button two-pass wipe entrance
+   Pass 1 (::before): thin scan line sweeps L→R over page-bg cover
+   Pass 2 (::after wipes left): cover slides out LEFT, revealing filled button R→L
+*/
+.btn-start.anim {
+  opacity: 1;
+  transform: none;
+  background: var(--border-dark);
+  color: var(--bg);
+}
+
+/* Pass-1 scan line: dark sliver on top of cover */
+.btn-start.anim::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  width: 4px;
+  z-index: 2;
+  background: rgba(26, 26, 26, 0.55);
+  animation: btn-scan 0.44s ease-in-out calc(var(--d, 0) * 0.08s + 0.06s) forwards;
+}
+
+/* Page-bg cover that hides the filled button until phase 2 */
+.btn-start.anim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: var(--bg);
+  z-index: 1;
+  animation: none;
+}
+
+/* Pass-2: cover wipes LEFT → button revealed from RIGHT (R→L) */
+.btn-start.anim.anim-in::after {
+  animation: btn-cover-wipe 0.5s cubic-bezier(0.4, 0, 0.2, 1)
+    calc(var(--d, 0) * 0.08s + 0.58s) forwards;
+}
+
+/* Restart pulse once entrance completes */
+.btn-start.anim.anim-in {
+  animation: btn-pulse 2.6s ease-in-out calc(var(--d, 0) * 0.08s + 1.18s) infinite;
+}
+
+@keyframes btn-scan {
+  0%   { left: -4px; opacity: 1; }
+  90%  { left: calc(100% + 4px); opacity: 1; }
+  100% { left: calc(100% + 4px); opacity: 0; }
+}
+
+@keyframes btn-cover-wipe {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
 .glitch-text {
   position: relative;
 }
@@ -349,6 +491,7 @@ a:focus-visible {
 .lang-gate-button {
   min-height: 54px;
   border: 2px solid var(--border-dark);
+  border-radius: 0;
   background: transparent;
   color: var(--text);
   font-family: var(--font-sans);
@@ -592,6 +735,7 @@ a:focus-visible {
   justify-content: center;
   padding: 0 18px;
   border: 2px solid var(--border-dark);
+  border-radius: 0;
   background: transparent;
   color: var(--text);
   font-family: var(--font-sans);
@@ -796,6 +940,7 @@ a:focus-visible {
 .quiz-prev {
   padding: 4px 10px;
   border: 1px solid var(--border);
+  border-radius: 0;
   background: transparent;
   color: var(--text-light);
   font-family: var(--font-sans);
@@ -866,6 +1011,7 @@ a:focus-visible {
   padding: 16px 20px;
   overflow: hidden;
   border: 1px solid var(--border);
+  border-radius: 0;
   background: transparent;
   color: var(--text);
   font-family: var(--font-sans);
@@ -1187,6 +1333,58 @@ a:focus-visible {
   line-height: 1.8;
   letter-spacing: 1px;
   overflow-wrap: anywhere;
+}
+
+/* Trait distribution bars */
+.result-traits {
+  margin: 14px 0 2px;
+}
+
+.trait-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+
+.trait-label {
+  flex: 0 0 80px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+  text-align: right;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trait-bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(26, 26, 26, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.trait-bar-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  background: var(--border-dark);
+  clip-path: inset(0 100% 0 0);
+  transition: none;
+}
+
+.trait-bar-fill.bar-in {
+  animation: trait-bar-reveal 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: var(--bar-d, 0s);
+}
+
+@keyframes trait-bar-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
 }
 
 .result-actions {

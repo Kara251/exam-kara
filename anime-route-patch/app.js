@@ -117,12 +117,33 @@
   }
 
   function showPage(page) {
-    [pageHome, pageQuiz, pageResult].forEach(function (currentPage) {
-      currentPage.classList.remove("active");
+    var leaving = [pageHome, pageQuiz, pageResult].find(function (p) {
+      return p.classList.contains("active");
     });
-    page.classList.add("active");
-    window.scrollTo(0, 0);
-    triggerAnims(page);
+
+    if (!leaving || leaving === page) {
+      [pageHome, pageQuiz, pageResult].forEach(function (p) {
+        p.classList.remove("active");
+      });
+      page.classList.add("active");
+      page.classList.add("page-entering");
+      window.scrollTo(0, 0);
+      triggerAnims(page);
+      return;
+    }
+
+    leaving.classList.add("page-leaving");
+
+    window.setTimeout(function () {
+      leaving.classList.remove("active", "page-leaving");
+      page.classList.add("active", "page-entering");
+      window.scrollTo(0, 0);
+      triggerAnims(page);
+
+      window.setTimeout(function () {
+        page.classList.remove("page-entering");
+      }, 400);
+    }, 240);
   }
 
   function populateLanguageSelect() {
@@ -629,6 +650,77 @@
     });
   }
 
+  function wrapChars(el, baseDelayMs) {
+    var text = el.textContent;
+    var base = baseDelayMs || 0;
+
+    el.setAttribute("aria-label", text);
+    el.innerHTML = "";
+    el.style.setProperty("--char-base", base + "ms");
+
+    text.split("").forEach(function (ch, i) {
+      if (ch === " ") {
+        el.appendChild(document.createTextNode(" "));
+        return;
+      }
+      var span = document.createElement("span");
+      span.className = "char";
+      span.setAttribute("aria-hidden", "true");
+      span.style.setProperty("--ci", i);
+      span.textContent = ch;
+      el.appendChild(span);
+    });
+  }
+
+  function renderTraitBars(entry) {
+    var container = document.getElementById("result-traits");
+    if (!container) { return; }
+    container.innerHTML = "";
+
+    var traitScores = QUIZ_DATA.traits.map(function (trait) {
+      var val = entry.work.traits[trait.id] || 0;
+      return { id: trait.id, trait: trait, val: val, abs: Math.abs(val) };
+    }).filter(function (t) {
+      return t.abs > 0;
+    }).sort(function (a, b) {
+      return b.abs - a.abs;
+    }).slice(0, 5);
+
+    if (traitScores.length === 0) { return; }
+
+    var maxVal = traitScores[0].abs;
+
+    traitScores.forEach(function (t, i) {
+      var row = document.createElement("div");
+      row.className = "trait-row";
+
+      var label = document.createElement("div");
+      label.className = "trait-label";
+      label.textContent = traitLabel(t.id, t.val > 0 ? 1 : -1);
+
+      var track = document.createElement("div");
+      track.className = "trait-bar-track";
+
+      var fill = document.createElement("div");
+      fill.className = "trait-bar-fill";
+      fill.style.width = (t.abs / maxVal * 100) + "%";
+      fill.style.setProperty("--bar-d", (i * 0.1 + 0.28) + "s");
+
+      track.appendChild(fill);
+      row.appendChild(label);
+      row.appendChild(track);
+      container.appendChild(row);
+    });
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        container.querySelectorAll(".trait-bar-fill").forEach(function (fill) {
+          fill.classList.add("bar-in");
+        });
+      });
+    });
+  }
+
   function renderResult(ranking) {
     var top = ranking[0];
     var recommendations = ranking.slice(1, 4);
@@ -641,12 +733,17 @@
     }
 
     setResultImage(top.work);
-    document.getElementById("result-anime-name").textContent = localizedName(top.work);
+
+    var nameEl = document.getElementById("result-anime-name");
+    nameEl.textContent = localizedName(top.work);
+    wrapChars(nameEl, 380);
+
     document.getElementById("result-anime-romaji").textContent = localizedSecondaryName(top.work);
     document.getElementById("result-type-name").textContent = buildTypeLabel(top);
     document.getElementById("result-description").textContent = description;
 
     renderKeywords(top);
+    renderTraitBars(top);
     renderList("alt-list", recommendations, "good");
     renderList("avoid-list", avoids, "avoid");
     renderResultQr();
