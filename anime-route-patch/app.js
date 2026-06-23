@@ -9,56 +9,8 @@
   var lastRanking = null;
   var questionCount = Math.min(QUIZ_DATA.questionCount || 15, QUIZ_DATA.questions.length);
   var traitLookup = {};
-  var TEST_SHARE_BASE_URL = "https://exam.kara251.com/tests/anime-summer-2026/";
-  var initialSharedState = readSharedResultState();
-  var sharedResultConsumed = false;
+  var TEST_PUBLIC_URL = "https://exam.kara251.com/tests/anime-summer-2026/";
   var exportCache = { key: "", blob: null };
-  var shareBusy = false;
-  var SHARE_PLATFORMS = {
-    qq: {
-      labelKey: "platformQQ",
-      webUrlBuilder: function (payload) {
-        var url = new URL("https://connect.qq.com/widget/shareqq/index.html");
-        url.searchParams.set("url", payload.shareUrl);
-        return url.toString();
-      }
-    },
-    weixin: {
-      labelKey: "platformWeixin"
-    },
-    weibo: {
-      labelKey: "platformWeibo",
-      webUrlBuilder: function (payload) {
-        var url = new URL("https://service.weibo.com/share/share.php");
-        url.searchParams.set("url", payload.shareUrl);
-        url.searchParams.set("title", payload.shareText);
-        return url.toString();
-      }
-    },
-    douyin: {
-      labelKey: "platformDouyin"
-    },
-    kuaishou: {
-      labelKey: "platformKuaishou"
-    },
-    x: {
-      labelKey: "platformX",
-      webUrlBuilder: function (payload) {
-        var url = new URL("https://twitter.com/intent/tweet");
-        url.searchParams.set("text", payload.shareText);
-        url.searchParams.set("url", payload.shareUrl);
-        return url.toString();
-      }
-    },
-    facebook: {
-      labelKey: "platformFacebook",
-      webUrlBuilder: function (payload) {
-        var url = new URL("https://www.facebook.com/sharer/sharer.php");
-        url.searchParams.set("u", payload.shareUrl);
-        return url.toString();
-      }
-    }
-  };
 
   QUIZ_DATA.traits.forEach(function (trait) {
     traitLookup[trait.id] = trait;
@@ -86,20 +38,10 @@
   var homeScrollHintTimer = 0;
   var marqueeTracks = Array.prototype.slice.call(document.querySelectorAll("[data-marquee-track]"));
   var issueDateTargets = document.querySelectorAll("[data-issue-date]");
-  var shareButtons = Array.prototype.slice.call(document.querySelectorAll("[data-share-platform]"));
-  var shareStatus = document.getElementById("share-status");
   var traitPalette = ["#E8384F", "#1A8C7E", "#3F3934", "#7E776E", "#B9B1A5"];
 
   function ui() {
     return quizI18n.getUi(lang);
-  }
-
-  function formatUi(key, replacements) {
-    var template = ui()[key] || "";
-
-    return Object.keys(replacements || {}).reduce(function (message, name) {
-      return message.replace(new RegExp("\\{\\{" + name + "\\}\\}", "g"), replacements[name]);
-    }, template);
   }
 
   function localizeLooseText(text) {
@@ -120,13 +62,6 @@
 
   function localizedSecondaryName(work) {
     return quizI18n.getSecondaryWorkName(lang, work);
-  }
-
-  function platformLabel(platformKey) {
-    var config = SHARE_PLATFORMS[platformKey];
-    var strings = ui();
-
-    return config && strings[config.labelKey] ? strings[config.labelKey] : platformKey;
   }
 
   function setDocumentLocale() {
@@ -159,165 +94,20 @@
     return number < 10 ? "0" + number : "" + number;
   }
 
-  function setShareStatus(message, isError) {
-    if (!shareStatus) {
-      return;
-    }
-
-    shareStatus.textContent = message || "";
-    shareStatus.classList.toggle("is-error", Boolean(isError && message));
-  }
-
-  function setShareBusyState(isBusy, activeButton) {
-    var saveButton = document.getElementById("btn-share");
-
-    shareBusy = isBusy;
-
-    if (saveButton) {
-      saveButton.disabled = isBusy;
-    }
-
-    shareButtons.forEach(function (button) {
-      button.disabled = isBusy;
-      button.classList.toggle("is-busy", Boolean(isBusy && button === activeButton));
-    });
-  }
-
-  function isLikelyMobileShareSurface() {
-    if (window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches) {
-      return true;
-    }
-
-    return /Android|iPhone|iPad|iPod|Mobile/i.test(window.navigator.userAgent || "");
-  }
-
-  function encodeShareState(state) {
-    if (!state) {
-      return "";
-    }
-
-    try {
-      return window.btoa(JSON.stringify(state))
-        .replace(/\+/g, "-")
-        .replace(/\//g, "_")
-        .replace(/=+$/g, "");
-    } catch {
-      return "";
-    }
-  }
-
-  function decodeShareState(token) {
-    var normalized;
-
-    if (!token) {
-      return null;
-    }
-
-    try {
-      normalized = token.replace(/-/g, "+").replace(/_/g, "/");
-      while (normalized.length % 4) {
-        normalized += "=";
-      }
-      return JSON.parse(window.atob(normalized));
-    } catch {
-      return null;
-    }
-  }
-
-  function cloneQuestionFromIndex(index) {
-    var source = QUIZ_DATA.questions[index];
-
-    if (!source) {
-      return null;
-    }
-
-    return Object.assign({}, source, {
-      options: source.options.slice()
-    });
-  }
-
-  function normalizeSharedResultState(candidate) {
-    var normalizedScores = {};
-    var normalizedQuestions = [];
-
-    if (!candidate || candidate.v !== 1 || !Array.isArray(candidate.q) || typeof candidate.s !== "object") {
-      return null;
-    }
-
-    candidate.q.forEach(function (value) {
-      var index = Number(value);
-
-      if (Number.isInteger(index) && QUIZ_DATA.questions[index]) {
-        normalizedQuestions.push(index);
-      }
-    });
-
-    if (normalizedQuestions.length === 0) {
-      return null;
-    }
-
-    QUIZ_DATA.traits.forEach(function (trait) {
-      var value = candidate.s[trait.id];
-      normalizedScores[trait.id] = Number.isFinite(value) ? value : 0;
-    });
-
-    return {
-      v: 1,
-      q: normalizedQuestions.slice(0, questionCount),
-      s: normalizedScores
-    };
-  }
-
-  function readSharedResultState() {
-    try {
-      var params = new URLSearchParams(window.location.search);
-      return normalizeSharedResultState(decodeShareState(params.get("r")));
-    } catch {
-      return null;
-    }
-  }
-
-  function buildShareState() {
-    var normalizedScores = {};
-
-    if (!questionSet.length) {
-      return null;
-    }
-
-    QUIZ_DATA.traits.forEach(function (trait) {
-      normalizedScores[trait.id] = scores[trait.id] || 0;
-    });
-
-    return {
-      v: 1,
-      q: questionSet.map(function (question) {
-        return question.__index;
-      }),
-      s: normalizedScores
-    };
-  }
-
-  function buildUrlFor(baseUrl, includeResultState) {
-    var shareState = includeResultState ? encodeShareState(buildShareState()) : "";
+  function buildUrlFor(baseUrl) {
     var url = new URL(baseUrl, window.location.href);
 
     url.search = "";
     url.hash = "";
-    url.searchParams.set("lang", lang);
-
-    if (shareState) {
-      url.searchParams.set("r", shareState);
-    }
-
     return url.toString();
   }
 
-  function syncCurrentUrl(includeResultState) {
+  function syncCurrentUrl() {
     try {
       window.history.replaceState(
         null,
         "",
-        buildUrlFor(window.location.pathname, Boolean(includeResultState))
+        buildUrlFor(window.location.pathname)
       );
     } catch {}
   }
@@ -665,8 +455,7 @@
     questionSet = buildQuestionSet();
     exportCache = { key: "", blob: null };
     resetScores();
-    setShareStatus("");
-    syncCurrentUrl(false);
+    syncCurrentUrl();
     showPage(pageQuiz);
     renderQuestion();
   }
@@ -1027,17 +816,17 @@
     }
   }
 
-  function buildShareUrl() {
-    return buildUrlFor(TEST_SHARE_BASE_URL, true);
+  function buildTestUrl() {
+    return buildUrlFor(TEST_PUBLIC_URL);
   }
 
   function renderResultQr() {
     var qrContainer = document.getElementById("result-qr-code");
     var qrUrl = document.getElementById("result-qr-url");
-    var shareUrl = buildShareUrl();
+    var publicUrl = buildTestUrl();
 
     if (qrUrl) {
-      qrUrl.textContent = shareUrl.replace(/^https?:\/\//, "");
+      qrUrl.textContent = publicUrl.replace(/^https?:\/\//, "");
     }
 
     if (!qrContainer || !window.QRCode) {
@@ -1047,7 +836,7 @@
     qrContainer.innerHTML = "";
 
     new window.QRCode(qrContainer, {
-      text: shareUrl,
+      text: publicUrl,
       width: 112,
       height: 112,
       colorDark: "#1A1A1A",
@@ -1210,8 +999,6 @@
     var description = buildResultDescription(top);
     var leadReason = buildLeadReason(top);
 
-    setShareStatus("");
-
     if (leadReason) {
       description += " " + leadReason;
     }
@@ -1235,49 +1022,17 @@
 
   function showResult() {
     lastRanking = buildRanking();
+    exportCache = { key: "", blob: null };
     renderResult(lastRanking);
-    syncCurrentUrl(true);
+    syncCurrentUrl();
     showPage(pageResult);
   }
 
   function restart() {
     lastRanking = null;
     exportCache = { key: "", blob: null };
-    setShareStatus("");
-    syncCurrentUrl(false);
+    syncCurrentUrl();
     showPage(pageHome);
-  }
-
-  function applySharedResultState(state) {
-    var normalized = normalizeSharedResultState(state);
-
-    if (!normalized) {
-      return false;
-    }
-
-    resetScores();
-    questionSet = normalized.q.map(cloneQuestionFromIndex).filter(Boolean);
-    history = [];
-    current = Math.max(questionSet.length - 1, 0);
-
-    QUIZ_DATA.traits.forEach(function (trait) {
-      scores[trait.id] = normalized.s[trait.id] || 0;
-    });
-
-    lastRanking = buildRanking();
-    renderResult(lastRanking);
-    syncCurrentUrl(true);
-    showPage(pageResult);
-    return true;
-  }
-
-  function openSharedResultIfAvailable() {
-    if (!initialSharedState || sharedResultConsumed) {
-      return false;
-    }
-
-    sharedResultConsumed = applySharedResultState(initialSharedState);
-    return sharedResultConsumed;
   }
 
   function waitForNextFrame() {
@@ -1448,7 +1203,9 @@
   }
 
   function buildExportSignature() {
-    return buildShareUrl();
+    var top = lastRanking && lastRanking[0];
+
+    return [lang, top ? top.work.id : "", current, questionSet.length].join("|");
   }
 
   function getResultImageBlob() {
@@ -1480,174 +1237,16 @@
     }, 1200);
   }
 
-  function copyTextToClipboard(text) {
-    if (!navigator.clipboard || !navigator.clipboard.writeText) {
-      return Promise.resolve(false);
-    }
-
-    return navigator.clipboard.writeText(text).then(function () {
-      return true;
-    }).catch(function () {
-      return false;
-    });
-  }
-
-  function buildSharePayload(blob) {
-    var strings = ui();
-    var top = lastRanking && lastRanking[0];
-    var resultTitle = top ? localizedName(top.work) : strings.pageTitle;
-    var shareText = top
-      ? strings.pageTitle + " / " + resultTitle
-      : strings.pageDescription;
-    var file = null;
-
-    if (window.File) {
-      try {
-        file = new File([blob], strings.downloadName, { type: "image/png" });
-      } catch {}
-    }
-
-    return {
-      blob: blob,
-      file: file,
-      fileName: strings.downloadName,
-      shareUrl: buildShareUrl(),
-      shareTitle: resultTitle,
-      shareText: shareText
-    };
-  }
-
-  function canNativeFileShare(file) {
-    if (!isLikelyMobileShareSurface() || !file || !navigator.share || !navigator.canShare) {
-      return false;
-    }
-
-    try {
-      return navigator.canShare({ files: [file] });
-    } catch {
-      return false;
-    }
-  }
-
-  function canProbablyNativeShareFiles() {
-    var probe;
-
-    if (!isLikelyMobileShareSurface() || !window.File || !navigator.share || !navigator.canShare) {
-      return false;
-    }
-
-    try {
-      probe = new File([new Uint8Array([137, 80, 78, 71])], "probe.png", { type: "image/png" });
-      return navigator.canShare({ files: [probe] });
-    } catch {
-      return false;
-    }
-  }
-
-  function isAbortError(error) {
-    return Boolean(error && (error.name === "AbortError" || error.message === "AbortError"));
-  }
-
-  function openSharePopup() {
-    try {
-      return window.open("about:blank", "_blank", "noopener,noreferrer");
-    } catch {
-      return null;
-    }
-  }
-
-  async function runPlatformFallback(platformKey, payload, popup) {
-    var platform = SHARE_PLATFORMS[platformKey];
-    var fallbackUrl = platform && platform.webUrlBuilder ? platform.webUrlBuilder(payload) : "";
-
-    await Promise.all([
-      Promise.resolve(downloadBlob(payload.blob, payload.fileName)),
-      copyTextToClipboard(payload.shareUrl)
-    ]);
-
-    if (fallbackUrl) {
-      if (popup) {
-        popup.location.replace(fallbackUrl);
-        try {
-          popup.focus();
-        } catch {}
-        setShareStatus(formatUi("shareWebHint", {
-          platform: platformLabel(platformKey)
-        }));
-        return;
-      }
-
-      setShareStatus(ui().sharePopupBlocked, true);
-      return;
-    }
-
-    setShareStatus(formatUi("shareManualHint", {
-      platform: platformLabel(platformKey)
-    }));
-  }
-
-  async function shareToPlatform(platformKey, button) {
-    var strings = ui();
-    var popup = null;
-    var payload;
-    var probableNativeShare = canProbablyNativeShareFiles();
-
-    if (!lastRanking || shareBusy || !SHARE_PLATFORMS[platformKey]) {
-      return;
-    }
-
-    if (!probableNativeShare && SHARE_PLATFORMS[platformKey].webUrlBuilder) {
-      popup = openSharePopup();
-    }
-
-    setShareBusyState(true, button);
-    setShareStatus(strings.sharePreparing);
-
-    try {
-      payload = buildSharePayload(await getResultImageBlob());
-
-      if (canNativeFileShare(payload.file)) {
-        setShareStatus(formatUi("shareNativeHint", {
-          platform: platformLabel(platformKey)
-        }));
-
-        try {
-          await navigator.share({
-            files: [payload.file],
-            title: payload.shareTitle,
-            text: payload.shareText
-          });
-          return;
-        } catch (error) {
-          if (isAbortError(error)) {
-            setShareStatus("");
-            return;
-          }
-        }
-      }
-
-      if (!popup && SHARE_PLATFORMS[platformKey].webUrlBuilder) {
-        popup = openSharePopup();
-      }
-
-      await runPlatformFallback(platformKey, payload, popup);
-    } catch {
-      setShareStatus(strings.shareFailed, true);
-    } finally {
-      setShareBusyState(false);
-    }
-  }
-
   function shareResult() {
     var button = document.getElementById("btn-share");
     var strings = ui();
     var originalText = button.textContent;
 
-    if (shareBusy || !lastRanking) {
+    if (!button || button.disabled || !lastRanking) {
       return;
     }
 
-    setShareBusyState(true);
+    button.disabled = true;
     button.textContent = strings.shareSaving;
 
     getResultImageBlob().then(function (blob) {
@@ -1656,21 +1255,18 @@
       alert(strings.shareFailed);
     }).finally(function () {
       button.textContent = originalText;
-      setShareBusyState(false);
+      button.disabled = false;
     });
   }
 
   function onLocaleChange() {
     lang = localeApi.setLocale(langSelect.value);
+    exportCache = { key: "", blob: null };
     applyLang();
-    syncCurrentUrl(pageResult.classList.contains("active") && Boolean(lastRanking));
+    syncCurrentUrl();
   }
 
   function revealInitialPageFromLanguageGate() {
-    if (openSharedResultIfAvailable()) {
-      return;
-    }
-
     if (!pageHome || !pageHome.classList.contains("active")) {
       return;
     }
@@ -1781,11 +1377,6 @@
     document.getElementById("btn-start").addEventListener("click", startQuiz);
     document.getElementById("btn-retry").addEventListener("click", restart);
     document.getElementById("btn-share").addEventListener("click", shareResult);
-    shareButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        shareToPlatform(button.getAttribute("data-share-platform"), button);
-      });
-    });
     btnPrev.addEventListener("click", goBack);
     langSelect.addEventListener("change", onLocaleChange);
     window.addEventListener("resize", function () {
@@ -1802,15 +1393,14 @@
     resetScores();
     setIssueDateLabels();
     applyLang();
+    syncCurrentUrl();
     initLanguageGate();
     populateMarquees();
     updateHomeScrollHint({ immediate: true });
 
     if (!document.getElementById("lang-gate")) {
-      if (!openSharedResultIfAvailable()) {
-        triggerAnims(pageHome);
-        schedulePageEntryCleanup(pageHome);
-      }
+      triggerAnims(pageHome);
+      schedulePageEntryCleanup(pageHome);
     }
   }
 
