@@ -6,6 +6,11 @@ EXAM KARA 是 `exam.kara251.com` 的静态主站，用来承载多个互动测�
 
 - `/tests/anime-summer-2026/`：2026 夏季番性格测验
 
+## GitHub 仓库
+
+- EXAM 主页： [Kara251/exam-kara](https://github.com/Kara251/exam-kara)
+- 动漫测试来源项目： [Kara251/26July-Anime-Test](https://github.com/Kara251/26July-Anime-Test)
+
 ## 仓库结构
 
 - `src/`：主站源码

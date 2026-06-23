@@ -5,6 +5,7 @@
 This repository's Summer 2026 anime test is based on:
 
 - `/Users/kara/Code/material/26July-Anime-Test/result.md`
+- GitHub repository: [Kara251/26July-Anime-Test](https://github.com/Kara251/26July-Anime-Test)
 
 That file is the upstream research note used to define the candidate pool, screening rules, and recommendation dimensions for the test.
 
@@ -91,3 +92,4 @@ These traits drive:
 
 - This document is the normalized source-basis record for the repository.
 - The full upstream raw research remains in the sibling project at `/Users/kara/Code/material/26July-Anime-Test/result.md`.
+- The current site repository is [Kara251/exam-kara](https://github.com/Kara251/exam-kara).
