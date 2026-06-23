@@ -5,6 +5,19 @@ var manifestState = {
   href: "/tests/anime-summer-2026/"
 };
 
+var HOME_POSTERS = [
+  { src: "/tests/anime-summer-2026/images/01_supermarket_smoking1.webp" },
+  { src: "/tests/anime-summer-2026/images/05_ghost_in_the_shell1.webp" },
+  { src: "/tests/anime-summer-2026/images/08_grand_blue_s31.webp" },
+  { src: "/tests/anime-summer-2026/images/11_jaadugar_witch_in_mongolia1.webp" },
+  { src: "/tests/anime-summer-2026/images/18_red_river1.webp" },
+  { src: "/tests/anime-summer-2026/images/25_100_girlfriends_s31.webp" },
+  { src: "/tests/anime-summer-2026/images/32_bandori_yume_mita1.webp" },
+  { src: "/tests/anime-summer-2026/images/42_time_leap_girl_4k1.webp" },
+  { src: "/tests/anime-summer-2026/images/48_paprika_4k_remaster1.webp" },
+  { src: "/tests/anime-summer-2026/images/53_madoka_walpurgisnacht_rising1.webp" }
+];
+
 var SITE_COPY = {
   tc: {
     pageTitle: "EXAM KARA",
@@ -16,12 +29,16 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "号外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
+    heroMixedLine: "✧ EXAM KARA × 測試索引 ✧",
     heroCopyTag: "-- 測試集合 --",
     heroCopy: "把已完成與進行中的互動測試，集中掛在同一個首頁與同一個網域下。",
     heroPrimaryAction: "查看測試",
     heroSecondaryAction: "進入動漫測試",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
+    heroFooterPrimary: "INTERACTIVE TEST INDEX",
+    heroFooterSecondary: "互動測試子路由首頁",
+    heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
     sectionTitle: "目前可用與準備中的頁面",
     sectionNote: "版面與字體延續動漫測試的編輯感，讓後續新測試直接併進來。",
@@ -56,12 +73,16 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "号外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
+    heroMixedLine: "✧ EXAM KARA × 测验索引 ✧",
     heroCopyTag: "-- 测验集合 --",
     heroCopy: "把已完成与进行中的互动测验，集中挂在同一个首页与同一个网域下。",
     heroPrimaryAction: "查看测验",
     heroSecondaryAction: "进入动漫测验",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
+    heroFooterPrimary: "INTERACTIVE TEST INDEX",
+    heroFooterSecondary: "互动测验子路由首页",
+    heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
     sectionTitle: "目前可用与准备中的页面",
     sectionNote: "版面与字体延续动漫测试的编辑感，让后续新测验直接并进来。",
@@ -96,12 +117,16 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
+    heroMixedLine: "✧ EXAM KARA × 試題索引 ✧",
     heroCopyTag: "-- 試題合集 --",
     heroCopy: "把已完結同施工中の互動測驗，集中掛喺同一個首頁；之後再開新坑也能直接塞進嚟。",
     heroPrimaryAction: "查看試題",
     heroSecondaryAction: "進入夏番測驗",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
+    heroFooterPrimary: "INTERACTIVE TEST INDEX",
+    heroFooterSecondary: "互動試題子路由首頁",
+    heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
     sectionTitle: "而家可玩同待開坑の頁面",
     sectionNote: "版面同字體延續夏番測驗嗰股編輯感，之後再塞新坑都唔會跳 tone。",
@@ -136,12 +161,16 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
+    heroMixedLine: "✧ EXAM KARA × 試頁總目 ✧",
     heroCopyTag: "-- 試頁總覽 --",
     heroCopy: "凡既成與方作之互動測頁，悉繫於一首頁、一網域之下；後有新坑，亦可徑納其中。",
     heroPrimaryAction: "觀諸試頁",
     heroSecondaryAction: "入夏番試",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
+    heroFooterPrimary: "INTERACTIVE TEST INDEX",
+    heroFooterSecondary: "互動試頁子路由首頁",
+    heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
     sectionTitle: "今可觀與將啟之頁",
     sectionNote: "版式字體，皆承夏番試頁編輯之意，後來新試可徑併焉，不致失其調。",
@@ -176,12 +205,16 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
+    heroMixedLine: "EXAM KARA x TEST INDEX",
     heroCopyTag: "-- TEST CATALOG --",
     heroCopy: "Live and in-progress interactive tests, gathered under one home page and one domain.",
     heroPrimaryAction: "Browse Tests",
     heroSecondaryAction: "Open Anime Test",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
+    heroFooterPrimary: "INTERACTIVE TEST INDEX",
+    heroFooterSecondary: "subroute archive home",
+    heroSparkle: "ARCHIVE MODE",
     sectionKicker: "TEST INDEX",
     sectionTitle: "Live Now and Coming Next",
     sectionNote: "The layout inherits the anime test's editorial tone, so new tests can slot in without changing the front page.",
@@ -216,12 +249,16 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
+    heroMixedLine: "✧ EXAM KARA × 試題索引 ✧",
     heroCopyTag: "-- 試題集合 --",
     heroCopy: "將做完同做緊嘅互動測驗集中掛喺同一個首頁同網域，之後再開新坑都可以直接拼入去。",
     heroPrimaryAction: "睇試題",
     heroSecondaryAction: "入夏番測驗",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
+    heroFooterPrimary: "INTERACTIVE TEST INDEX",
+    heroFooterSecondary: "互動測驗子路由首頁",
+    heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
     sectionTitle: "而家可用同準備開坑嘅頁面",
     sectionNote: "版面同字體跟返夏番測驗嗰種編輯感，之後再加新測驗都可以直接拼入去。",
@@ -256,12 +293,16 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "号外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
+    heroMixedLine: "EXAM KARA × テスト索引",
     heroCopyTag: "-- テスト一覧 --",
     heroCopy: "公開済みと制作中のインタラクティブテストを、ひとつのトップページとひとつのドメインに集約します。",
     heroPrimaryAction: "テストを見る",
     heroSecondaryAction: "アニメ診断へ",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
+    heroFooterPrimary: "INTERACTIVE TEST INDEX",
+    heroFooterSecondary: "インタラクティブ診断アーカイブ",
+    heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
     sectionTitle: "公開中と準備中のページ",
     sectionNote: "レイアウトと書体はアニメ診断のエディトリアル感を引き継ぎ、次のテストもそのまま追加できるようにしています。",
@@ -303,15 +344,45 @@ function setMeta(copy) {
   document.querySelector('meta[property="og:description"]').setAttribute("content", copy.ogDescription);
 }
 
-function renderMarquee(trackId, items) {
+function createPosterTile(className, poster, eager) {
+  var tile = document.createElement("span");
+  var image = document.createElement("img");
+
+  tile.className = className;
+  image.src = poster.src;
+  image.alt = "";
+  image.loading = eager ? "eager" : "lazy";
+  image.decoding = "async";
+  tile.appendChild(image);
+
+  return tile;
+}
+
+function renderPosterMarquee(trackId, posters) {
   var track = document.getElementById(trackId);
 
   track.innerHTML = "";
-  items.concat(items).forEach(function (itemText) {
-    var item = document.createElement("span");
-    item.className = "marquee-item";
-    item.textContent = itemText;
-    track.appendChild(item);
+  posters.concat(posters).forEach(function (poster, index) {
+    track.appendChild(createPosterTile("marquee-item", poster, index < 4));
+  });
+
+  requestAnimationFrame(function () {
+    track.style.setProperty("--loop-shift", track.scrollWidth / 2 + "px");
+  });
+}
+
+function renderHeroGallery() {
+  var gallery = document.getElementById("hero-gallery");
+
+  gallery.innerHTML = "";
+  HOME_POSTERS.slice(0, 4).forEach(function (poster, index) {
+    var className = "hero-gallery-item";
+
+    if (index === 1) {
+      className += " hero-gallery-item-featured";
+    }
+
+    gallery.appendChild(createPosterTile(className, poster, index < 2));
   });
 }
 
@@ -325,8 +396,9 @@ function applyStaticCopy(copy) {
     }
   });
 
-  renderMarquee("marquee-top-track", copy.marqueeTop);
-  renderMarquee("marquee-bottom-track", copy.marqueeBottom);
+  renderPosterMarquee("marquee-top-track", HOME_POSTERS);
+  renderPosterMarquee("marquee-bottom-track", HOME_POSTERS.slice().reverse());
+  renderHeroGallery();
 }
 
 function buildTests(copy) {
@@ -340,6 +412,7 @@ function buildTests(copy) {
       source: "../26July-Anime-Test",
       status: animeLive ? "live" : "pending",
       statusLabel: animeLive ? copy.statusLive : copy.statusWaiting,
+      cover: HOME_POSTERS[0].src,
       description: copy.tests.anime.description,
       note: animeLive ? copy.tests.anime.note : copy.unavailableNote
     },
@@ -350,6 +423,7 @@ function buildTests(copy) {
       source: "pending",
       status: "pending",
       statusLabel: copy.statusPending,
+      cover: "",
       description: copy.tests.next.description,
       note: copy.tests.next.note
     }
@@ -366,6 +440,7 @@ function appendTextBlock(parent, className, text) {
 
 function createTestItem(copy, test) {
   var item = document.createElement("article");
+  var thumb = document.createElement("div");
   var primary = document.createElement("div");
   var status = document.createElement("span");
   var title = document.createElement("h3");
@@ -374,12 +449,26 @@ function createTestItem(copy, test) {
   var actionNode;
 
   item.className = "test-item";
+  thumb.className = "test-thumb";
   primary.className = "test-primary";
   meta.className = "test-meta";
   action.className = "test-action";
 
   status.className = "test-status " + (test.status === "live" ? "test-status-live" : "test-status-pending");
   status.textContent = test.statusLabel;
+
+  if (test.cover) {
+    var image = document.createElement("img");
+    image.className = "test-thumb-image";
+    image.src = test.cover;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    thumb.appendChild(image);
+  } else {
+    thumb.className += " test-thumb-placeholder";
+    thumb.textContent = test.statusLabel;
+  }
 
   title.className = "test-title";
   title.textContent = test.title;
@@ -404,6 +493,7 @@ function createTestItem(copy, test) {
   }
 
   action.appendChild(actionNode);
+  item.appendChild(thumb);
   item.appendChild(primary);
   item.appendChild(meta);
   item.appendChild(action);
