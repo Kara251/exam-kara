@@ -480,6 +480,8 @@ function buildTests(copy) {
       href: animeLive ? manifestState.href : "",
       route: "/tests/anime-summer-2026/",
       source: "../26July-Anime-Test",
+      repoHref: "https://github.com/Kara251/26July-Anime-Test",
+      repoName: "Kara251/26July-Anime-Test",
       status: animeLive ? "live" : "pending",
       statusLabel: animeLive ? copy.statusLive : copy.statusWaiting,
       cta: copy.tests.anime.cta,
@@ -556,6 +558,7 @@ function createTestItem(copy, test) {
   var status = document.createElement("span");
   var title = document.createElement("h3");
   var meta = document.createElement("div");
+  var repoLink;
   var action = document.createElement("div");
   var actionNode;
 
@@ -577,6 +580,16 @@ function createTestItem(copy, test) {
   appendTextBlock(meta, "test-route", copy.routeLabel + ": " + test.route);
   appendTextBlock(meta, "test-source", copy.sourceLabel + ": " + test.source);
   appendTextBlock(meta, "test-note", test.note);
+
+  if (test.repoHref && test.repoName) {
+    repoLink = document.createElement("a");
+    repoLink.className = "test-repo-link";
+    repoLink.href = test.repoHref;
+    repoLink.target = "_blank";
+    repoLink.rel = "noreferrer";
+    repoLink.textContent = "GitHub: " + test.repoName;
+    meta.appendChild(repoLink);
+  }
 
   if (test.href) {
     actionNode = document.createElement("a");
