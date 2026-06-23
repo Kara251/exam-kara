@@ -13,31 +13,25 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <div class="lang-control">
+    <label class="sr-only" for="lang-select">Language</label>
+    <select id="lang-select" class="lang-select" aria-label="Language"></select>
+  </div>
+
   <div class="marquee marquee-top" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item">EXAM KARA</span>
-      <span class="marquee-item">TEST INDEX</span>
-      <span class="marquee-item">ANIME PERSONALITY</span>
-      <span class="marquee-item">EDITORIAL LAB</span>
-      <span class="marquee-item">SUMMER 2026</span>
-      <span class="marquee-item">EXAM KARA</span>
-      <span class="marquee-item">TEST INDEX</span>
-      <span class="marquee-item">ANIME PERSONALITY</span>
-      <span class="marquee-item">EDITORIAL LAB</span>
-      <span class="marquee-item">SUMMER 2026</span>
-    </div>
+    <div class="marquee-track" id="marquee-top-track"></div>
   </div>
 
   <main class="site-main">
     <section class="hero-band">
-      <div class="hero-rail hero-rail-left" aria-hidden="true">試験案内</div>
-      <div class="hero-rail hero-rail-right" aria-hidden="true">exam.kara251.com</div>
+      <div class="hero-rail hero-rail-left" aria-hidden="true" data-copy="heroRailLeft">試験案内</div>
+      <div class="hero-rail hero-rail-right" aria-hidden="true" data-copy="heroRailRight">exam.kara251.com</div>
 
       <div class="hero-shell">
         <div class="rule-double"></div>
         <div class="hero-header">
-          <span class="hero-tag">号外 EXTRA</span>
-          <span class="hero-date">VOL. 01 ── EXAM INDEX</span>
+          <span class="hero-tag" data-copy="heroTag">号外 EXTRA</span>
+          <span class="hero-date" data-copy="heroDate">VOL. 01 ── EXAM INDEX</span>
         </div>
         <div class="stripe"></div>
 
@@ -52,18 +46,18 @@
         <div class="rule"></div>
 
         <div class="hero-copy">
-          <span class="hero-copy-tag">── 測試集合 ──</span>
-          <p>把已完成與進行中的互動測試，集中掛在同一個首頁與同一個網域下。</p>
+          <span class="hero-copy-tag" data-copy="heroCopyTag">── 測試集合 ──</span>
+          <p data-copy="heroCopy">把已完成與進行中的互動測試，集中掛在同一個首頁與同一個網域下。</p>
         </div>
 
         <div class="hero-actions">
-          <a class="btn-primary" href="#tests">查看測試</a>
-          <a class="btn-secondary" href="/tests/anime-summer-2026/">進入動漫測試</a>
+          <a class="btn-primary" href="#tests" data-copy="heroPrimaryAction">查看測試</a>
+          <a class="btn-secondary" href="/tests/anime-summer-2026/" data-copy="heroSecondaryAction">進入動漫測試</a>
         </div>
 
         <div class="hero-meta">
-          <span>DOMAIN: exam.kara251.com</span>
-          <span>ROUTE PATTERN: /tests/&lt;slug&gt;/</span>
+          <span data-copy="heroMetaDomain">DOMAIN: exam.kara251.com</span>
+          <span data-copy="heroMetaRoute">ROUTE PATTERN: /tests/&lt;slug&gt;/</span>
         </div>
 
         <div class="rule-double"></div>
@@ -74,10 +68,10 @@
       <div class="catalog-shell">
         <div class="catalog-heading">
           <div>
-            <p class="section-kicker">TEST INDEX</p>
-            <h2>目前可用與準備中的頁面</h2>
+            <p class="section-kicker" data-copy="sectionKicker">TEST INDEX</p>
+            <h2 data-copy="sectionTitle">目前可用與準備中的頁面</h2>
           </div>
-          <p class="section-note">版面與字體延續動漫測試的編輯感，讓後續新測試直接併進來。</p>
+          <p class="section-note" data-copy="sectionNote">版面與字體延續動漫測試的編輯感，讓後續新測試直接併進來。</p>
         </div>
 
         <div class="rule"></div>
@@ -88,19 +82,10 @@
   </main>
 
   <div class="marquee marquee-bottom" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item">SUBROUTE READY</span>
-      <span class="marquee-item">CLOUDFLARE PAGES</span>
-      <span class="marquee-item">STATIC DEPLOY</span>
-      <span class="marquee-item">EXAM KARA</span>
-      <span class="marquee-item">SUBROUTE READY</span>
-      <span class="marquee-item">CLOUDFLARE PAGES</span>
-      <span class="marquee-item">STATIC DEPLOY</span>
-      <span class="marquee-item">EXAM KARA</span>
-    </div>
+    <div class="marquee-track" id="marquee-bottom-track"></div>
   </div>
 
+  <script src="/shared-locale.js" defer></script>
   <script src="/app.js" defer></script>
 </body>
 </html>
-

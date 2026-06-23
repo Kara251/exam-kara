@@ -13,7 +13,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button class="lang-btn" id="lang-btn">简</button>
+  <div class="lang-control">
+    <label class="sr-only" for="lang-select">Language</label>
+    <select class="lang-select" id="lang-select" aria-label="Language"></select>
+  </div>
 
   <section id="page-home" class="page active">
     <div class="marquee marquee-top" aria-hidden="true">
@@ -25,17 +28,17 @@
       </div>
     </div>
 
-    <div class="home-vertical-left" aria-hidden="true">アニメ性格診断</div>
-    <div class="home-vertical-right" aria-hidden="true">二〇二六年夏</div>
+    <div class="home-vertical-left" aria-hidden="true" data-ui="verticalLeft">アニメ性格診断</div>
+    <div class="home-vertical-right" aria-hidden="true" data-ui="verticalRight">二〇二六年夏</div>
 
     <div class="home-container">
       <div class="rule-double anim" style="--d:0"></div>
       <div class="home-header anim" style="--d:1">
-        <span class="home-tag">号外 EXTRA</span>
-        <span class="home-date">VOL. 2026 ── SUMMER</span>
+        <span class="home-tag" data-ui="homeTag">号外 EXTRA</span>
+        <span class="home-date" data-ui="homeDate">VOL. 2026 ── SUMMER</span>
       </div>
       <div class="stripe anim" style="--d:2"></div>
-      <div class="y2k-mixed anim" style="--d:2.5" aria-hidden="true">✧ 夏のアニメ × 運命診断 ✧</div>
+      <div class="y2k-mixed anim" style="--d:2.5" aria-hidden="true" data-ui="mixedLine">✧ 夏のアニメ × 運命診断 ✧</div>
       <div class="home-title anim" style="--d:3">
         <span class="home-year glitch-text" data-text="2026">2026</span>
         <h1>
@@ -45,7 +48,7 @@
       </div>
       <div class="rule anim" style="--d:4"></div>
       <div class="home-feature anim" style="--d:5">
-        <span class="home-feature-tag">── 特集 ──</span>
+        <span class="home-feature-tag" data-ui="featureTag">── 特集 ──</span>
         <p class="home-subtitle" data-i18n="sub">從 50 道題庫隨機抽出 15 題，找到屬於你的這輪首推作品</p>
       </div>
 
@@ -56,11 +59,11 @@
 
       <div class="stripe anim" style="--d:7"></div>
       <div class="home-footer anim" style="--d:7.5">
-        <span>ANIME PERSONALITY TEST</span>
-        <span class="home-footer-jp">アニメ性格診断テスト</span>
+        <span data-ui="homeFooterPrimary">ANIME PERSONALITY TEST</span>
+        <span class="home-footer-jp" data-ui="homeFooterSecondary">アニメ性格診断テスト</span>
       </div>
       <div class="rule-double anim" style="--d:8"></div>
-      <div class="y2k-sparkle anim" style="--d:8.5" aria-hidden="true">☆ﾟ.*･｡ﾟ</div>
+      <div class="y2k-sparkle anim" style="--d:8.5" aria-hidden="true" data-ui="sparkleLine">☆ﾟ.*･｡ﾟ</div>
     </div>
 
     <div class="marquee marquee-bottom" aria-hidden="true">
@@ -96,9 +99,9 @@
         <div class="result-card-masthead">
           <div class="rule-double"></div>
           <div class="result-card-masthead-row">
-            <span class="result-card-tag">号外</span>
-            <span class="result-card-pub">SUMMER ANIME GUIDE</span>
-            <span class="result-card-vol">VOL.2026</span>
+            <span class="result-card-tag" data-ui="resultTag">号外</span>
+            <span class="result-card-pub" data-ui="resultPub">SUMMER ANIME GUIDE</span>
+            <span class="result-card-vol" data-ui="resultVol">VOL.2026</span>
           </div>
           <div class="stripe"></div>
         </div>
@@ -106,7 +109,7 @@
           <div class="result-headline" data-i18n="rl">你 的 命 定 番 是</div>
           <div class="result-img-wrap" id="result-img-wrap">
             <img id="result-img" src="" alt="">
-            <div class="result-img-placeholder" id="result-img-ph">COVER ART</div>
+            <div class="result-img-placeholder" id="result-img-ph" data-ui="coverPlaceholder">COVER ART</div>
           </div>
           <h2 class="result-anime-name" id="result-anime-name"></h2>
           <p class="result-anime-romaji" id="result-anime-romaji"></p>
@@ -129,7 +132,7 @@
           <div class="stripe"></div>
           <div class="result-footer">
             <span data-i18n="ftr">2026 夏季番你該追哪部</span>
-            <span>アニメ性格診断</span>
+            <span data-ui="resultFooterSecondary">アニメ性格診断</span>
           </div>
           <div class="rule-double"></div>
         </div>
@@ -146,7 +149,9 @@
   </section>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="/shared-locale.js"></script>
   <script src="data.js"></script>
+  <script src="i18n.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

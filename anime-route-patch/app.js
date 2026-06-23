@@ -1,5 +1,7 @@
 (function () {
-  var lang = "tc";
+  var localeApi = window.ExamKaraLocale;
+  var quizI18n = window.ExamKaraQuizI18n;
+  var lang = localeApi.getLocale();
   var current = 0;
   var scores = {};
   var history = [];
@@ -12,6 +14,13 @@
     traitLookup[trait.id] = trait;
   });
 
+  QUIZ_DATA.questions.forEach(function (question, questionIndex) {
+    question.__index = questionIndex;
+    question.options.forEach(function (option, optionIndex) {
+      option.__index = optionIndex;
+    });
+  });
+
   var pageHome = document.getElementById("page-home");
   var pageQuiz = document.getElementById("page-quiz");
   var pageResult = document.getElementById("page-result");
@@ -21,9 +30,43 @@
   var quizQuestion = document.getElementById("quiz-question");
   var quizOptions = document.getElementById("quiz-options");
   var btnPrev = document.getElementById("btn-prev");
+  var langSelect = document.getElementById("lang-select");
 
-  function T(text) {
-    return lang === "sc" ? toSC(text) : text;
+  function ui() {
+    return quizI18n.getUi(lang);
+  }
+
+  function localizeLooseText(text) {
+    return quizI18n.localizeStyledText(lang, text);
+  }
+
+  function localizedQuestion(question) {
+    return quizI18n.getQuestion(lang, question.__index, question.text);
+  }
+
+  function localizedOption(question, option) {
+    return quizI18n.getOption(lang, question.__index, option.__index, option.text);
+  }
+
+  function localizedName(work) {
+    return quizI18n.getPrimaryWorkName(lang, work);
+  }
+
+  function localizedSecondaryName(work) {
+    return quizI18n.getSecondaryWorkName(lang, work);
+  }
+
+  function setDocumentLocale() {
+    var config = localeApi.getConfig(lang);
+    var strings = ui();
+
+    document.documentElement.lang = config.htmlLang;
+    document.body.dataset.locale = lang;
+    document.body.dataset.script = config.script;
+    document.title = strings.pageTitle;
+    document.querySelector('meta[name="description"]').setAttribute("content", strings.pageDescription);
+    document.querySelector('meta[property="og:title"]').setAttribute("content", strings.ogTitle);
+    document.querySelector('meta[property="og:description"]').setAttribute("content", strings.ogDescription);
   }
 
   function pad(number) {
@@ -76,15 +119,32 @@
     triggerAnims(page);
   }
 
-  function applyLang() {
-    var ui = UI[lang];
-    document.getElementById("lang-btn").textContent = ui.tog;
-    document.querySelectorAll("[data-i18n]").forEach(function (element) {
-      var key = element.getAttribute("data-i18n");
-      if (ui[key]) {
-        element.textContent = ui[key];
+  function populateLanguageSelect() {
+    localeApi.locales.forEach(function (locale) {
+      var option = document.createElement("option");
+      option.value = locale.code;
+      option.textContent = locale.label;
+      langSelect.appendChild(option);
+    });
+    langSelect.value = lang;
+  }
+
+  function applyStaticUi() {
+    var strings = ui();
+
+    setDocumentLocale();
+    langSelect.value = lang;
+
+    document.querySelectorAll("[data-i18n], [data-ui]").forEach(function (element) {
+      var key = element.getAttribute("data-i18n") || element.getAttribute("data-ui");
+      if (strings[key]) {
+        element.textContent = strings[key];
       }
     });
+  }
+
+  function applyLang() {
+    applyStaticUi();
 
     if (pageQuiz.classList.contains("active")) {
       renderQuestion();
@@ -174,7 +234,7 @@
 
     progressText.textContent = pad(current + 1) + " / " + pad(questionCount);
     progressFill.style.width = current / questionCount * 100 + "%";
-    quizQuestion.textContent = T(question.text);
+    quizQuestion.textContent = localizedQuestion(question);
     quizOptions.innerHTML = "";
     updatePrevBtn();
 
@@ -182,7 +242,7 @@
       var button = document.createElement("button");
       button.className = "quiz-option";
       button.style.setProperty("--i", index);
-      button.textContent = labels[index] + ". " + T(option.text);
+      button.textContent = labels[index] + ". " + localizedOption(question, option);
       button.addEventListener("click", function () {
         selectOption(index);
       });
@@ -320,50 +380,89 @@
 
   function traitLabel(key, direction) {
     var trait = traitLookup[key];
+
     if (!trait) {
       return "";
     }
-    return direction > 0 ? trait.pos : trait.neg;
+
+    return quizI18n.translateTrait(lang, direction > 0 ? trait.pos : trait.neg);
+  }
+
+  function topTraitLabels(entry, amount, mode) {
+    var source = mode === "avoid" ? entry.clashes : entry.matches;
+
+    return source.slice(0, amount).map(function (item) {
+      return traitLabel(item.key, item.direction);
+    }).filter(Boolean);
   }
 
   function buildReason(entry, mode) {
-    var source = mode === "good" ? entry.matches : entry.clashes;
-    var phrases = source.slice(0, 3).map(function (item) {
-      return T(traitLabel(item.key, item.direction));
-    }).filter(Boolean);
+    var strings = ui();
+    var phrases = topTraitLabels(entry, 3, mode);
 
     if (phrases.length === 0) {
-      return mode === "good"
-        ? T("整體調性和你這輪偏好相當接近。")
-        : T("整體調性和你這輪偏好稍微錯位。");
+      return mode === "good" ? strings.goodFallback : strings.avoidFallback;
     }
 
     if (mode === "good") {
-      return T("更貼近你這輪對") + phrases.join("、") + T("的偏好。");
+      return strings.goodPrefix + quizI18n.joinList(lang, phrases) + strings.goodSuffix;
     }
 
-    return T("它更偏向") + phrases.join("、") + T("，這輪不一定最對味。");
+    return strings.avoidPrefix + quizI18n.joinList(lang, phrases) + strings.avoidSuffix;
   }
 
   function buildLeadReason(entry) {
-    var phrases = entry.matches.slice(0, 3).map(function (item) {
-      return T(traitLabel(item.key, item.direction));
-    }).filter(Boolean);
+    var strings = ui();
+    var phrases = topTraitLabels(entry, 3, "good");
 
     if (phrases.length === 0) {
       return "";
     }
 
-    return T("這輪加權最高的理由，是你明顯更吃") + phrases.join("、") + T("。");
+    return strings.leadPrefix + quizI18n.joinList(lang, phrases) + strings.leadSuffix;
   }
 
-  function renderKeywords(work) {
+  function buildTypeLabel(entry) {
+    return quizI18n.getTypeLabel(lang, entry.work.typeName, topTraitLabels(entry, 2, "good"));
+  }
+
+  function buildResultDescription(entry) {
+    var phrases = topTraitLabels(entry, 3, "good");
+    var typeLabel = buildTypeLabel(entry);
+    var title = localizedName(entry.work);
+
+    if (lang === "en") {
+      if (phrases.length === 0) {
+        return title + " comes out as the cleanest hit this round.";
+      }
+
+      return title + " lines up because you kept leaning toward " + quizI18n.joinList(lang, phrases) + ". Its " + typeLabel.toLowerCase() + " energy lands closest to your answers.";
+    }
+
+    if (lang === "ja") {
+      if (phrases.length === 0) {
+        return "今回いちばん綺麗に刺さったのは「" + title + "」でした。";
+      }
+
+      return "今回のあなたは " + quizI18n.joinList(lang, phrases) + " に強く寄っていました。だからこそ「" + title + "」の " + typeLabel + " がいちばんきれいに噛み合います。";
+    }
+
+    if (phrases.length === 0) {
+      return localizeLooseText("這輪的你更貼近這種") + typeLabel + localizeLooseText("的頻率。");
+    }
+
+    return localizeLooseText("這輪的你更貼近這種") + typeLabel + localizeLooseText("的頻率。") + " " + localizeLooseText("你明顯偏好") + quizI18n.joinList(lang, phrases) + localizeLooseText("，所以它比其他作品更容易命中你。");
+  }
+
+  function renderKeywords(entry) {
     var container = document.getElementById("result-keywords");
+    var phrases = topTraitLabels(entry, 4, "good");
+
     container.innerHTML = "";
 
-    work.tags.forEach(function (tag) {
+    phrases.forEach(function (phrase) {
       var chip = document.createElement("span");
-      chip.textContent = T(tag);
+      chip.textContent = phrase;
       container.appendChild(chip);
     });
   }
@@ -382,7 +481,7 @@
       title.className = "result-section-item-name";
       why.className = "result-section-item-why";
 
-      title.textContent = (mode === "avoid" ? "× " : "") + T(entry.work.animeName);
+      title.textContent = (mode === "avoid" ? "× " : "") + localizedName(entry.work);
       why.textContent = buildReason(entry, mode === "avoid" ? "avoid" : "good");
 
       item.appendChild(title);
@@ -395,7 +494,7 @@
     var image = document.getElementById("result-img");
 
     image.classList.remove("loaded");
-    image.alt = work.animeName;
+    image.alt = localizedName(work);
     image.onload = function () {
       image.classList.add("loaded");
     };
@@ -409,7 +508,7 @@
     var top = ranking[0];
     var recommendations = ranking.slice(1, 4);
     var avoids = ranking.slice(-3).reverse();
-    var description = top.work.blurb;
+    var description = buildResultDescription(top);
     var leadReason = buildLeadReason(top);
 
     if (leadReason) {
@@ -417,12 +516,12 @@
     }
 
     setResultImage(top.work);
-    document.getElementById("result-anime-name").textContent = T(top.work.animeName);
-    document.getElementById("result-anime-romaji").textContent = top.work.animeRomaji;
-    document.getElementById("result-type-name").textContent = T(top.work.typeName);
-    document.getElementById("result-description").textContent = T(description);
+    document.getElementById("result-anime-name").textContent = localizedName(top.work);
+    document.getElementById("result-anime-romaji").textContent = localizedSecondaryName(top.work);
+    document.getElementById("result-type-name").textContent = buildTypeLabel(top);
+    document.getElementById("result-description").textContent = description;
 
-    renderKeywords(top.work);
+    renderKeywords(top);
     renderList("alt-list", recommendations, "good");
     renderList("avoid-list", avoids, "avoid");
   }
@@ -440,9 +539,10 @@
   function shareResult() {
     var card = document.getElementById("result-card");
     var button = document.getElementById("btn-share");
+    var strings = ui();
     var originalText = button.textContent;
 
-    button.textContent = lang === "sc" ? "保存中…" : "保存中…";
+    button.textContent = strings.shareSaving;
     button.disabled = true;
 
     html2canvas(card, {
@@ -451,30 +551,29 @@
       useCORS: true
     }).then(function (canvas) {
       var link = document.createElement("a");
-      link.download = "2026夏季番測驗結果.png";
+      link.download = strings.downloadName;
       link.href = canvas.toDataURL("image/png");
       link.click();
     }).catch(function () {
-      alert(lang === "sc"
-        ? "截图保存失败，请使用手机截图功能"
-        : "截圖保存失敗，請使用手機截圖功能");
+      alert(strings.shareFailed);
     }).finally(function () {
       button.textContent = originalText;
       button.disabled = false;
     });
   }
 
-  function toggleLang() {
-    lang = lang === "tc" ? "sc" : "tc";
+  function onLocaleChange() {
+    lang = localeApi.setLocale(langSelect.value);
     applyLang();
   }
 
   document.getElementById("btn-start").addEventListener("click", startQuiz);
   document.getElementById("btn-retry").addEventListener("click", restart);
   document.getElementById("btn-share").addEventListener("click", shareResult);
-  document.getElementById("lang-btn").addEventListener("click", toggleLang);
   btnPrev.addEventListener("click", goBack);
+  langSelect.addEventListener("change", onLocaleChange);
 
+  populateLanguageSelect();
   resetScores();
   applyLang();
   populateMarquees();
