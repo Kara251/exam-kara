@@ -81,7 +81,9 @@
   var quizOptions = document.getElementById("quiz-options");
   var btnPrev = document.getElementById("btn-prev");
   var langSelect = document.getElementById("lang-select");
+  var homeScrollHint = document.getElementById("home-scroll-hint");
   var gateToastTimer = 0;
+  var homeScrollHintTimer = 0;
   var marqueeTracks = Array.prototype.slice.call(document.querySelectorAll("[data-marquee-track]"));
   var issueDateTargets = document.querySelectorAll("[data-issue-date]");
   var shareButtons = Array.prototype.slice.call(document.querySelectorAll("[data-share-platform]"));
@@ -374,6 +376,58 @@
     }, 1420);
   }
 
+  function hideHomeScrollHint() {
+    window.clearTimeout(homeScrollHintTimer);
+
+    if (homeScrollHint) {
+      homeScrollHint.classList.remove("is-mobile-visible");
+    }
+  }
+
+  function canShowHomeScrollHint() {
+    var scrollRoot = document.scrollingElement || document.documentElement;
+
+    return Boolean(
+      homeScrollHint &&
+      pageHome &&
+      pageHome.classList.contains("active") &&
+      !document.body.classList.contains("lang-gate-open") &&
+      window.innerWidth <= 860 &&
+      window.scrollY < 18 &&
+      scrollRoot.scrollHeight - window.innerHeight > 96
+    );
+  }
+
+  function updateHomeScrollHint(options) {
+    var immediate = Boolean(options && options.immediate);
+
+    if (!homeScrollHint) {
+      return;
+    }
+
+    window.clearTimeout(homeScrollHintTimer);
+
+    if (!canShowHomeScrollHint()) {
+      homeScrollHint.classList.remove("is-mobile-visible");
+      return;
+    }
+
+    if (homeScrollHint.classList.contains("is-mobile-visible")) {
+      return;
+    }
+
+    if (immediate) {
+      homeScrollHint.classList.add("is-mobile-visible");
+      return;
+    }
+
+    homeScrollHintTimer = window.setTimeout(function () {
+      if (canShowHomeScrollHint()) {
+        homeScrollHint.classList.add("is-mobile-visible");
+      }
+    }, 520);
+  }
+
   function showPage(page) {
     var leaving = [pageHome, pageQuiz, pageResult].find(function (p) {
       return p.classList.contains("active");
@@ -389,7 +443,12 @@
       window.scrollTo(0, 0);
       triggerAnims(page);
       schedulePageEntryCleanup(page);
+      updateHomeScrollHint();
       return;
+    }
+
+    if (page !== pageHome) {
+      hideHomeScrollHint();
     }
 
     leaving.classList.add("page-leaving");
@@ -401,6 +460,7 @@
       window.scrollTo(0, 0);
       triggerAnims(page);
       schedulePageEntryCleanup(page);
+      updateHomeScrollHint();
     }, 660);
   }
 
@@ -480,6 +540,8 @@
     if (pageResult.classList.contains("active") && lastRanking) {
       renderResult(lastRanking);
     }
+
+    updateHomeScrollHint({ immediate: true });
   }
 
   function updatePrevBtn() {
@@ -1620,6 +1682,7 @@
       pageHome.classList.add("page-entering");
       triggerAnims(pageHome);
       schedulePageEntryCleanup(pageHome);
+      updateHomeScrollHint();
     });
   }
 
@@ -1630,6 +1693,7 @@
       return;
     }
 
+    hideHomeScrollHint();
     gate.classList.add("is-hidden");
     document.body.classList.remove("lang-gate-open");
     window.setTimeout(revealInitialPageFromLanguageGate, 420);
@@ -1724,7 +1788,15 @@
     });
     btnPrev.addEventListener("click", goBack);
     langSelect.addEventListener("change", onLocaleChange);
-    window.addEventListener("resize", refreshMarqueeLayout);
+    window.addEventListener("resize", function () {
+      refreshMarqueeLayout();
+      updateHomeScrollHint({ immediate: true });
+    });
+    window.addEventListener("scroll", updateHomeScrollHint, { passive: true });
+    window.addEventListener("load", function () {
+      refreshMarqueeLayout();
+      updateHomeScrollHint({ immediate: true });
+    });
 
     populateLanguageSelect();
     resetScores();
@@ -1732,6 +1804,7 @@
     applyLang();
     initLanguageGate();
     populateMarquees();
+    updateHomeScrollHint({ immediate: true });
 
     if (!document.getElementById("lang-gate")) {
       if (!openSharedResultIfAvailable()) {
