@@ -935,9 +935,69 @@
     });
   }
 
+  function waitForFonts() {
+    if (document.fonts && document.fonts.ready) {
+      return document.fonts.ready.catch(function () {
+        return undefined;
+      });
+    }
+
+    return Promise.resolve();
+  }
+
+  function prepareExportClone(clonedDocument) {
+    var clonedCard = clonedDocument.getElementById("result-card");
+    var clonedImage = clonedDocument.getElementById("result-img");
+    var clonedPlaceholder = clonedDocument.getElementById("result-img-ph");
+
+    if (!clonedCard) {
+      return;
+    }
+
+    clonedCard.classList.add("is-exporting");
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll("[data-export-hidden='true']")
+    ).forEach(function (node) {
+      node.remove();
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".anim, .char, .trait-bar-fill")
+    ).forEach(function (node) {
+      node.style.animation = "none";
+      node.style.transform = "none";
+      node.style.opacity = "1";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".char")
+    ).forEach(function (node) {
+      node.style.display = "inline-block";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".trait-bar-fill")
+    ).forEach(function (node) {
+      node.style.clipPath = "inset(0 0 0 0)";
+    });
+
+    if (clonedImage) {
+      clonedImage.classList.add("loaded");
+      clonedImage.style.opacity = "1";
+      clonedImage.style.animation = "none";
+      clonedImage.style.transform = "none";
+    }
+
+    if (clonedPlaceholder && clonedImage && clonedImage.getAttribute("src")) {
+      clonedPlaceholder.style.opacity = "0";
+    }
+  }
+
   function shareResult() {
     var card = document.getElementById("result-card");
     var button = document.getElementById("btn-share");
+    var cardRect = card.getBoundingClientRect();
     var strings = ui();
     var originalText = button.textContent;
 
@@ -948,12 +1008,28 @@
     waitForNextFrame().then(function () {
       return waitForResultAssets();
     }).then(function () {
+      return waitForFonts();
+    }).then(function () {
       return waitForNextFrame();
     }).then(function () {
       return html2canvas(card, {
         backgroundColor: "#FAF8F4",
         scale: 2,
-        useCORS: true
+        useCORS: true,
+        logging: false,
+        scrollX: -window.scrollX,
+        scrollY: -window.scrollY,
+        width: Math.ceil(card.scrollWidth),
+        height: Math.ceil(card.scrollHeight),
+        windowWidth: Math.max(
+          document.documentElement.clientWidth,
+          Math.ceil(cardRect.width)
+        ),
+        windowHeight: Math.max(
+          document.documentElement.clientHeight,
+          Math.ceil(cardRect.height)
+        ),
+        onclone: prepareExportClone
       });
     }).then(function (canvas) {
       var link = document.createElement("a");
