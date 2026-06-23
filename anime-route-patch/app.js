@@ -116,16 +116,33 @@
 
   function triggerAnims(page) {
     var elements = page.querySelectorAll(".anim");
+    var chars = Array.prototype.slice.call(page.querySelectorAll(".char"));
+
     elements.forEach(function (element) {
       element.classList.remove("anim-in");
     });
+    chars.forEach(function (char) {
+      char.style.animation = "none";
+    });
+    void page.offsetHeight;
+
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         elements.forEach(function (element) {
           element.classList.add("anim-in");
         });
+        chars.forEach(function (char) {
+          char.style.animation = "";
+        });
       });
     });
+  }
+
+  function schedulePageEntryCleanup(page) {
+    window.clearTimeout(page.__entryTimer);
+    page.__entryTimer = window.setTimeout(function () {
+      page.classList.remove("page-entering");
+    }, 720);
   }
 
   function showPage(page) {
@@ -135,12 +152,14 @@
 
     if (!leaving || leaving === page) {
       [pageHome, pageQuiz, pageResult].forEach(function (p) {
-        p.classList.remove("active");
+        p.classList.remove("active", "page-entering");
       });
       page.classList.add("active");
+      page.classList.remove("page-entering");
       page.classList.add("page-entering");
       window.scrollTo(0, 0);
       triggerAnims(page);
+      schedulePageEntryCleanup(page);
       return;
     }
 
@@ -148,14 +167,12 @@
 
     window.setTimeout(function () {
       leaving.classList.remove("active", "page-leaving");
+      page.classList.remove("page-entering");
       page.classList.add("active", "page-entering");
       window.scrollTo(0, 0);
       triggerAnims(page);
-
-      window.setTimeout(function () {
-        page.classList.remove("page-entering");
-      }, 400);
-    }, 240);
+      schedulePageEntryCleanup(page);
+    }, 360);
   }
 
   function populateLanguageSelect() {
@@ -300,7 +317,8 @@
     item.className = "marquee-item";
     image.src = work.image;
     image.alt = "";
-    image.loading = "lazy";
+    image.loading = "eager";
+    image.fetchPriority = "high";
     image.decoding = "async";
     item.appendChild(image);
 
@@ -956,6 +974,21 @@
     applyLang();
   }
 
+  function revealHomeFromLanguageGate() {
+    if (!pageHome || !pageHome.classList.contains("active")) {
+      return;
+    }
+
+    pageHome.classList.remove("page-entering");
+    void pageHome.offsetHeight;
+
+    requestAnimationFrame(function () {
+      pageHome.classList.add("page-entering");
+      triggerAnims(pageHome);
+      schedulePageEntryCleanup(pageHome);
+    });
+  }
+
   function closeLanguageGate() {
     var gate = document.getElementById("lang-gate");
 
@@ -965,6 +998,7 @@
 
     gate.classList.add("is-hidden");
     document.body.classList.remove("lang-gate-open");
+    window.setTimeout(revealHomeFromLanguageGate, 180);
   }
 
   function showLanguageToast() {
@@ -982,7 +1016,7 @@
     gateToastTimer = window.setTimeout(function () {
       toast.classList.remove("is-visible");
       langControl.classList.remove("is-guided");
-    }, 1800);
+    }, 2400);
   }
 
   function animateGateGuide(originRect, label) {
@@ -997,8 +1031,8 @@
 
     if (prefersReducedMotion || !originRect) {
       gate.classList.add("is-dismissing");
-      window.setTimeout(closeLanguageGate, 180);
       showLanguageToast();
+      window.setTimeout(closeLanguageGate, 320);
       return;
     }
 
@@ -1023,7 +1057,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 720);
+    }, 1120);
   }
 
   function selectGateLocale(localeCode, button) {
@@ -1059,7 +1093,11 @@
     applyLang();
     initLanguageGate();
     populateMarquees();
-    triggerAnims(pageHome);
+
+    if (!document.getElementById("lang-gate")) {
+      triggerAnims(pageHome);
+      schedulePageEntryCleanup(pageHome);
+    }
   }
 
   if (window.ExamKaraRuntime && window.ExamKaraRuntime.ensureFresh) {
