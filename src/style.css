@@ -123,13 +123,13 @@ a {
 .glitch-text::before {
   color: var(--accent);
   clip-path: inset(0 0 58% 0);
-  animation: glitch-top 3.2s ease-in-out infinite;
+  animation: glitch-top 4.8s ease-in-out infinite;
 }
 
 .glitch-text::after {
   color: var(--teal);
   clip-path: inset(58% 0 0 0);
-  animation: glitch-bottom 3.2s ease-in-out infinite 0.14s;
+  animation: glitch-bottom 4.8s ease-in-out infinite 0.24s;
 }
 
 @keyframes glitch-top {
@@ -165,11 +165,11 @@ a {
 }
 
 .marquee-top .marquee-track {
-  animation: scroll-left 42s linear infinite;
+  animation: scroll-left 56s linear infinite;
 }
 
 .marquee-bottom .marquee-track {
-  animation: scroll-right 42s linear infinite;
+  animation: scroll-right 56s linear infinite;
 }
 
 .marquee-item {
@@ -219,7 +219,7 @@ a {
 }
 
 .lang-control.is-guided .lang-select {
-  animation: lang-control-pulse 0.9s ease;
+  animation: lang-control-pulse 1.6s ease;
 }
 
 .lang-gate {
@@ -232,7 +232,7 @@ a {
   padding: 84px 20px 28px;
   background: rgba(242, 237, 228, 0.94);
   backdrop-filter: blur(8px);
-  transition: opacity 0.42s ease, visibility 0.42s ease;
+  transition: opacity 0.96s ease, visibility 0.96s ease;
 }
 
 .lang-gate.is-dismissing,
@@ -304,7 +304,7 @@ a {
   font-size: 14px;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: transform 0.16s ease, background 0.24s ease, color 0.24s ease;
+  transition: transform 0.28s ease, background 0.36s ease, color 0.36s ease;
 }
 
 .lang-gate-button:hover,
@@ -335,7 +335,7 @@ a {
   opacity: 0;
   transform: translateY(-8px);
   pointer-events: none;
-  transition: opacity 0.22s ease, transform 0.22s ease;
+  transition: opacity 0.42s ease, transform 0.42s ease;
 }
 
 .lang-guide-toast.is-visible {
@@ -357,7 +357,7 @@ a {
   font-size: 11px;
   letter-spacing: 2px;
   transform: translate(-50%, -50%);
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
+  transition: transform 1.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.32s ease;
   pointer-events: none;
 }
 
@@ -472,7 +472,7 @@ a {
   padding-top: 4px;
   font-size: 10px;
   letter-spacing: 6px;
-  animation: breathe 3s ease-in-out infinite;
+  animation: breathe 4.6s ease-in-out infinite;
 }
 
 @keyframes breathe {
@@ -549,7 +549,7 @@ a {
   font-size: 13px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  transition: background 0.22s ease, color 0.22s ease, transform 0.12s ease;
+  transition: background 0.32s ease, color 0.32s ease, transform 0.22s ease;
 }
 
 .btn-primary,
@@ -610,7 +610,7 @@ a {
   padding: 10px 12px;
   border: 1px solid var(--border);
   text-align: left;
-  transition: border-color 0.22s ease, transform 0.12s ease, background 0.22s ease;
+  transition: border-color 0.32s ease, transform 0.22s ease, background 0.32s ease;
 }
 
 .repo-link:hover {

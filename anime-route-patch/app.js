@@ -371,7 +371,7 @@
     window.clearTimeout(page.__entryTimer);
     page.__entryTimer = window.setTimeout(function () {
       page.classList.remove("page-entering");
-    }, 980);
+    }, 1420);
   }
 
   function showPage(page) {
@@ -401,7 +401,7 @@
       window.scrollTo(0, 0);
       triggerAnims(page);
       schedulePageEntryCleanup(page);
-    }, 420);
+    }, 660);
   }
 
   function populateLanguageSelect() {
@@ -664,12 +664,12 @@
           quizBody.classList.add("entering");
           void quizBody.offsetHeight;
           quizBody.classList.remove("entering");
-        }, 280);
+        }, 420);
       } else {
         progressFill.style.width = "100%";
-        setTimeout(showResult, 350);
+        setTimeout(showResult, 460);
       }
-    }, 300);
+    }, 420);
   }
 
   function goBack() {
@@ -691,7 +691,7 @@
     setTimeout(function () {
       renderQuestion();
       quizBody.classList.remove("entering");
-    }, 100);
+    }, 180);
   }
 
   function compatibilityFor(work) {
@@ -1632,7 +1632,7 @@
 
     gate.classList.add("is-hidden");
     document.body.classList.remove("lang-gate-open");
-    window.setTimeout(revealInitialPageFromLanguageGate, 280);
+    window.setTimeout(revealInitialPageFromLanguageGate, 420);
   }
 
   function showLanguageToast() {
@@ -1650,7 +1650,7 @@
     gateToastTimer = window.setTimeout(function () {
       toast.classList.remove("is-visible");
       langControl.classList.remove("is-guided");
-    }, 3000);
+    }, 3600);
   }
 
   function animateGateGuide(originRect, label) {
@@ -1666,7 +1666,7 @@
     if (prefersReducedMotion || !originRect) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, 420);
+      window.setTimeout(closeLanguageGate, 640);
       return;
     }
 
@@ -1691,7 +1691,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 1320);
+    }, 1820);
   }
 
   function selectGateLocale(localeCode, button) {

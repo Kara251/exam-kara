@@ -656,7 +656,7 @@ function showLanguageToast() {
   gateToastTimer = window.setTimeout(function () {
     toast.classList.remove("is-visible");
     langControl.classList.remove("is-guided");
-  }, 1800);
+  }, 2600);
 }
 
 function animateGateGuide(originRect, label) {
@@ -671,7 +671,7 @@ function animateGateGuide(originRect, label) {
 
   if (prefersReducedMotion || !originRect) {
     gate.classList.add("is-dismissing");
-    window.setTimeout(closeLanguageGate, 180);
+    window.setTimeout(closeLanguageGate, 360);
     showLanguageToast();
     return;
   }
@@ -697,7 +697,7 @@ function animateGateGuide(originRect, label) {
   window.setTimeout(function () {
     chip.remove();
     closeLanguageGate();
-  }, 720);
+  }, 1360);
 }
 
 function selectGateLocale(localeCode, button) {
