@@ -52,6 +52,10 @@ function includeAnimeEntry(sourcePath, entry) {
     return false;
   }
 
+  if (entry.name === ".DS_Store") {
+    return false;
+  }
+
   if (entry.name === "README.md" || entry.name === ".gitignore") {
     return false;
   }
@@ -90,78 +94,21 @@ async function applyBuildVersion() {
   ]);
 }
 
-async function writeUnavailableAnimePage() {
-  const html = `<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anime Test Pending</title>
-  <style>
-    :root {
-      --bg: #F2EDE4;
-      --text: #1A1A1A;
-      --border: #1A1A1A;
-      --muted: #8A8279;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Noto Sans TC", sans-serif;
-    }
-
-    main {
-      width: min(100%, 640px);
-      border: 2px solid var(--border);
-      padding: 28px;
-      background: rgba(250, 248, 244, 0.96);
-    }
-
-    h1 {
-      margin: 0 0 10px;
-      font-family: "Noto Serif TC", serif;
-      font-size: 32px;
-    }
-
-    p {
-      margin: 0;
-      line-height: 1.8;
-      color: var(--muted);
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>Anime Test Pending</h1>
-    <p>目前找不到 ../26July-Anime-Test，因此這個子路由暫時沒有同步內容。</p>
-  </main>
-</body>
-</html>
-`;
-
-  await fs.mkdir(animeRouteDir, { recursive: true });
-  await fs.writeFile(path.join(animeRouteDir, "index.html"), html);
-}
-
 async function syncAnimeRoute() {
   try {
     await fs.access(siblingAnimeDir);
-    await removeAndRecreate(animeRouteDir);
-    await copyDir(siblingAnimeDir, animeRouteDir, includeAnimeEntry);
-    await removeExcludedAnimeAssets();
-    await overlayAnimePatch();
-    return { available: true };
-  } catch {
-    await writeUnavailableAnimePage();
-    return { available: false };
+  } catch (error) {
+    throw new Error(
+      `Missing anime route source at ${siblingAnimeDir}. Refusing to deploy a placeholder page for /tests/anime-summer-2026/.`,
+      { cause: error }
+    );
   }
+
+  await removeAndRecreate(animeRouteDir);
+  await copyDir(siblingAnimeDir, animeRouteDir, includeAnimeEntry);
+  await removeExcludedAnimeAssets();
+  await overlayAnimePatch();
+  return { available: true };
 }
 
 async function main() {
