@@ -479,6 +479,30 @@
       return "今回のあなたは " + quizI18n.joinList(lang, phrases) + " に強く寄っていました。だからこそ「" + title + "」の " + typeLabel + " がいちばんきれいに噛み合います。";
     }
 
+    if (lang === "hx") {
+      if (phrases.length === 0) {
+        return "《" + title + "》這種" + typeLabel + "，基本就是伱這波會秒上頭の那掛。";
+      }
+
+      return "伱這波明顯更吃" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》這種" + typeLabel + "最容易壹鍵命中。";
+    }
+
+    if (lang === "wy") {
+      if (phrases.length === 0) {
+        return "《" + title + "》之" + typeLabel + "，最與汝今輪氣味相契。";
+      }
+
+      return "汝此輪明顯偏好" + quizI18n.joinList(lang, phrases) + "，故《" + title + "》此種" + typeLabel + "最能相應。";
+    }
+
+    if (lang === "yue") {
+      if (phrases.length === 0) {
+        return "《" + title + "》呢種" + typeLabel + "，今輪同你個頻率最啱。";
+      }
+
+      return "你今輪明顯食" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》呢種" + typeLabel + "最易中你口味。";
+    }
+
     if (phrases.length === 0) {
       return localizeLooseText("這輪的你更貼近這種") + typeLabel + localizeLooseText("的頻率。");
     }

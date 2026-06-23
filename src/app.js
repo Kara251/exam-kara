@@ -88,26 +88,26 @@ var SITE_COPY = {
   },
   hx: {
     pageTitle: "EXAM KARA",
-    metaDescription: "Kara の互動測驗首頁，集中展示現在能玩跟準備中の測驗頁。",
-    ogDescription: "把目前可玩跟待補の互動測驗，全都收進同一站。",
+    metaDescription: "Kara の互動測驗首頁，把而家能玩同準備開坑の試題頁一次收齊。",
+    ogDescription: "把目前可玩同待開坑の互動測驗，全都收進同一站。",
     marqueeTop: ["EXAM KARA", "TEST INDEX", "ANIME PERSONALITY", "EDITORIAL LAB", "SUMMER 2026"],
     marqueeBottom: ["SUBROUTE READY", "CLOUDFLARE PAGES", "STATIC DEPLOY", "EXAM KARA"],
     heroRailLeft: "試験導航",
     heroRailRight: "exam.kara251.com",
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
-    heroCopyTag: "-- 測驗合集 --",
-    heroCopy: "把已完成同進行中の互動測驗，集中掛喺同一個首頁同同一個網域。",
-    heroPrimaryAction: "查看測驗",
-    heroSecondaryAction: "進入動漫測驗",
+    heroCopyTag: "-- 試題合集 --",
+    heroCopy: "把已完結同施工中の互動測驗，集中掛喺同一個首頁；之後再開新坑也能直接塞進嚟。",
+    heroPrimaryAction: "查看試題",
+    heroSecondaryAction: "進入夏番測驗",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "而家可玩同準備中の頁面",
-    sectionNote: "版面同字體延續動漫測驗嘅編輯感，之後新測驗直接併入就得。",
+    sectionTitle: "而家可玩同待開坑の頁面",
+    sectionNote: "版面同字體延續夏番測驗嗰股編輯感，之後再塞新坑都唔會跳 tone。",
     routeLabel: "ROUTE",
     sourceLabel: "SOURCE",
-    openTest: "開衝測驗",
+    openTest: "打開試頁",
     comingSoon: "敬請等等",
     statusLive: "SYNCED",
     statusPending: "PENDING",
@@ -116,20 +116,20 @@ var SITE_COPY = {
     tests: {
       anime: {
         title: "2026 夏季番性格測驗",
-        description: "沿用原本動漫測驗嘅視覺同互動，掛入主站做第一個測驗頁。",
-        note: "建置時會從相鄰目錄同步，原始專案路徑先唔動。"
+        description: "沿用原本夏番測驗嘅視覺同互動，掛入主站做第一個正式開坑嘅試題頁。",
+        note: "建置時會從相鄰目錄同步，原始專案路徑先唔郁，方便後續繼續補完。"
       },
       next: {
         title: "下一個測驗坑位",
-        description: "後續新測驗可以直接照呢個路由規則併進嚟。",
-        note: "首頁版型已留位，新增時補一個子資料夾同一筆列表資料就得。"
+        description: "後續新測驗可以直接照呢個路由規則併進嚟，等主站一路開坑一路長大。",
+        note: "首頁版型已留位，新增時補一個子資料夾同一筆列表資料就搞掂。"
       }
     }
   },
   wy: {
     pageTitle: "EXAM KARA",
-    metaDescription: "Kara 試題首頁也，列今可覽與將成之測頁。",
-    ogDescription: "諸互動試頁，今已成與方備者，咸聚於此。",
+    metaDescription: "Kara 試題首頁也，今可觀與將開坑之頁，皆聚於此。",
+    ogDescription: "諸互動試頁，今已成與方備者，並收一域之中。",
     marqueeTop: ["EXAM KARA", "TEST INDEX", "ANIME PERSONALITY", "EDITORIAL LAB", "SUMMER 2026"],
     marqueeBottom: ["SUBROUTE READY", "CLOUDFLARE PAGES", "STATIC DEPLOY", "EXAM KARA"],
     heroRailLeft: "試牘總目",
@@ -137,14 +137,14 @@ var SITE_COPY = {
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroCopyTag: "-- 試頁總覽 --",
-    heroCopy: "凡既成與方作之互動測頁，悉繫於一首頁、一網域之下。",
-    heroPrimaryAction: "觀諸測頁",
-    heroSecondaryAction: "入動漫試",
+    heroCopy: "凡既成與方作之互動測頁，悉繫於一首頁、一網域之下；後有新坑，亦可徑納其中。",
+    heroPrimaryAction: "觀諸試頁",
+    heroSecondaryAction: "入夏番試",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "今可用與方備之頁",
-    sectionNote: "版式字體，皆承動漫試頁編輯之意，後來新試可徑併焉。",
+    sectionTitle: "今可觀與將啟之頁",
+    sectionNote: "版式字體，皆承夏番試頁編輯之意，後來新試可徑併焉，不致失其調。",
     routeLabel: "ROUTE",
     sourceLabel: "SOURCE",
     openTest: "啟此測",
@@ -155,13 +155,13 @@ var SITE_COPY = {
     unavailableNote: "今未得相鄰源專案，故子路由姑存而不啟。",
     tests: {
       anime: {
-        title: "二〇二六夏季番性格試",
-        description: "仍用舊動漫試頁之視覺與互動，掛於主站，為首一測頁。",
-        note: "建置之時，自相鄰目錄同步，不改其原專案路徑。"
+        title: "二〇二六夏番性格試",
+        description: "仍用舊夏番試頁之視覺與互動，掛於主站，為首一開坑之測頁。",
+        note: "建置之時，自相鄰目錄同步，不改其原專案路徑，以便後日續修。"
       },
       next: {
         title: "後續測頁位",
-        description: "他日新測，皆可依此路由之例而併入。",
+        description: "他日新測，皆可依此路由之例而併入，續開新坑而不亂其序。",
         note: "首頁版式已預其位，增設時但補一子夾與一條目而已。"
       }
     }
@@ -208,7 +208,7 @@ var SITE_COPY = {
   },
   yue: {
     pageTitle: "EXAM KARA",
-    metaDescription: "Kara 嘅互動測驗首頁，集中展示而家用得同準備中嘅測試頁。",
+    metaDescription: "Kara 嘅互動測驗首頁，將而家玩得同準備開坑嘅試題頁一次過收齊。",
     ogDescription: "將而家可用同之後會上線嘅互動測驗集中喺同一個首頁。",
     marqueeTop: ["EXAM KARA", "TEST INDEX", "ANIME PERSONALITY", "EDITORIAL LAB", "SUMMER 2026"],
     marqueeBottom: ["SUBROUTE READY", "CLOUDFLARE PAGES", "STATIC DEPLOY", "EXAM KARA"],
@@ -216,15 +216,15 @@ var SITE_COPY = {
     heroRailRight: "exam.kara251.com",
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
-    heroCopyTag: "-- 測驗集合 --",
-    heroCopy: "將做完同做緊嘅互動測驗，集中掛喺同一個首頁同同一個網域下面。",
-    heroPrimaryAction: "睇測驗",
-    heroSecondaryAction: "入動漫測驗",
+    heroCopyTag: "-- 試題集合 --",
+    heroCopy: "將做完同做緊嘅互動測驗集中掛喺同一個首頁同網域，之後再開新坑都可以直接拼入去。",
+    heroPrimaryAction: "睇試題",
+    heroSecondaryAction: "入夏番測驗",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "而家可用同準備中嘅頁面",
-    sectionNote: "版面同字體跟返動漫測驗嗰種編輯感，之後加新測驗都可以直接拼入去。",
+    sectionTitle: "而家可用同準備開坑嘅頁面",
+    sectionNote: "版面同字體跟返夏番測驗嗰種編輯感，之後再加新測驗都可以直接拼入去。",
     routeLabel: "ROUTE",
     sourceLabel: "SOURCE",
     openTest: "打開測驗",
@@ -236,12 +236,12 @@ var SITE_COPY = {
     tests: {
       anime: {
         title: "2026 夏季番性格測驗",
-        description: "沿用原本動漫測驗嘅視覺同互動，掛入主站做第一個測試頁。",
-        note: "建置時會由相鄰目錄同步，原本專案路徑唔會改。"
+        description: "沿用原本夏番測驗嘅視覺同互動，掛入主站做第一個正式開坑嘅試題頁。",
+        note: "建置時會由相鄰目錄同步，原本專案路徑唔會改，方便你後面繼續慢慢補完。"
       },
       next: {
         title: "下一個測驗位",
-        description: "之後新測驗可以直接跟呢個路由規則加入。",
+        description: "之後新測驗可以直接跟呢個路由規則加入，等成個站一路開坑一路長。",
         note: "首頁版型已經預留好，加新測驗時只要補一個子資料夾同一筆列表資料。"
       }
     }

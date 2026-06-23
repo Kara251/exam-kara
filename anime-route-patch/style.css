@@ -829,8 +829,10 @@ a:focus-visible {
   margin-bottom: 4px;
   color: var(--text-light);
   font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+  line-height: 1.6;
+  letter-spacing: 1.4px;
+  text-transform: none;
+  overflow-wrap: anywhere;
 }
 
 .result-type-badge {

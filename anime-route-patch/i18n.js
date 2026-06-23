@@ -1,12 +1,39 @@
 (function () {
   function replaceAllPairs(text, pairs) {
-    return pairs.reduce(function (result, pair) {
+    return pairs.slice().sort(function (left, right) {
+      return right[0].length - left[0].length;
+    }).reduce(function (result, pair) {
       return result.split(pair[0]).join(pair[1]);
     }, text);
   }
 
   function toMars(text) {
     return replaceAllPairs(text, [
+      ["夏季番", "夏番"],
+      ["命定番", "本命番"],
+      ["原創新作", "原創新番"],
+      ["最好的情緒收束方式是", "最好の收尾姿勢是"],
+      ["最好的情緒收束方式", "最好の收尾姿勢"],
+      ["那部作品", "那部片"],
+      ["補番門檻", "補番門檻"],
+      ["劇場版", "劇場版"],
+      ["看不懂先刷社媒解釋", "看不懂先刷社媒考據"],
+      ["追番", "追番"],
+      ["補番", "補番"],
+      ["角色廚", "角色廚"],
+      ["世界觀", "世界觀"],
+      ["主角團", "主角團"],
+      ["名場面", "名場面"],
+      ["高光", "高光"],
+      ["很適合", "超對味"],
+      ["最適合", "最對味"],
+      ["更適合", "更吃"],
+      ["首推", "本命"],
+      ["推薦", "推坑"],
+      ["保存分享", "存圖分享"],
+      ["更多測驗", "更多試題"],
+      ["再測一次", "再來壹把"],
+      ["這輪", "這波"],
       ["什麼", "虾米"],
       ["怎麼", "肿么"],
       ["如果", "洳淉"],
@@ -14,24 +41,41 @@
       ["喜歡", "稀飯"],
       ["朋友", "盆友"],
       ["一起", "壹起"],
-      ["真的", "眞の"],
+      ["真的", "尊嘟"],
       ["開始", "開局"],
       ["看起來", "看起來"],
-      ["測驗", "測驗"],
-      ["作品", "作品"],
-      ["角色", "角色"],
-      ["結果", "結果"],
+      ["感覺", "趕腳"],
+      ["很像", "超像"],
+      ["有點", "有丶"],
       ["你", "伱"],
       ["我", "莪"],
       ["的", "の"],
       ["了", "惹"],
       ["嗎", "ㄇ"],
-      ["很", "狠"]
+      ["很", "超"]
     ]);
   }
 
   function toWenyan(text) {
     return replaceAllPairs(text, [
+      ["夏季番", "夏番"],
+      ["命定番", "命定之番"],
+      ["原創新作", "原創新番"],
+      ["最好的情緒收束方式是", "最佳之情緒收束何如"],
+      ["最好的情緒收束方式", "最佳之情緒收束何如"],
+      ["的態度是", "之態何如"],
+      ["那部作品", "彼作"],
+      ["劇場版", "劇場版"],
+      ["補番門檻", "補番之限"],
+      ["看不懂先刷社媒解釋", "未曉先閱社媒解釋"],
+      ["追番", "追番"],
+      ["補番", "補番"],
+      ["角色廚", "偏角之癖"],
+      ["世界觀", "世界之設"],
+      ["名場面", "名場"],
+      ["高光", "華彩"],
+      ["首推", "首薦"],
+      ["推薦", "薦"],
       ["你們", "汝等"],
       ["什麼", "何"],
       ["怎麼", "何如"],
@@ -43,9 +87,13 @@
       ["這輪", "此輪"],
       ["這個", "此"],
       ["那個", "彼"],
+      ["這陣子", "近來"],
+      ["哪種", "何種"],
+      ["真的", "果真"],
       ["不要", "毋"],
       ["沒有", "無"],
       ["不是", "非"],
+      ["看起來", "觀之若"],
       ["開始", "伊始"],
       ["覺得", "以為"],
       ["比較", "較"],
@@ -63,12 +111,37 @@
 
   function toYue(text) {
     return replaceAllPairs(text, [
+      ["夏季番", "夏番"],
+      ["命定番", "本命番"],
+      ["原創新作", "原創新番"],
+      ["最好的情緒收束方式是", "最好嘅情緒落點係"],
+      ["最好的情緒收束方式", "最好嘅情緒落點"],
+      ["的態度是", "嘅態度係"],
+      ["那部作品", "嗰套作品"],
+      ["補番門檻", "補番門檻"],
+      ["劇場版", "劇場版"],
+      ["看到", "見到"],
+      ["哪種", "邊種"],
+      ["看不懂先刷社媒解釋", "睇唔明先刷社媒解說"],
+      ["追番", "追番"],
+      ["補番", "補番"],
+      ["角色廚", "角色廚"],
+      ["世界觀", "世界觀"],
+      ["名場面", "名場面"],
+      ["高光", "高光位"],
+      ["很適合", "幾啱"],
+      ["最適合", "最啱"],
+      ["更適合", "更啱"],
+      ["首推", "本命"],
+      ["推薦", "推坑"],
+      ["保存分享", "存圖分享"],
+      ["更多測驗", "更多測驗"],
+      ["這輪", "今輪"],
       ["什麼", "咩"],
       ["怎麼", "點樣"],
       ["喜歡", "鍾意"],
       ["朋友", "朋友"],
       ["一起", "一齊"],
-      ["這輪", "呢輪"],
       ["這個", "呢個"],
       ["那個", "嗰個"],
       ["不要", "唔好"],
@@ -77,7 +150,6 @@
       ["看起來", "睇落"],
       ["適合", "啱"],
       ["真的", "真係"],
-      ["很", "好"],
       ["想", "想"],
       ["看", "睇"],
       ["給我", "畀我"]
@@ -194,71 +266,71 @@
       typeFallback: "本轮命中"
     },
     hx: {
-      pageTitle: "2026 夏季番測驗 -- 伱該追哪部？",
-      pageDescription: "從 50 道 ACG 題庫隨機抽出 15 題，算出伱這輪最對味の 2026 夏季番。",
-      ogTitle: "2026 夏季番伱該追哪部？",
-      ogDescription: "50 題題池隨機抽 15 題，算出伱這輪最適合補哪部夏季番",
-      h1a: "夏季番",
-      h1b: "伱該追哪部？",
-      sub: "從 50 道題庫隨機抽出 15 題，找到屬於伱這輪の首推作品",
-      go: "開始測驗 ▶",
-      rl: "伱 の 命 定 番 是",
-      altT: "這輪也狠適合伱",
-      avT: "可能需要避雷",
-      ret: "再測壹次",
-      sh: "保存分享",
-      ftr: "2026 夏季番伱該追哪部",
-      more: "更多測驗",
+      pageTitle: "2026 夏番測驗 -- 伱這波該補哪部？",
+      pageDescription: "50 題 ACG 題池隨機抽 15 題，幫伱揪出這波最對味の本命番。",
+      ogTitle: "2026 夏番伱這波該補哪部？",
+      ogDescription: "50 題題池隨機抽 15 題，幫伱鎖定這波最容易上頭の本命番",
+      h1a: "夏番",
+      h1b: "伱這波該補哪部？",
+      sub: "從 50 道題庫隨機抽出 15 題，幫伱揪出這波最對味の本命番",
+      go: "開始測番 ▶",
+      rl: "伱 の 本 命 番 是",
+      altT: "這輪同樣會讓伱上頭",
+      avT: "這波大概卟太4伱の菜",
+      ret: "再來壹把",
+      sh: "存圖分享",
+      ftr: "2026 夏番伱這波該補哪部",
+      more: "更多試題",
       prev: "上一題",
       verticalLeft: "動漫性格診斷",
       verticalRight: "二〇二六年夏",
       homeTag: "號外 EXTRA",
       homeDate: "VOL. 2026 -- SUMMER",
-      mixedLine: "✧ 夏のアニメ × 命定診斷 ✧",
+      mixedLine: "✧ 夏番雷達 × 本命診斷 ✧",
       featureTag: "-- 特集 --",
       homeFooterPrimary: "ANIME PERSONALITY TEST",
-      homeFooterSecondary: "動漫性格診斷測試",
+      homeFooterSecondary: "夏番人格診斷",
       sparkleLine: "☆ﾟ.*･｡ﾟ",
       resultTag: "號外",
       resultPub: "SUMMER ANIME GUIDE",
       resultVol: "VOL.2026",
       coverPlaceholder: "COVER ART",
-      resultFooterSecondary: "動漫性格診斷",
-      goodFallback: "整體調性跟伱這輪偏好相當接近。",
-      avoidFallback: "整體調性跟伱這輪偏好稍微錯位。",
-      goodPrefix: "更貼近伱這輪對",
+      resultFooterSecondary: "動漫補番診斷",
+      goodFallback: "整體調性跟伱這波偏好幾乎無縫對上。",
+      avoidFallback: "整體調性跟伱這波偏好有丶錯頻。",
+      goodPrefix: "更貼近伱這波對",
       goodSuffix: "の偏好。",
       avoidPrefix: "它更偏向",
-      avoidSuffix: "，這輪不一定最對味。",
-      leadPrefix: "這輪加權最高の理由，是伱明顯更吃",
+      avoidSuffix: "，所以這波未必最對味。",
+      leadPrefix: "這波加權最高の理由，是伱明顯更吃",
       leadSuffix: "。",
       shareSaving: "保存中…",
       shareFailed: "截圖保存失敗，請直接手機截圖叭",
       downloadName: "2026夏季番測驗結果.png",
-      typeFallback: "本輪命中"
+      typeFallback: "本命命中"
     },
     wy: {
-      pageTitle: "二〇二六夏季番測 -- 汝當追何作？",
-      pageDescription: "自五十題庫隨取十五題，以算此輪最合汝意之二〇二六夏季番。",
-      ogTitle: "二〇二六夏季番，汝當追何作？",
-      ogDescription: "五十題中隨取十五，以定此輪最宜補看之夏季番",
-      h1a: "夏季番",
-      h1b: "汝當追何作？",
-      sub: "自五十題中隨取十五，求此輪最合汝意之一作",
-      go: "啟測 ▶",
-      rl: "此 輪 命 定 番",
-      altT: "此輪亦相宜",
-      avT: "此輪或當避之",
+      pageTitle: "二〇二六夏番試 -- 汝今當補何番？",
+      pageDescription: "自五十題池隨取十五，以卜此輪最宜汝補觀之本命番。",
+      ogTitle: "二〇二六夏番，汝今當補何番？",
+      ogDescription: "五十題中隨取十五，以定此輪最宜入坑之夏番",
+      h1a: "夏番",
+      h1b: "汝今當補何番？",
+      sub: "自五十題中隨取十五，求此輪最合汝意之本命番",
+      go: "啟試 ▶",
+      rl: "此 輪 本 命 番",
+      altT: "此輪亦堪補觀",
+      avT: "此輪宜暫避之",
       ret: "復測一次",
       sh: "保存分享",
-      ftr: "二〇二六夏季番汝當追何作",
-      more: "更多測頁",
+      ftr: "二〇二六夏番汝今當補何番",
+      more: "更多試頁",
       prev: "上一題",
       verticalLeft: "動漫性格診",
       verticalRight: "二〇二六年夏",
       homeTag: "號外 EXTRA",
       homeDate: "VOL. 2026 -- SUMMER",
-      mixedLine: "✧ 夏番 × 命定之測 ✧",
+      mixedLine: "✧ 夏番 × 本命之卜 ✧",
       featureTag: "-- 特集 --",
       homeFooterPrimary: "ANIME PERSONALITY TEST",
       homeFooterSecondary: "動漫性格試",
@@ -267,19 +339,19 @@
       resultPub: "SUMMER ANIME GUIDE",
       resultVol: "VOL.2026",
       coverPlaceholder: "COVER ART",
-      resultFooterSecondary: "動漫性格診",
-      goodFallback: "其整體氣調，與汝此輪偏好甚近。",
-      avoidFallback: "其整體氣調，與汝此輪偏好稍有參差。",
+      resultFooterSecondary: "補番性格試",
+      goodFallback: "其整體氣調，與汝此輪所好甚契。",
+      avoidFallback: "其整體氣調，與汝此輪所好稍乖。",
       goodPrefix: "較合汝此輪所好之",
       goodSuffix: "。",
       avoidPrefix: "其更偏於",
-      avoidSuffix: "，此輪未必甚合。",
+      avoidSuffix: "，故此輪未必甚合。",
       leadPrefix: "此輪加權最重之由，在汝明顯偏好",
       leadSuffix: "。",
       shareSaving: "保存中…",
       shareFailed: "保存失敗，請自以截圖存之",
       downloadName: "2026夏季番測結果.png",
-      typeFallback: "此輪命中"
+      typeFallback: "本命命中"
     },
     en: {
       pageTitle: "Summer 2026 Anime Match -- What Should You Watch?",
@@ -326,48 +398,48 @@
       typeFallback: "Best Match"
     },
     yue: {
-      pageTitle: "2026 夏季番測驗 -- 你應該追邊部？",
-      pageDescription: "由 50 道 ACG 題庫隨機抽 15 題，幫你搵出呢輪最啱你嘅 2026 夏季番。",
-      ogTitle: "2026 夏季番你應該追邊部？",
-      ogDescription: "50 題題池隨機抽 15 題，搵出呢輪最啱你補嘅夏季番",
-      h1a: "夏季番",
-      h1b: "你應該追邊部？",
-      sub: "由 50 道題庫隨機抽 15 題，搵出呢輪最啱你口味嘅首推作品",
-      go: "開始測驗 ▶",
-      rl: "你 今 輪 命 定 番 係",
-      altT: "呢輪都幾啱你",
-      avT: "呢輪可能要避一避",
+      pageTitle: "2026 夏番測驗 -- 你今輪應該補邊套？",
+      pageDescription: "50 條 ACG 題目隨機抽 15 條，幫你搵出今輪最中你口味嘅本命番。",
+      ogTitle: "2026 夏番你今輪應該補邊套？",
+      ogDescription: "50 條題池隨機抽 15 條，搵出今輪最易令你入坑嘅本命番",
+      h1a: "夏番",
+      h1b: "你今輪應該補邊套？",
+      sub: "由 50 道題庫隨機抽 15 題，幫你搵出今輪最中你口味嘅本命番",
+      go: "開始測番 ▶",
+      rl: "你 今 輪 本 命 番 係",
+      altT: "今輪都幾值得你補",
+      avT: "今輪未必啱你入坑",
       ret: "再測一次",
-      sh: "保存分享",
-      ftr: "2026 夏季番你應該追邊部",
+      sh: "存圖分享",
+      ftr: "2026 夏番你今輪應該補邊套",
       more: "更多測驗",
       prev: "上一題",
       verticalLeft: "動漫性格診斷",
       verticalRight: "二〇二六年夏",
       homeTag: "號外 EXTRA",
       homeDate: "VOL. 2026 -- SUMMER",
-      mixedLine: "✧ 夏日動畫 × 命定測驗 ✧",
+      mixedLine: "✧ 夏番雷達 × 本命測驗 ✧",
       featureTag: "-- 特集 --",
       homeFooterPrimary: "ANIME PERSONALITY TEST",
-      homeFooterSecondary: "動漫性格診斷測試",
+      homeFooterSecondary: "動漫補番診斷",
       sparkleLine: "☆ﾟ.*･｡ﾟ",
       resultTag: "號外",
       resultPub: "SUMMER ANIME GUIDE",
       resultVol: "VOL.2026",
       coverPlaceholder: "COVER ART",
-      resultFooterSecondary: "動漫性格診斷",
-      goodFallback: "成體調性同你呢輪偏好都幾貼。",
-      avoidFallback: "成體調性同你呢輪偏好有少少錯位。",
-      goodPrefix: "更貼近你呢輪對",
+      resultFooterSecondary: "動漫補番診斷",
+      goodFallback: "整體調性同你今輪口味都幾貼，一眼就中坑。",
+      avoidFallback: "整體調性同你今輪口味有少少錯頻，未必一下就啱電波。",
+      goodPrefix: "更貼近你今輪對",
       goodSuffix: "嘅偏好。",
       avoidPrefix: "佢會更偏向",
-      avoidSuffix: "，所以今輪未必最啱你。",
+      avoidSuffix: "，所以今輪未必最啱你入坑。",
       leadPrefix: "今輪加權最高嘅原因，係你好明顯更食",
       leadSuffix: "。",
       shareSaving: "保存中…",
       shareFailed: "截圖保存失敗，請直接用手機截圖功能",
       downloadName: "2026夏季番測驗結果.png",
-      typeFallback: "今輪命中"
+      typeFallback: "本命命中"
     },
     ja: {
       pageTitle: "2026 夏アニメ診断 -- 今のあなたに合うのは？",
@@ -412,6 +484,205 @@
       shareFailed: "保存に失敗しました。端末のスクリーンショットを使ってください。",
       downloadName: "2026-summer-anime-result.png",
       typeFallback: "今回の命中枠"
+    }
+  };
+
+  var WORK_TITLES = {
+    supermarket_smoking: {
+      en: "Smoking Behind the Supermarket with You",
+      ja: "スーパーの裏でヤニ吸うふたり"
+    },
+    mushoku_iii: {
+      en: "Mushoku Tensei III: Jobless Reincarnation",
+      ja: "無職転生III ～異世界行ったら本気だす～"
+    },
+    youjo_senki_ii: {
+      en: "The Saga of Tanya the Evil II",
+      ja: "幼女戦記 II"
+    },
+    bleach_tybw: {
+      en: "BLEACH: Thousand-Year Blood War - Kashin-tan",
+      ja: "BLEACH 千年血戦篇-禍進譚-"
+    },
+    ghost_shell: {
+      en: "Ghost in the Shell",
+      ja: "攻殻機動隊 THE GHOST IN THE SHELL"
+    },
+    black_torch: {
+      en: "BLACK TORCH",
+      ja: "BLACK TORCH"
+    },
+    elusive_samurai_s2: {
+      en: "The Elusive Samurai Season 2",
+      ja: "逃げ上手の若君 第二期"
+    },
+    grand_blue_s3: {
+      en: "Grand Blue Dreaming Season 3",
+      ja: "ぐらんぶる Season 3"
+    },
+    polar_opposites_s2: {
+      en: "You and I Are Polar Opposites Season 2",
+      ja: "正反対な君と僕 第2期"
+    },
+    young_ladies_fighting_games: {
+      en: "Young Ladies Don't Play Fighting Games",
+      ja: "対ありでした。～お嬢さまは格闘ゲームなんてしない～"
+    },
+    jaadugar: {
+      en: "A Witch in Mongolia",
+      ja: "天幕のジャードゥーガル"
+    },
+    sparks_of_tomorrow: {
+      en: "Sparks of Tomorrow",
+      ja: "二十世紀電氣目録"
+    },
+    goodbye_lara: {
+      en: "Goodbye, Lara",
+      ja: "さよならララ"
+    },
+    old_bumpkin_sword: {
+      en: "From Old Country Bumpkin to Master Swordsman Season 2",
+      ja: "片田舎のおっさん、剣聖になる 第二期"
+    },
+    skeleton_knight_s2: {
+      en: "Skeleton Knight in Another World Season 2",
+      ja: "骸骨騎士様、只今異世界へお出掛け中 第2期"
+    },
+    clevatess_ii: {
+      en: "Clevatess II",
+      ja: "クレバテス -魔獣の王と赤子と屍の勇者- 第二期"
+    },
+    red_river: {
+      en: "Red River",
+      ja: "天は赤い河のほとり"
+    },
+    magilumiere_s2: {
+      en: "Magilumiere Co. Ltd. Season 2",
+      ja: "株式会社マジルミエ 第2期"
+    },
+    futtsu_akujyo: {
+      en: "Though I Am an Inept Villainess",
+      ja: "ふつつかな悪女ではございますが"
+    },
+    ibikona: {
+      en: "A Stepmother and Stepsister Who Don't Bully",
+      ja: "いびってこない義母と義姉"
+    },
+    hana_kimi_s2: {
+      en: "Hanazakari no Kimitachi e Season 2",
+      ja: "花ざかりの君たちへ 第2期"
+    },
+    heavy_knight: {
+      en: "The Exiled Reincarnated Heavy Knight Knows How to Game the System",
+      ja: "追放された転生重騎士はゲーム知識で無双する"
+    },
+    hanaori_san: {
+      en: "Hanaori-san Wants to Throw Hands After Reincarnating",
+      ja: "花織さんは転生してもケンカがしたい"
+    },
+    "100_girlfriends_s3": {
+      en: "The 100 Girlfriends Season 3",
+      ja: "君のことが大大大大大好きな100人の彼女 第3期"
+    },
+    victoria_tefuda: {
+      en: "Victoria with Too Many Cards",
+      ja: "手札が多すぎるヴィクトリア"
+    },
+    thunder3: {
+      en: "THUNDER 3",
+      ja: "THUNDER 3"
+    },
+    nanoha_exceeds: {
+      en: "Magical Girl Lyrical Nanoha EXCEEDS",
+      ja: "魔法少女リリカルなのは EXCEEDS"
+    },
+    worlds_strongest_rearguard: {
+      en: "The World's Strongest Rearguard",
+      ja: "世界最強の後衛 ～迷宮国の新人探索者～"
+    },
+    grow_up_show: {
+      en: "Grow Up Show",
+      ja: "Grow Up Show"
+    },
+    one_piece_heroines: {
+      en: "ONE PIECE HEROINES",
+      ja: "ONE PIECE HEROINES"
+    },
+    bandori_yume_mita: {
+      en: "BanG Dream! Yume Mita",
+      ja: "BanG Dream! ゆめ∞みた"
+    },
+    oni_no_hanayome: {
+      en: "Bride of the Ogre",
+      ja: "鬼の花嫁"
+    },
+    otome_kaiju_caramelise: {
+      en: "Otome Kaiju Caramelize",
+      ja: "乙女怪獣キャラメリゼ"
+    },
+    zero_people_frontier_lord: {
+      en: "The Frontier Lord Begins with Zero Subjects",
+      ja: "領民0人スタートの辺境領主様"
+    },
+    reiwa_dara_san: {
+      en: "Reiwa no Dara-san",
+      ja: "令和のダラさん"
+    },
+    lets_go_kaiki_gumi: {
+      en: "Let's Go Kaiki Gumi",
+      ja: "レッツゴー怪奇組"
+    },
+    lv999_villager: {
+      en: "LV999 Villager",
+      ja: "LV999の村人"
+    },
+    world_is_dancing: {
+      en: "World Is Dancing",
+      ja: "ワールド イズ ダンシング"
+    },
+    aikatsu_stars_anniversary: {
+      en: "Aikatsu Stars! 10th STORY",
+      ja: "アイカツスターズ！ 10th STORY"
+    },
+    time_leap_girl_4k: {
+      en: "The Girl Who Leapt Through Time 4K",
+      ja: "時をかける少女 4K"
+    },
+    playing_death_games: {
+      en: "Playing Death Games 44: CLOUDY BEACH",
+      ja: "ごはんのために死のゲームをしています 44:CLOUDY BEACH"
+    },
+    kimi_to_hanabi: {
+      en: "You, the Fireworks, and Our Promise",
+      ja: "きみと、花火と、約束と"
+    },
+    chiikawa_mermaid: {
+      en: "Chiikawa the Movie: Mermaid Island",
+      ja: "映画 ちいかわ 人魚の島"
+    },
+    crayon_shinchan_yokai_vacation: {
+      en: "Crayon Shin-chan: Super Hot Kasukabe Dancers",
+      ja: "クレヨンしんちゃん 超華麗！灼熱のカスカベダンサーズ"
+    },
+    paprika_4k: {
+      en: "Paprika 4K Restoration",
+      ja: "パプリカ 4Kリマスター"
+    },
+    ribbon_hero: {
+      en: "Princess Knight",
+      ja: "リボンの騎士"
+    },
+    patlabor_ezy: {
+      en: "Patlabor EZY File 2",
+      ja: "機動警察パトレイバー EZY File 2"
+    },
+    shiranui: {
+      en: "Shiranui",
+      ja: "不知火"
+    },
+    madoka_walpurgis: {
+      en: "Puella Magi Madoka Magica the Movie: Walpurgisnacht: Rising",
+      ja: "劇場版 魔法少女まどか☆マギカ〈ワルプルギスの廻天〉"
     }
   };
 
@@ -725,9 +996,22 @@
     return items.join("、");
   }
 
+  function getWorkTitlePair(work) {
+    return WORK_TITLES[work.id] || {
+      en: work.animeRomaji || work.animeName,
+      ja: work.animeRomaji || work.animeName
+    };
+  }
+
   function getPrimaryWorkName(locale, work) {
+    var titles = getWorkTitlePair(work);
+
     if (locale === "en") {
-      return work.animeRomaji || work.animeName;
+      return titles.en;
+    }
+
+    if (locale === "ja") {
+      return titles.ja;
     }
 
     if (locale === "sc") {
@@ -738,11 +1022,17 @@
   }
 
   function getSecondaryWorkName(locale, work) {
+    var titles = getWorkTitlePair(work);
+
     if (locale === "en") {
-      return work.animeName;
+      return titles.ja;
     }
 
-    return work.animeRomaji;
+    if (locale === "ja") {
+      return titles.en;
+    }
+
+    return titles.ja + " / " + titles.en;
   }
 
   function getTypeLabel(locale, typeName, matches) {
