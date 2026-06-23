@@ -218,6 +218,12 @@
     }, 520);
   }
 
+  function scheduleMarqueeRefresh() {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(refreshMarqueeLayout);
+    });
+  }
+
   function showPage(page) {
     var leaving = [pageHome, pageQuiz, pageResult].find(function (p) {
       return p.classList.contains("active");
@@ -233,6 +239,7 @@
       window.scrollTo(0, 0);
       triggerAnims(page);
       schedulePageEntryCleanup(page);
+      scheduleMarqueeRefresh();
       updateHomeScrollHint();
       return;
     }
@@ -250,6 +257,7 @@
       window.scrollTo(0, 0);
       triggerAnims(page);
       schedulePageEntryCleanup(page);
+      scheduleMarqueeRefresh();
       updateHomeScrollHint();
     }, 660);
   }
@@ -1278,6 +1286,7 @@
       pageHome.classList.add("page-entering");
       triggerAnims(pageHome);
       schedulePageEntryCleanup(pageHome);
+      scheduleMarqueeRefresh();
       updateHomeScrollHint();
     });
   }

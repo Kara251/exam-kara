@@ -712,20 +712,7 @@
       traitsTitle: "這輪特質分佈",
       qrLabel: "掃碼回到測驗",
       repoExamLabel: "EXAM 主站",
-      repoAnimeLabel: "夏番測驗原始倉庫",
-      shareQuickTitle: "一鍵轉發",
-      platformQQ: "QQ",
-      platformWeixin: "微信",
-      platformWeibo: "微博",
-      platformDouyin: "抖音",
-      platformKuaishou: "快手",
-      platformX: "X",
-      platformFacebook: "Facebook",
-      sharePreparing: "正在準備結果圖…",
-      shareNativeHint: "系統分享面板已開啟，請選擇 {{platform}}。",
-      shareWebHint: "已開啟 {{platform}} 分享頁，結果圖也已另存並複製連結。",
-      shareManualHint: "這個瀏覽器不能直接把圖片送進 {{platform}}；已先存好結果圖並複製連結。",
-      sharePopupBlocked: "分享視窗被瀏覽器擋下了；結果圖已存好，連結也已複製。"
+      repoAnimeLabel: "夏番測驗原始倉庫"
     },
     sc: {
       gateKicker: "LANGUAGE INDEX",
@@ -737,20 +724,7 @@
       traitsTitle: "这轮特质分布",
       qrLabel: "扫码回到测验",
       repoExamLabel: "EXAM 主站",
-      repoAnimeLabel: "夏番测验原始仓库",
-      shareQuickTitle: "一键转发",
-      platformQQ: "QQ",
-      platformWeixin: "微信",
-      platformWeibo: "微博",
-      platformDouyin: "抖音",
-      platformKuaishou: "快手",
-      platformX: "X",
-      platformFacebook: "Facebook",
-      sharePreparing: "正在准备结果图…",
-      shareNativeHint: "系统分享面板已打开，请选择 {{platform}}。",
-      shareWebHint: "已打开 {{platform}} 分享页，结果图也已另存并复制链接。",
-      shareManualHint: "这个浏览器不能直接把图片送进 {{platform}}；已先存好结果图并复制链接。",
-      sharePopupBlocked: "分享窗口被浏览器拦下了；结果图已存好，链接也已复制。"
+      repoAnimeLabel: "夏番测验原始仓库"
     },
     hx: {
       pageDescription: "從 50 道 ACG 題池亂抽 15 題，幫伱鎖定這波最對電波、最容易踩坑入坑の本命番。",
@@ -780,20 +754,7 @@
       traitsTitle: "這波電波分佈",
       qrLabel: "掃碼回來再測壹輪",
       repoExamLabel: "EXAM 主站",
-      repoAnimeLabel: "夏番測驗本體倉庫",
-      shareQuickTitle: "壹鍵轉發",
-      platformQQ: "QQ",
-      platformWeixin: "薇信",
-      platformWeibo: "圍脖",
-      platformDouyin: "抖音",
-      platformKuaishou: "快手",
-      platformX: "X",
-      platformFacebook: "Facebook",
-      sharePreparing: "結果圖準備中…",
-      shareNativeHint: "系統分享面板已打開，直接揀 {{platform}} 就阔以。",
-      shareWebHint: "已幫伱打開 {{platform}} 分享頁，結果圖也順手存好兼複製連結惹。",
-      shareManualHint: "這個瀏覽器暫時沒法把圖片直接塞進 {{platform}}；結果圖已存好，連結也複製惹。",
-      sharePopupBlocked: "分享視窗被瀏覽器卡住惹；結果圖已存好，連結也複製好咯。"
+      repoAnimeLabel: "夏番測驗本體倉庫"
     },
     wy: {
       pageDescription: "十五題以卜此輪最契汝意之二〇二六夏番。",
@@ -823,20 +784,7 @@
       traitsTitle: "此輪氣味分佈",
       qrLabel: "掃碼可返此試",
       repoExamLabel: "EXAM 主站庫",
-      repoAnimeLabel: "夏番試源庫",
-      shareQuickTitle: "一鍵轉發",
-      platformQQ: "QQ",
-      platformWeixin: "微信",
-      platformWeibo: "微博",
-      platformDouyin: "抖音",
-      platformKuaishou: "快手",
-      platformX: "X",
-      platformFacebook: "Facebook",
-      sharePreparing: "方備其結果圖…",
-      shareNativeHint: "系統分享之面板已啟，請擇 {{platform}}。",
-      shareWebHint: "已啟 {{platform}} 分享之頁，其結果圖亦已另存並錄其連結。",
-      shareManualHint: "此瀏覽器未能直送其圖至 {{platform}}；今已存圖並錄其連結。",
-      sharePopupBlocked: "分享之窗為瀏覽器所阻；然其圖已存，連結亦已錄。"
+      repoAnimeLabel: "夏番試源庫"
     },
     en: {
       gateKicker: "LANGUAGE INDEX",
@@ -848,20 +796,7 @@
       traitsTitle: "Trait Spread",
       qrLabel: "Scan to reopen this test",
       repoExamLabel: "EXAM Home Repo",
-      repoAnimeLabel: "Anime Test Repo",
-      shareQuickTitle: "Quick Share",
-      platformQQ: "QQ",
-      platformWeixin: "WeChat",
-      platformWeibo: "Weibo",
-      platformDouyin: "Douyin",
-      platformKuaishou: "Kuaishou",
-      platformX: "X",
-      platformFacebook: "Facebook",
-      sharePreparing: "Preparing the result card...",
-      shareNativeHint: "The system share sheet is open. Pick {{platform}} there.",
-      shareWebHint: "{{platform}} share is open. The PNG is also saved and the link has been copied.",
-      shareManualHint: "This browser cannot push the image straight into {{platform}}. The PNG is saved and the link is copied.",
-      sharePopupBlocked: "The browser blocked the share window. The PNG is still saved and the link has been copied."
+      repoAnimeLabel: "Anime Test Repo"
     },
     yue: {
       pageDescription: "15 條 ACG 題，幫你搵出今輪最中你電波嘅 2026 夏番。",
@@ -890,20 +825,7 @@
       traitsTitle: "今輪特質分佈",
       qrLabel: "掃碼返嚟再測",
       repoExamLabel: "EXAM 主站",
-      repoAnimeLabel: "夏番測驗原始倉庫",
-      shareQuickTitle: "一鍵轉發",
-      platformQQ: "QQ",
-      platformWeixin: "微信",
-      platformWeibo: "微博",
-      platformDouyin: "抖音",
-      platformKuaishou: "快手",
-      platformX: "X",
-      platformFacebook: "Facebook",
-      sharePreparing: "緊係度準備結果圖…",
-      shareNativeHint: "系統分享面板已經開咗，揀返 {{platform}} 就得。",
-      shareWebHint: "{{platform}} 分享頁已經開咗，結果圖亦都幫你存好兼複製咗連結。",
-      shareManualHint: "呢個瀏覽器未可以直接將張圖送入 {{platform}}；結果圖已經存好，連結亦都複製咗。",
-      sharePopupBlocked: "分享視窗畀瀏覽器擋住咗；不過結果圖已存好，連結都複製咗。"
+      repoAnimeLabel: "夏番測驗原始倉庫"
     },
     ja: {
       gateKicker: "LANGUAGE INDEX",
@@ -915,20 +837,7 @@
       traitsTitle: "今回の特質分布",
       qrLabel: "QRでこの診断へ戻る",
       repoExamLabel: "EXAM本体",
-      repoAnimeLabel: "夏アニメ診断元リポジトリ",
-      shareQuickTitle: "クイック共有",
-      platformQQ: "QQ",
-      platformWeixin: "WeChat",
-      platformWeibo: "Weibo",
-      platformDouyin: "Douyin",
-      platformKuaishou: "Kuaishou",
-      platformX: "X",
-      platformFacebook: "Facebook",
-      sharePreparing: "結果画像を準備しています…",
-      shareNativeHint: "システム共有シートを開きました。そこで {{platform}} を選んでください。",
-      shareWebHint: "{{platform}} の共有画面を開きました。画像保存とリンクのコピーも済ませています。",
-      shareManualHint: "このブラウザでは画像を {{platform}} に直接渡せません。画像保存とリンクのコピーは済ませています。",
-      sharePopupBlocked: "共有ウィンドウがブラウザにブロックされました。画像保存とリンクのコピーは済んでいます。"
+      repoAnimeLabel: "夏アニメ診断元リポジトリ"
     }
   };
 
