@@ -31,6 +31,10 @@
   var quizOptions = document.getElementById("quiz-options");
   var btnPrev = document.getElementById("btn-prev");
   var langSelect = document.getElementById("lang-select");
+  var marqueeTracks = [
+    document.getElementById("marquee-top-track"),
+    document.getElementById("marquee-bottom-track")
+  ];
 
   function ui() {
     return quizI18n.getUi(lang);
@@ -189,33 +193,61 @@
     return shuffle(selected).slice(0, questionCount);
   }
 
-  function populateMarquees() {
-    var workMap = {};
+  function buildMarqueeSequence() {
+    return shuffle(QUIZ_DATA.works).slice(0, Math.min(18, QUIZ_DATA.works.length));
+  }
 
-    QUIZ_DATA.works.forEach(function (work) {
-      workMap[work.id] = work;
+  function renderMarqueeItem(work) {
+    var item = document.createElement("div");
+    var image = document.createElement("img");
+
+    item.className = "marquee-item";
+    image.src = work.image;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    item.appendChild(image);
+
+    return item;
+  }
+
+  function updateMarqueeLoopWidth(track) {
+    var loopLength = Number(track.dataset.loopLength || 0);
+    var items = track.querySelectorAll(".marquee-item");
+    var secondLoopFirst = items[loopLength];
+
+    if (!loopLength || !secondLoopFirst) {
+      return;
+    }
+
+    track.style.setProperty("--loop-shift", secondLoopFirst.offsetLeft + "px");
+  }
+
+  function refreshMarqueeLayout() {
+    marqueeTracks.forEach(function (track) {
+      if (track) {
+        updateMarqueeLoopWidth(track);
+      }
     });
+  }
 
-    document.querySelectorAll(".marquee-track").forEach(function (track, trackIndex) {
-      var items = track.querySelectorAll(".marquee-item");
-      items.forEach(function (item, itemIndex) {
-        var workId = QUIZ_DATA.marqueeIds[(itemIndex + trackIndex * 3) % QUIZ_DATA.marqueeIds.length];
-        var work = workMap[workId];
-        var image;
+  function populateMarquees() {
+    marqueeTracks.forEach(function (track) {
+      var sequence;
 
-        item.textContent = "";
-        if (!work) {
-          return;
-        }
+      if (!track) {
+        return;
+      }
 
-        image = document.createElement("img");
-        image.src = work.image;
-        image.alt = "";
-        image.loading = "lazy";
-        image.decoding = "async";
-        item.appendChild(image);
+      sequence = buildMarqueeSequence();
+      track.innerHTML = "";
+      track.dataset.loopLength = String(sequence.length);
+      sequence.concat(sequence).forEach(function (work) {
+        track.appendChild(renderMarqueeItem(work));
       });
     });
+
+    requestAnimationFrame(refreshMarqueeLayout);
   }
 
   function startQuiz() {
@@ -567,15 +599,28 @@
     applyLang();
   }
 
-  document.getElementById("btn-start").addEventListener("click", startQuiz);
-  document.getElementById("btn-retry").addEventListener("click", restart);
-  document.getElementById("btn-share").addEventListener("click", shareResult);
-  btnPrev.addEventListener("click", goBack);
-  langSelect.addEventListener("change", onLocaleChange);
+  function init() {
+    document.getElementById("btn-start").addEventListener("click", startQuiz);
+    document.getElementById("btn-retry").addEventListener("click", restart);
+    document.getElementById("btn-share").addEventListener("click", shareResult);
+    btnPrev.addEventListener("click", goBack);
+    langSelect.addEventListener("change", onLocaleChange);
+    window.addEventListener("resize", refreshMarqueeLayout);
 
-  populateLanguageSelect();
-  resetScores();
-  applyLang();
-  populateMarquees();
-  triggerAnims(pageHome);
+    populateLanguageSelect();
+    resetScores();
+    applyLang();
+    populateMarquees();
+    triggerAnims(pageHome);
+  }
+
+  if (window.ExamKaraRuntime && window.ExamKaraRuntime.ensureFresh) {
+    window.ExamKaraRuntime.ensureFresh().then(function (ready) {
+      if (ready) {
+        init();
+      }
+    });
+  } else {
+    init();
+  }
 })();

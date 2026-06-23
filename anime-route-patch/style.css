@@ -276,6 +276,7 @@ a:focus-visible {
 }
 
 .marquee {
+  --marquee-gap: 8px;
   width: 100%;
   padding: 4px 0;
   overflow: hidden;
@@ -287,8 +288,10 @@ a:focus-visible {
 
 .marquee-track {
   display: flex;
-  gap: 8px;
+  gap: var(--marquee-gap);
   width: max-content;
+  will-change: transform;
+  --loop-shift: 0px;
 }
 
 .marquee-top .marquee-track {
@@ -319,11 +322,11 @@ a:focus-visible {
 
 @keyframes scroll-left {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to { transform: translateX(calc(-1 * var(--loop-shift))); }
 }
 
 @keyframes scroll-right {
-  from { transform: translateX(-50%); }
+  from { transform: translateX(calc(-1 * var(--loop-shift))); }
   to { transform: translateX(0); }
 }
 

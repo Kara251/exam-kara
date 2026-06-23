@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="exam-kara-build" content="__BUILD_VERSION__">
   <title>EXAM KARA</title>
   <meta name="description" content="Kara 的互動測試首頁，集中展示目前可用與準備中的測試頁。">
   <meta property="og:title" content="EXAM KARA">
@@ -10,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style.css?v=__BUILD_VERSION__">
 </head>
 <body>
   <div class="lang-control">
@@ -85,7 +86,8 @@
     <div class="marquee-track" id="marquee-bottom-track"></div>
   </div>
 
-  <script src="/shared-locale.js" defer></script>
-  <script src="/app.js" defer></script>
+  <script src="/shared-runtime.js?v=__BUILD_VERSION__" defer></script>
+  <script src="/shared-locale.js?v=__BUILD_VERSION__" defer></script>
+  <script src="/app.js?v=__BUILD_VERSION__" defer></script>
 </body>
 </html>

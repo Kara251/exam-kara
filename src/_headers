@@ -5,3 +5,20 @@
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()
   Cross-Origin-Opener-Policy: same-origin
 
+/
+  Cache-Control: no-store
+
+/index.html
+  Cache-Control: no-store
+
+/tests/anime-summer-2026/
+  Cache-Control: no-store
+
+/tests/anime-summer-2026/index.html
+  Cache-Control: no-store
+
+/tests-manifest.json
+  Cache-Control: no-store
+
+/build-meta.json
+  Cache-Control: no-store

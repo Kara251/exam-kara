@@ -470,6 +470,18 @@ async function loadManifestState() {
   } catch {}
 }
 
-initLanguageSelect();
-applyLocale();
-loadManifestState().then(renderTests);
+function init() {
+  initLanguageSelect();
+  applyLocale();
+  loadManifestState().then(renderTests);
+}
+
+if (window.ExamKaraRuntime && window.ExamKaraRuntime.ensureFresh) {
+  window.ExamKaraRuntime.ensureFresh().then(function (ready) {
+    if (ready) {
+      init();
+    }
+  });
+} else {
+  init();
+}

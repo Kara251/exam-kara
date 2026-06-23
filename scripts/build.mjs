@@ -11,6 +11,7 @@ const siblingAnimeDir = path.resolve(rootDir, "../26July-Anime-Test");
 const animeRouteDir = path.join(distDir, "tests", "anime-summer-2026");
 const animePatchDir = path.join(rootDir, "anime-route-patch");
 const syncOnly = process.argv.includes("--sync-only");
+const buildVersion = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 const excludedAnimeAssets = new Set([
   "17_tomb_raider_king1.webp",
   "40_toy_story_51.webp",
@@ -72,6 +73,21 @@ async function removeExcludedAnimeAssets() {
 
 async function overlayAnimePatch() {
   await copyDir(animePatchDir, animeRouteDir);
+}
+
+async function replaceBuildVersionPlaceholders(filePath) {
+  try {
+    const source = await fs.readFile(filePath, "utf8");
+    await fs.writeFile(filePath, source.replaceAll("__BUILD_VERSION__", buildVersion));
+  } catch {}
+}
+
+async function applyBuildVersion() {
+  await Promise.all([
+    replaceBuildVersionPlaceholders(path.join(distDir, "index.html")),
+    replaceBuildVersionPlaceholders(path.join(distDir, "shared-runtime.js")),
+    replaceBuildVersionPlaceholders(path.join(animeRouteDir, "index.html"))
+  ]);
 }
 
 async function writeUnavailableAnimePage() {
@@ -159,6 +175,7 @@ async function main() {
   const status = await syncAnimeRoute();
 
   const manifest = {
+    version: buildVersion,
     generatedAt: new Date().toISOString(),
     tests: [
       {
@@ -175,6 +192,13 @@ async function main() {
     path.join(distDir, "tests-manifest.json"),
     `${JSON.stringify(manifest, null, 2)}\n`
   );
+
+  await fs.writeFile(
+    path.join(distDir, "build-meta.json"),
+    `${JSON.stringify({ version: buildVersion, generatedAt: manifest.generatedAt }, null, 2)}\n`
+  );
+
+  await applyBuildVersion();
 }
 
 main().catch((error) => {
