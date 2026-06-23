@@ -1281,6 +1281,7 @@ body[data-script="latin"] .home-display-secondary::before {
 .btn-secondary,
 .btn-action,
 .btn-action-link,
+.share-platform,
 .quiz-prev {
   display: inline-flex;
   align-items: center;
@@ -1322,6 +1323,7 @@ body[data-script="latin"] .home-display-secondary::before {
 .btn-secondary,
 .btn-action,
 .btn-action-link,
+.share-platform,
 .quiz-prev {
   background: rgba(26, 26, 26, 0.035);
   color: var(--text);
@@ -1331,6 +1333,7 @@ body[data-script="latin"] .home-display-secondary::before {
 .btn-secondary:hover,
 .btn-action:hover,
 .btn-action-link:hover,
+.share-platform:hover,
 .quiz-prev:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
@@ -1339,6 +1342,7 @@ body[data-script="latin"] .home-display-secondary::before {
 .btn-secondary:hover,
 .btn-action:hover,
 .btn-action-link:hover,
+.share-platform:hover,
 .quiz-prev:hover:not(:disabled) {
   background: var(--border-dark);
   color: var(--bg-card);
@@ -1354,6 +1358,7 @@ body[data-script="latin"] .home-display-secondary::before {
 .btn-secondary:active,
 .btn-action:active,
 .btn-action-link:active,
+.share-platform:active,
 .quiz-prev:active:not(:disabled) {
   transform: translateY(0) scale(0.985);
   box-shadow: none;
@@ -1439,6 +1444,11 @@ body[data-script="latin"] .home-display-secondary::before {
 .btn-start > *,
 .btn-share > *,
 .wipe-fill {
+  position: relative;
+  z-index: 2;
+}
+
+.share-platform > * {
   position: relative;
   z-index: 2;
 }
@@ -1938,6 +1948,81 @@ body[data-script="latin"] .result-anime-name {
 .result-action-grid .btn-action,
 .result-action-grid .btn-action-link {
   width: 100%;
+}
+
+.result-share-cluster {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(26, 26, 26, 0.12);
+}
+
+.result-share-heading {
+  color: var(--text-light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.result-share-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.share-platform {
+  flex-direction: column;
+  gap: 10px;
+  min-height: 92px;
+  padding: 14px 10px 12px;
+  letter-spacing: 1px;
+  aspect-ratio: 1 / 1;
+}
+
+.share-platform[disabled] {
+  cursor: progress;
+  opacity: 0.62;
+  box-shadow: none;
+}
+
+.share-platform-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 38px;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+  border: 1px solid currentColor;
+}
+
+.share-platform-icon-text {
+  padding: 0 7px;
+}
+
+.share-platform-label {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.8px;
+  text-transform: none;
+}
+
+.result-share-status {
+  min-height: 18px;
+  margin: 0;
+  color: var(--text-light);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.result-share-status.is-error {
+  color: var(--accent);
 }
 
 .result-side {
@@ -2488,6 +2573,10 @@ body[data-script="latin"] .result-anime-name {
     grid-template-columns: 1fr;
   }
 
+  .result-share-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .result-side {
     padding: 20px 0 28px;
     border-left: none;
@@ -2571,6 +2660,15 @@ body[data-script="latin"] .result-anime-name {
 
   .trait-value {
     text-align: left;
+  }
+
+  .result-share-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .share-platform {
+    min-height: 84px;
+    padding-inline: 8px;
   }
 }
 
