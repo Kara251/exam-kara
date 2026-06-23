@@ -48,28 +48,28 @@
       </header>
 
       <div class="editorial-surface">
-        <div class="editorial-band editorial-band-home anim" style="--d:0.8">
+        <div class="editorial-band editorial-band-home anim band-wipe band-wipe-left" style="--d:0.8">
           <span data-ui="verticalLeft">アニメ性格診断</span>
         </div>
 
         <div class="home-layout">
           <div class="corner-strokes anim" style="--d:1.1" aria-hidden="true"></div>
-          <div class="editorial-badge home-extra-tag anim" style="--d:1.5">
-            <span data-ui="homeTag">号外 EXTRA</span>
+          <div class="editorial-badge home-extra-tag anim wipe-badge wipe-badge-right anim-right" style="--d:1.5">
+            <span id="home-tag-text" data-ui="homeTag">号外 EXTRA</span>
           </div>
-          <div class="home-watermark anim" style="--d:1.2" aria-hidden="true">2026</div>
+          <div class="home-watermark anim anim-right-soft" style="--d:1.2" aria-hidden="true">2026</div>
 
           <div class="home-display-block">
-            <h1 class="home-display-primary anim" id="home-title-primary" style="--d:1.8" data-i18n="h1a">夏季番</h1>
-            <p class="home-display-secondary anim" id="home-title-secondary" style="--d:2.2" data-i18n="h1b">你該追哪部？</p>
+            <h1 class="home-display-primary anim anim-diag-left" id="home-title-primary" style="--d:1.8" data-i18n="h1a">夏季番</h1>
+            <p class="home-display-secondary anim anim-diag-right" id="home-title-secondary" style="--d:2.2" data-i18n="h1b">你該追哪部？</p>
           </div>
 
-          <div class="home-side-rail anim" style="--d:2" aria-hidden="true">
+          <div class="home-side-rail anim rail-rise-right anim-right-soft" style="--d:2" aria-hidden="true">
             <span data-ui="verticalRight">二〇二六年夏</span>
           </div>
 
-          <div class="home-summary-panel anim" style="--d:2.8">
-            <span class="home-feature-tag" data-ui="featureTag">-- 特集 --</span>
+          <div class="home-summary-panel anim panel-divider-left anim-left" style="--d:2.8">
+            <span class="home-feature-tag" id="home-feature-text" data-ui="featureTag">-- 特集 --</span>
             <p class="home-subtitle home-subtitle-strong" data-i18n="sub">從 50 道題庫隨機抽出 15 題，找到屬於你的這輪首推作品</p>
             <p class="home-meta-url">exam.kara251.com/tests/anime-summer-2026/</p>
             <a class="repo-link-inline" href="https://github.com/Kara251/26July-Anime-Test" target="_blank" rel="noreferrer">
@@ -78,9 +78,9 @@
             </a>
           </div>
 
-          <div class="editorial-actions home-cta-panel anim" style="--d:3.2">
+          <div class="editorial-actions home-cta-panel anim panel-divider-right anim-right" style="--d:3.2">
             <button id="btn-start" class="btn-start wipe-fill anim" style="--d:3.28" data-i18n="go">開始測驗 ▶</button>
-            <a class="btn-secondary action-link anim" style="--d:3.42" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+            <a class="btn-secondary action-link wipe-fill wipe-fill-ghost anim" style="--d:3.42" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
           </div>
 
           <div class="home-scroll-hint anim" style="--d:3.56" aria-hidden="true">
@@ -127,26 +127,26 @@
         <div class="quiz-layout">
           <div class="corner-strokes corner-strokes-quiz" aria-hidden="true"></div>
 
-          <aside class="quiz-aside">
+          <aside class="quiz-aside anim anim-left panel-divider-left">
             <div class="quiz-q-label">Q.</div>
             <div class="quiz-progress-stack">
               <span class="quiz-progress-caption" data-ui="featureTag">-- 特集 --</span>
               <span class="quiz-progress-text" id="progress-text">01 / 15</span>
             </div>
-            <button class="quiz-prev" id="btn-prev" disabled data-i18n="prev">上一題</button>
+            <button class="quiz-prev wipe-fill wipe-fill-ghost anim" id="btn-prev" disabled data-i18n="prev">上一題</button>
             <div class="quiz-progress-bar">
               <div class="quiz-progress-fill" id="progress-fill"></div>
             </div>
           </aside>
 
-          <div class="quiz-stage">
+          <div class="quiz-stage anim anim-right">
             <div class="quiz-body" id="quiz-body">
               <h2 class="quiz-question" id="quiz-question"></h2>
               <div class="quiz-options" id="quiz-options"></div>
             </div>
           </div>
 
-          <div class="quiz-side-rail" aria-hidden="true">
+          <div class="quiz-side-rail anim rail-rise-right anim-right-soft" aria-hidden="true">
             <span data-ui="verticalRight">二〇二六年夏</span>
           </div>
         </div>
@@ -189,7 +189,7 @@
           <div class="result-layout">
             <div class="corner-strokes corner-strokes-result" aria-hidden="true"></div>
 
-            <div class="result-main">
+            <div class="result-main anim anim-left">
               <div class="result-headline" id="result-headline-text" data-i18n="rl">你 的 命 定 番 是</div>
               <div class="result-title-grid">
                 <div class="result-copy">
@@ -211,13 +211,13 @@
 
               <div class="result-action-grid" data-export-hidden="true">
                 <button id="btn-share" class="btn-action btn-share wipe-fill anim" style="--d:2.3" data-i18n="sh">保存分享</button>
-                <button id="btn-retry" class="btn-action anim" style="--d:2.45" data-i18n="ret">再測一次</button>
-                <a class="btn-action btn-action-link anim" style="--d:2.6" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+                <button id="btn-retry" class="btn-action wipe-fill wipe-fill-ghost anim" style="--d:2.45" data-i18n="ret">再測一次</button>
+                <a class="btn-action btn-action-link wipe-fill wipe-fill-ghost anim" style="--d:2.6" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
               </div>
             </div>
 
-            <aside class="result-side">
-              <div class="result-side-heading" data-ui="traitsTitle">這輪特質分佈</div>
+            <aside class="result-side anim anim-right panel-divider-right">
+              <div class="result-side-heading" id="result-traits-heading" data-ui="traitsTitle">這輪特質分佈</div>
               <div class="result-traits" id="result-traits"></div>
               <div class="rule-dashed"></div>
               <div class="result-columns">
@@ -245,7 +245,7 @@
               </a>
             </aside>
 
-            <div class="result-side-marker" aria-hidden="true">
+            <div class="result-side-marker anim rail-rise-right anim-right-soft" aria-hidden="true">
               <span id="result-side-marker-text" data-ui="traitsTitle">這輪特質分佈</span>
             </div>
           </div>

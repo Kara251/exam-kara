@@ -142,7 +142,7 @@
     window.clearTimeout(page.__entryTimer);
     page.__entryTimer = window.setTimeout(function () {
       page.classList.remove("page-entering");
-    }, 720);
+    }, 980);
   }
 
   function showPage(page) {
@@ -172,7 +172,7 @@
       window.scrollTo(0, 0);
       triggerAnims(page);
       schedulePageEntryCleanup(page);
-    }, 360);
+    }, 420);
   }
 
   function populateLanguageSelect() {
@@ -210,8 +210,11 @@
   function wrapStaticCharElements() {
     [
       { id: "home-title-primary", baseDelay: 260 },
+      { id: "home-tag-text", baseDelay: 360 },
+      { id: "home-feature-text", baseDelay: 520 },
       { id: "home-title-secondary", baseDelay: 340 },
-      { id: "result-headline-text", baseDelay: 220 }
+      { id: "result-headline-text", baseDelay: 220 },
+      { id: "result-traits-heading", baseDelay: 320 }
     ].forEach(function (item) {
       var element = document.getElementById(item.id);
 
@@ -1074,7 +1077,7 @@
 
     gate.classList.add("is-hidden");
     document.body.classList.remove("lang-gate-open");
-    window.setTimeout(revealHomeFromLanguageGate, 180);
+    window.setTimeout(revealHomeFromLanguageGate, 280);
   }
 
   function showLanguageToast() {
@@ -1092,7 +1095,7 @@
     gateToastTimer = window.setTimeout(function () {
       toast.classList.remove("is-visible");
       langControl.classList.remove("is-guided");
-    }, 2400);
+    }, 3000);
   }
 
   function animateGateGuide(originRect, label) {
@@ -1108,7 +1111,7 @@
     if (prefersReducedMotion || !originRect) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, 320);
+      window.setTimeout(closeLanguageGate, 420);
       return;
     }
 
@@ -1133,7 +1136,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 1120);
+    }, 1320);
   }
 
   function selectGateLocale(localeCode, button) {
