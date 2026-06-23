@@ -337,49 +337,63 @@ var SITE_COPY_EXTENSIONS = {
     gateTitle: "先選擇語言",
     gateSubtitle: "選好後會進入首頁，右上角也能隨時切換。",
     gateNote: "後續新增的測驗頁，都會沿用右上角這個語言入口。",
-    gateToast: "右上角可隨時切換語言"
+    gateToast: "右上角可隨時切換語言",
+    repoExamLabel: "EXAM 主站",
+    repoAnimeLabel: "夏番測驗原始倉庫"
   },
   sc: {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先选择语言",
     gateSubtitle: "选好后进入首页，右上角也能随时切换。",
     gateNote: "后续新增的测验页，也都会沿用右上角这个语言入口。",
-    gateToast: "右上角可随时切换语言"
+    gateToast: "右上角可随时切换语言",
+    repoExamLabel: "EXAM 主站",
+    repoAnimeLabel: "夏番测验原始仓库"
   },
   hx: {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先揀壹下語言版本",
     gateSubtitle: "選完就進首頁，右上角那顆語言鍵之後也能隨便切。",
     gateNote: "往後新測驗也都會掛同壹個語言入口，伱不用每次到處找。",
-    gateToast: "右上角還能隨時換語言"
+    gateToast: "右上角還能隨時換語言",
+    repoExamLabel: "EXAM 主站",
+    repoAnimeLabel: "夏番測驗本體倉庫"
   },
   wy: {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "請先擇其言",
     gateSubtitle: "既擇其言，乃入首頁；右上角亦可隨時更易。",
     gateNote: "後來諸測，亦皆循右上角此語言入口而轉換之。",
-    gateToast: "右上角可隨時易語"
+    gateToast: "右上角可隨時易語",
+    repoExamLabel: "EXAM 主站庫",
+    repoAnimeLabel: "夏番試源庫"
   },
   en: {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "Choose Your Language",
     gateSubtitle: "Once you enter, the language switch stays in the top-right corner.",
     gateNote: "Future tests on this domain will keep using that same top-right language control.",
-    gateToast: "Language stays in the top-right corner"
+    gateToast: "Language stays in the top-right corner",
+    repoExamLabel: "EXAM Home Repo",
+    repoAnimeLabel: "Anime Test Repo"
   },
   yue: {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先揀語言",
     gateSubtitle: "揀完就會入首頁，右上角之後都可以隨時轉。",
     gateNote: "遲啲再加新測驗，都一樣會用返右上角呢個語言入口。",
-    gateToast: "右上角可以隨時轉語言"
+    gateToast: "右上角可以隨時轉語言",
+    repoExamLabel: "EXAM 主站",
+    repoAnimeLabel: "夏番測驗原始倉庫"
   },
   ja: {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先に言語を選んでください",
     gateSubtitle: "入った後も、右上の言語メニューからいつでも切り替えられます。",
     gateNote: "この先追加されるテストも、右上の同じ言語メニューを使います。",
-    gateToast: "言語切替は右上にあります"
+    gateToast: "言語切替は右上にあります",
+    repoExamLabel: "EXAM本体",
+    repoAnimeLabel: "夏アニメ診断元リポジトリ"
   }
 };
 

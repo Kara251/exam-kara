@@ -60,7 +60,8 @@ body[data-script="latin"] .home-subtitle,
 body[data-script="latin"] .quiz-question,
 body[data-script="latin"] .quiz-option,
 body[data-script="latin"] .result-description,
-body[data-script="latin"] .result-section-item-why {
+body[data-script="latin"] .result-section-item-why,
+body[data-script="latin"] .repo-link-value {
   letter-spacing: 0.2px;
 }
 
@@ -694,6 +695,45 @@ a:focus-visible {
   text-transform: none !important;
 }
 
+.repo-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.repo-link {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  text-decoration: none;
+  transition: border-color 0.22s ease, transform 0.12s ease, background 0.22s ease;
+}
+
+.repo-link:hover {
+  border-color: var(--border-dark);
+  background: rgba(26, 26, 26, 0.03);
+  transform: translateY(-1px);
+}
+
+.repo-link-label {
+  display: block;
+  color: var(--text-light);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.repo-link-value {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
 .home-vertical-left,
 .home-vertical-right {
   position: fixed;
@@ -1223,7 +1263,8 @@ body::after {
   }
 
   .home-actions,
-  .result-actions-primary {
+  .result-actions-primary,
+  .repo-links {
     grid-template-columns: 1fr;
   }
 

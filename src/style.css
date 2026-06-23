@@ -59,7 +59,8 @@ body[data-script="latin"] .hero-copy p,
 body[data-script="latin"] .section-note,
 body[data-script="latin"] .test-description,
 body[data-script="latin"] .test-note,
-body[data-script="latin"] .hero-footer-secondary {
+body[data-script="latin"] .hero-footer-secondary,
+body[data-script="latin"] .repo-link-value {
   letter-spacing: 0.2px;
 }
 
@@ -590,6 +591,43 @@ a {
   text-transform: none;
 }
 
+.repo-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.repo-link {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  transition: border-color 0.22s ease, transform 0.12s ease, background 0.22s ease;
+}
+
+.repo-link:hover {
+  border-color: var(--border-dark);
+  background: rgba(26, 26, 26, 0.03);
+  transform: translateY(-1px);
+}
+
+.repo-link-label {
+  display: block;
+  color: var(--text-light);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.repo-link-value {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
 .test-link-muted {
   border-color: var(--border);
   color: var(--text-light);
@@ -727,6 +765,10 @@ a {
   .hero-footer {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .repo-links {
+    grid-template-columns: 1fr;
   }
 
   .section-note {
