@@ -33,136 +33,223 @@
 
   <div class="lang-guide-toast" id="lang-guide-toast" aria-live="polite" data-ui="gateToast">右上角可隨時切換語言</div>
 
-  <section id="page-home" class="page active">
-    <div class="marquee marquee-top" aria-hidden="true">
-      <div class="marquee-track" id="marquee-top-track"></div>
-    </div>
-
-    <div class="home-vertical-left" aria-hidden="true" data-ui="verticalLeft">アニメ性格診断</div>
-    <div class="home-vertical-right" aria-hidden="true" data-ui="verticalRight">二〇二六年夏</div>
-
-    <div class="home-container">
-      <div class="rule-double anim" style="--d:0"></div>
-      <div class="home-header anim" style="--d:1">
-        <span class="home-tag" data-ui="homeTag">号外 EXTRA</span>
-        <span class="home-date" data-ui="homeDate">VOL. 2026 ── SUMMER</span>
-      </div>
-      <div class="stripe anim" style="--d:2"></div>
-      <div class="y2k-mixed anim" style="--d:2.5" aria-hidden="true" data-ui="mixedLine">✧ 夏のアニメ × 運命診断 ✧</div>
-      <div class="home-title anim" style="--d:3">
-        <span class="home-year glitch-text" data-text="2026">2026</span>
-        <h1>
-          <span data-i18n="h1a">夏季番</span>
-          <span data-i18n="h1b">你該追哪部？</span>
-        </h1>
-      </div>
-      <div class="rule anim" style="--d:4"></div>
-      <div class="home-feature anim" style="--d:5">
-        <span class="home-feature-tag" data-ui="featureTag">── 特集 ──</span>
-        <p class="home-subtitle" data-i18n="sub">從 50 道題庫隨機抽出 15 題，找到屬於你的這輪首推作品</p>
-      </div>
-
-      <div class="home-actions anim" style="--d:6">
-        <button id="btn-start" class="btn-start" data-i18n="go">開始測驗 ▶</button>
-        <a class="btn-secondary action-link" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
-      </div>
-
-      <div class="stripe anim" style="--d:7"></div>
-      <div class="home-footer anim" style="--d:7.5">
-        <span data-ui="homeFooterPrimary">ANIME PERSONALITY TEST</span>
-        <span class="home-footer-jp" data-ui="homeFooterSecondary">アニメ性格診断テスト</span>
-      </div>
-      <div class="repo-links repo-links-single anim" style="--d:7.75">
-        <a class="repo-link" href="https://github.com/Kara251/26July-Anime-Test" target="_blank" rel="noreferrer">
-          <span class="repo-link-label" data-ui="repoAnimeLabel">夏番測驗原始倉庫</span>
-          <span class="repo-link-value">Kara251/26July-Anime-Test</span>
-        </a>
-      </div>
-      <div class="rule-double anim" style="--d:8"></div>
-      <div class="y2k-sparkle anim" style="--d:8.5" aria-hidden="true" data-ui="sparkleLine">☆ﾟ.*･｡ﾟ</div>
-    </div>
-
-    <div class="marquee marquee-bottom" aria-hidden="true">
-      <div class="marquee-track" id="marquee-bottom-track"></div>
-    </div>
-  </section>
-
-  <section id="page-quiz" class="page">
-    <div class="quiz-container">
-      <div class="quiz-header">
-        <span class="quiz-q-label">Q.</span>
-        <span class="quiz-progress-text" id="progress-text">01 / 15</span>
-        <button class="quiz-prev" id="btn-prev" disabled data-i18n="prev">上一題</button>
-      </div>
-      <div class="quiz-progress-bar">
-        <div class="quiz-progress-fill" id="progress-fill"></div>
-      </div>
-      <div class="quiz-body" id="quiz-body">
-        <h2 class="quiz-question" id="quiz-question"></h2>
-        <div class="quiz-options" id="quiz-options"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="page-result" class="page">
-    <div class="result-container">
-      <div class="result-card" id="result-card">
-        <div class="result-card-masthead">
-          <div class="rule-double"></div>
-          <div class="result-card-masthead-row">
-            <span class="result-card-tag" data-ui="resultTag">号外</span>
-            <span class="result-card-pub" data-ui="resultPub">SUMMER ANIME GUIDE</span>
-            <span class="result-card-vol" data-ui="resultVol">VOL.2026</span>
-          </div>
-          <div class="stripe"></div>
+  <section id="page-home" class="page active editorial-page editorial-home">
+    <div class="editorial-frame home-frame">
+      <header class="paper-masthead anim" style="--d:0">
+        <div class="brand-lockup" aria-label="EXAM KARA">
+          <span>EXAM</span>
+          <span>KARA</span>
         </div>
-        <div class="result-card-body">
-          <div class="result-headline" data-i18n="rl">你 的 命 定 番 是</div>
-          <div class="result-img-wrap" id="result-img-wrap">
-            <img id="result-img" src="" alt="">
-            <div class="result-img-placeholder" id="result-img-ph" data-ui="coverPlaceholder">COVER ART</div>
+        <div class="masthead-center">
+          <span class="masthead-volume" data-ui="homeDate">VOL. 2026 -- SUMMER</span>
+          <span class="masthead-route" data-ui="homeFooterSecondary">アニメ性格診断テスト</span>
+        </div>
+        <span class="masthead-date" data-issue-date>2026.06.23</span>
+      </header>
+
+      <div class="editorial-surface">
+        <div class="editorial-band editorial-band-home anim" style="--d:0.8">
+          <span data-ui="verticalLeft">アニメ性格診断</span>
+        </div>
+
+        <div class="home-layout">
+          <div class="corner-strokes anim" style="--d:1.1" aria-hidden="true"></div>
+          <div class="editorial-badge home-extra-tag anim" style="--d:1.5">
+            <span data-ui="homeTag">号外 EXTRA</span>
           </div>
-          <h2 class="result-anime-name" id="result-anime-name"></h2>
-          <p class="result-anime-romaji" id="result-anime-romaji"></p>
-          <div class="rule"></div>
-          <div class="result-type-badge" id="result-type-name"></div>
-          <p class="result-description" id="result-description"></p>
-          <div class="rule-dashed"></div>
-          <div class="result-keywords" id="result-keywords"></div>
-          <div class="result-traits" id="result-traits"></div>
-          <div class="rule-double"></div>
-          <div class="result-columns">
-            <div class="result-section result-section-alt" id="section-alt">
-              <div class="result-section-label" data-i18n="altT">這輪也很適合你</div>
-              <div class="result-section-list" id="alt-list"></div>
+          <div class="home-watermark anim" style="--d:1.2" aria-hidden="true">2026</div>
+
+          <div class="home-display-block">
+            <h1 class="home-display-primary anim" id="home-title-primary" style="--d:1.8" data-i18n="h1a">夏季番</h1>
+            <p class="home-display-secondary anim" id="home-title-secondary" style="--d:2.2" data-i18n="h1b">你該追哪部？</p>
+          </div>
+
+          <div class="home-side-rail anim" style="--d:2" aria-hidden="true">
+            <span data-ui="verticalRight">二〇二六年夏</span>
+          </div>
+
+          <div class="home-summary-panel anim" style="--d:2.8">
+            <span class="home-feature-tag" data-ui="featureTag">-- 特集 --</span>
+            <p class="home-subtitle home-subtitle-strong" data-i18n="sub">從 50 道題庫隨機抽出 15 題，找到屬於你的這輪首推作品</p>
+            <p class="home-meta-url">exam.kara251.com/tests/anime-summer-2026/</p>
+            <a class="repo-link-inline" href="https://github.com/Kara251/26July-Anime-Test" target="_blank" rel="noreferrer">
+              <span class="repo-link-inline-label" data-ui="repoAnimeLabel">夏番測驗原始倉庫</span>
+              <span class="repo-link-inline-value">Kara251/26July-Anime-Test</span>
+            </a>
+          </div>
+
+          <div class="editorial-actions home-cta-panel anim" style="--d:3.2">
+            <button id="btn-start" class="btn-start wipe-fill anim" style="--d:3.28" data-i18n="go">開始測驗 ▶</button>
+            <a class="btn-secondary action-link anim" style="--d:3.42" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+          </div>
+        </div>
+
+        <div class="poster-band anim" style="--d:3.6">
+          <div class="poster-marquee">
+            <div class="poster-track marquee-track" id="poster-track-home" data-marquee-track data-direction="left"></div>
+          </div>
+        </div>
+
+        <footer class="paper-footer anim" style="--d:4">
+          <span class="paper-footer-dot">◆</span>
+          <span class="paper-footer-title" data-i18n="ftr">2026 夏季番你該追哪部</span>
+          <span class="paper-footer-dot">◆</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-quiz" class="page editorial-page editorial-quiz">
+    <div class="editorial-frame quiz-frame">
+      <header class="paper-masthead">
+        <div class="brand-lockup" aria-label="EXAM KARA">
+          <span>EXAM</span>
+          <span>KARA</span>
+        </div>
+        <div class="masthead-center">
+          <span class="masthead-volume" data-ui="homeDate">VOL. 2026 -- SUMMER</span>
+          <span class="masthead-route" data-ui="resultPub">SUMMER ANIME GUIDE</span>
+        </div>
+        <span class="masthead-date" data-issue-date>2026.06.23</span>
+      </header>
+
+      <div class="editorial-surface">
+        <div class="editorial-band editorial-band-quiz">
+          <span>QUESTION</span>
+        </div>
+
+        <div class="quiz-layout">
+          <div class="corner-strokes corner-strokes-quiz" aria-hidden="true"></div>
+
+          <aside class="quiz-aside">
+            <div class="quiz-q-label">Q.</div>
+            <div class="quiz-progress-stack">
+              <span class="quiz-progress-caption" data-ui="featureTag">-- 特集 --</span>
+              <span class="quiz-progress-text" id="progress-text">01 / 15</span>
             </div>
-            <div class="result-section result-section-avoid" id="section-avoid">
-              <div class="result-section-label" data-i18n="avT">可能需要避雷</div>
-              <div class="result-section-list" id="avoid-list"></div>
+            <button class="quiz-prev" id="btn-prev" disabled data-i18n="prev">上一題</button>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-fill" id="progress-fill"></div>
+            </div>
+          </aside>
+
+          <div class="quiz-stage">
+            <div class="quiz-body" id="quiz-body">
+              <h2 class="quiz-question" id="quiz-question"></h2>
+              <div class="quiz-options" id="quiz-options"></div>
             </div>
           </div>
-          <div class="stripe"></div>
-          <div class="result-footer">
-            <span data-i18n="ftr">2026 夏季番你該追哪部</span>
+
+          <div class="quiz-side-rail" aria-hidden="true">
+            <span data-ui="verticalRight">二〇二六年夏</span>
+          </div>
+        </div>
+
+        <div class="poster-band poster-band-quiz">
+          <div class="poster-marquee">
+            <div class="poster-track marquee-track" id="poster-track-quiz" data-marquee-track data-direction="right"></div>
+          </div>
+        </div>
+
+        <footer class="paper-footer">
+          <span class="paper-footer-dot">◆</span>
+          <span class="paper-footer-title" data-i18n="ftr">2026 夏季番你該追哪部</span>
+          <span class="paper-footer-dot">◆</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-result" class="page editorial-page editorial-result">
+    <div class="result-container">
+      <div class="result-card editorial-frame result-frame" id="result-card">
+        <header class="paper-masthead result-card-masthead">
+          <div class="brand-lockup" aria-label="EXAM KARA">
+            <span>EXAM</span>
+            <span>KARA</span>
+          </div>
+          <div class="masthead-center">
+            <span class="masthead-volume" data-ui="resultPub">SUMMER ANIME GUIDE</span>
+            <span class="masthead-route">RESULT</span>
+          </div>
+          <span class="masthead-date" data-issue-date>2026.06.23</span>
+        </header>
+
+        <div class="editorial-surface result-card-body">
+          <div class="editorial-band editorial-band-result">
             <span data-ui="resultFooterSecondary">アニメ性格診断</span>
           </div>
-          <div class="result-qr-block">
-            <div class="result-qr-code" id="result-qr-code" aria-hidden="true"></div>
-            <div class="result-qr-meta">
-              <div class="result-qr-label" data-ui="qrLabel">掃碼回到測驗</div>
-              <div class="result-qr-url" id="result-qr-url"></div>
+
+          <div class="result-layout">
+            <div class="corner-strokes corner-strokes-result" aria-hidden="true"></div>
+
+            <div class="result-main">
+              <div class="result-headline" id="result-headline-text" data-i18n="rl">你 的 命 定 番 是</div>
+              <div class="result-title-grid">
+                <div class="result-copy">
+                  <h2 class="result-anime-name" id="result-anime-name"></h2>
+                  <p class="result-anime-romaji" id="result-anime-romaji"></p>
+                  <div class="rule"></div>
+                  <div class="result-type-badge" id="result-type-name"></div>
+                  <p class="result-description" id="result-description"></p>
+                  <div class="result-keywords" id="result-keywords"></div>
+                </div>
+
+                <figure class="result-cover-panel anim" style="--d:1.9">
+                  <div class="result-img-wrap" id="result-img-wrap">
+                    <img id="result-img" src="" alt="">
+                    <div class="result-img-placeholder" id="result-img-ph" data-ui="coverPlaceholder">COVER ART</div>
+                  </div>
+                </figure>
+              </div>
+
+              <div class="result-action-grid">
+                <button id="btn-share" class="btn-action btn-share wipe-fill anim" style="--d:2.3" data-i18n="sh">保存分享</button>
+                <button id="btn-retry" class="btn-action anim" style="--d:2.45" data-i18n="ret">再測一次</button>
+                <a class="btn-action btn-action-link anim" style="--d:2.6" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+              </div>
+            </div>
+
+            <aside class="result-side">
+              <div class="result-side-heading" data-ui="traitsTitle">這輪特質分佈</div>
+              <div class="result-traits" id="result-traits"></div>
+              <div class="rule-dashed"></div>
+              <div class="result-columns">
+                <div class="result-section result-section-alt" id="section-alt">
+                  <div class="result-section-label" data-i18n="altT">這輪也很適合你</div>
+                  <div class="result-section-list" id="alt-list"></div>
+                </div>
+                <div class="result-section result-section-avoid" id="section-avoid">
+                  <div class="result-section-label" data-i18n="avT">可能需要避雷</div>
+                  <div class="result-section-list" id="avoid-list"></div>
+                </div>
+              </div>
+
+              <div class="result-qr-block">
+                <div class="result-qr-code" id="result-qr-code" aria-hidden="true"></div>
+                <div class="result-qr-meta">
+                  <div class="result-qr-label" data-ui="qrLabel">掃碼回到測驗</div>
+                  <div class="result-qr-url" id="result-qr-url"></div>
+                </div>
+              </div>
+
+              <a class="repo-link-inline repo-link-inline-side" href="https://github.com/Kara251/26July-Anime-Test" target="_blank" rel="noreferrer">
+                <span class="repo-link-inline-label" data-ui="repoAnimeLabel">夏番測驗原始倉庫</span>
+                <span class="repo-link-inline-value">Kara251/26July-Anime-Test</span>
+              </a>
+            </aside>
+
+            <div class="result-side-marker" aria-hidden="true">
+              <span id="result-side-marker-text" data-ui="traitsTitle">這輪特質分佈</span>
             </div>
           </div>
-          <div class="rule-double"></div>
-        </div>
-      </div>
 
-      <div class="result-actions result-actions-primary">
-        <button id="btn-retry" class="btn-action" data-i18n="ret">再測一次</button>
-        <a class="btn-action btn-action-link" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
-      </div>
-      <div class="result-actions result-actions-secondary">
-        <button id="btn-share" class="btn-action btn-share" data-i18n="sh">保存分享</button>
+          <footer class="paper-footer">
+            <span class="paper-footer-dot">◆</span>
+            <span class="paper-footer-title" data-i18n="ftr">2026 夏季番你該追哪部</span>
+            <span class="paper-footer-dot">◆</span>
+          </footer>
+        </div>
       </div>
     </div>
   </section>

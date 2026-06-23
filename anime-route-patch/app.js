@@ -33,10 +33,9 @@
   var btnPrev = document.getElementById("btn-prev");
   var langSelect = document.getElementById("lang-select");
   var gateToastTimer = 0;
-  var marqueeTracks = [
-    document.getElementById("marquee-top-track"),
-    document.getElementById("marquee-bottom-track")
-  ];
+  var marqueeTracks = Array.prototype.slice.call(document.querySelectorAll("[data-marquee-track]"));
+  var issueDateTargets = document.querySelectorAll("[data-issue-date]");
+  var traitPalette = ["#E8384F", "#1A8C7E", "#3F3934", "#7E776E", "#B9B1A5"];
 
   function ui() {
     return quizI18n.getUi(lang);
@@ -73,6 +72,19 @@
     document.querySelector('meta[name="description"]').setAttribute("content", strings.pageDescription);
     document.querySelector('meta[property="og:title"]').setAttribute("content", strings.ogTitle);
     document.querySelector('meta[property="og:description"]').setAttribute("content", strings.ogDescription);
+  }
+
+  function setIssueDateLabels() {
+    var date = new Date();
+    var formatted = [
+      date.getFullYear(),
+      pad(date.getMonth() + 1),
+      pad(date.getDate())
+    ].join(".");
+
+    issueDateTargets.forEach(function (target) {
+      target.textContent = formatted;
+    });
   }
 
   function pad(number) {
@@ -178,6 +190,20 @@
     });
   }
 
+  function wrapStaticCharElements() {
+    [
+      { id: "home-title-primary", baseDelay: 260 },
+      { id: "home-title-secondary", baseDelay: 340 },
+      { id: "result-headline-text", baseDelay: 220 }
+    ].forEach(function (item) {
+      var element = document.getElementById(item.id);
+
+      if (element) {
+        wrapChars(element, item.baseDelay);
+      }
+    });
+  }
+
   function applyStaticUi() {
     var strings = ui();
 
@@ -192,6 +218,7 @@
     });
 
     renderLanguageGateButtons();
+    wrapStaticCharElements();
   }
 
   function applyLang() {
@@ -245,7 +272,25 @@
   }
 
   function buildMarqueeSequence() {
-    return shuffle(QUIZ_DATA.works).slice(0, Math.min(18, QUIZ_DATA.works.length));
+    var preferred = [];
+    var seen = {};
+
+    if (Array.isArray(QUIZ_DATA.marqueeIds)) {
+      QUIZ_DATA.marqueeIds.forEach(function (id) {
+        var work = QUIZ_DATA.works.find(function (entry) {
+          return entry.id === id;
+        });
+
+        if (work && !seen[work.id]) {
+          seen[work.id] = true;
+          preferred.push(work);
+        }
+      });
+    }
+
+    return shuffle(preferred.concat(QUIZ_DATA.works.filter(function (work) {
+      return !seen[work.id];
+    }))).slice(0, Math.min(18, QUIZ_DATA.works.length));
   }
 
   function renderMarqueeItem(work) {
@@ -617,6 +662,10 @@
       image.classList.remove("loaded");
     };
     image.src = work.image;
+
+    if (image.complete) {
+      image.classList.add("loaded");
+    }
   }
 
   function buildShareUrl() {
@@ -672,43 +721,97 @@
     });
   }
 
-  function renderTraitBars(entry) {
-    var container = document.getElementById("result-traits");
-    if (!container) { return; }
-    container.innerHTML = "";
+  function buildTraitDistribution() {
+    var maxima = {};
+    var distribution = [];
 
-    var traitScores = QUIZ_DATA.traits.map(function (trait) {
-      var val = entry.work.traits[trait.id] || 0;
-      return { id: trait.id, trait: trait, val: val, abs: Math.abs(val) };
-    }).filter(function (t) {
-      return t.abs > 0;
-    }).sort(function (a, b) {
-      return b.abs - a.abs;
+    QUIZ_DATA.traits.forEach(function (trait) {
+      maxima[trait.id] = 0;
+    });
+
+    questionSet.forEach(function (question) {
+      QUIZ_DATA.traits.forEach(function (trait) {
+        var best = 0;
+
+        question.options.forEach(function (option) {
+          best = Math.max(best, Math.abs(option.scores[trait.id] || 0));
+        });
+
+        maxima[trait.id] += best;
+      });
+    });
+
+    distribution = QUIZ_DATA.traits.map(function (trait) {
+      var raw = scores[trait.id] || 0;
+      var direction = raw >= 0 ? 1 : -1;
+      var ceiling = maxima[trait.id] || 1;
+      var percent = Math.round(Math.min(1, Math.abs(raw) / ceiling) * 100);
+
+      return {
+        id: trait.id,
+        raw: raw,
+        label: traitLabel(trait.id, direction),
+        percent: percent,
+        direction: direction
+      };
+    }).filter(function (item) {
+      return item.percent > 0;
+    }).sort(function (left, right) {
+      return right.percent - left.percent;
     }).slice(0, 5);
 
-    if (traitScores.length === 0) { return; }
+    if (distribution.length === 0) {
+      distribution = QUIZ_DATA.traits.slice(0, 4).map(function (trait) {
+        return {
+          id: trait.id,
+          raw: 0,
+          label: traitLabel(trait.id, 1),
+          percent: 0,
+          direction: 1
+        };
+      });
+    }
 
-    var maxVal = traitScores[0].abs;
+    return distribution;
+  }
+
+  function renderTraitBars() {
+    var container = document.getElementById("result-traits");
+    var traitScores = buildTraitDistribution();
+
+    if (!container) {
+      return traitScores;
+    }
+
+    container.innerHTML = "";
 
     traitScores.forEach(function (t, i) {
+      var color = traitPalette[i] || traitPalette[traitPalette.length - 1];
       var row = document.createElement("div");
       row.className = "trait-row";
 
       var label = document.createElement("div");
       label.className = "trait-label";
-      label.textContent = traitLabel(t.id, t.val > 0 ? 1 : -1);
+      label.textContent = t.label;
 
       var track = document.createElement("div");
       track.className = "trait-bar-track";
 
       var fill = document.createElement("div");
       fill.className = "trait-bar-fill";
-      fill.style.width = (t.abs / maxVal * 100) + "%";
+      fill.style.width = t.percent + "%";
       fill.style.setProperty("--bar-d", (i * 0.1 + 0.28) + "s");
+      fill.style.setProperty("--bar-color", color);
+
+      var value = document.createElement("div");
+      value.className = "trait-value";
+      value.textContent = String(t.percent);
+      value.style.setProperty("--bar-color", color);
 
       track.appendChild(fill);
       row.appendChild(label);
       row.appendChild(track);
+      row.appendChild(value);
       container.appendChild(row);
     });
 
@@ -719,6 +822,28 @@
         });
       });
     });
+
+    return traitScores.map(function (trait, index) {
+      return Object.assign({}, trait, {
+        color: traitPalette[index] || traitPalette[traitPalette.length - 1]
+      });
+    });
+  }
+
+  function setResultSideMarker(distribution) {
+    var markerText = document.getElementById("result-side-marker-text");
+    var marker = markerText ? markerText.parentElement : null;
+    var dominant = distribution && distribution[0];
+    var strings = ui();
+
+    if (markerText) {
+      markerText.textContent = dominant ? dominant.label : strings.traitsTitle;
+    }
+
+    if (marker) {
+      marker.style.color = dominant ? dominant.color : "";
+      marker.style.borderColor = dominant ? dominant.color : "";
+    }
   }
 
   function renderResult(ranking) {
@@ -743,7 +868,7 @@
     document.getElementById("result-description").textContent = description;
 
     renderKeywords(top);
-    renderTraitBars(top);
+    setResultSideMarker(renderTraitBars());
     renderList("alt-list", recommendations, "good");
     renderList("avoid-list", avoids, "avoid");
     renderResultQr();
@@ -767,6 +892,31 @@
     });
   }
 
+  function waitForResultAssets() {
+    return new Promise(function (resolve) {
+      var image = document.getElementById("result-img");
+      var settled = false;
+
+      function done() {
+        if (settled) {
+          return;
+        }
+
+        settled = true;
+        resolve();
+      }
+
+      if (!image || !image.src || image.complete) {
+        window.setTimeout(done, 40);
+        return;
+      }
+
+      image.addEventListener("load", done, { once: true });
+      image.addEventListener("error", done, { once: true });
+      window.setTimeout(done, 1200);
+    });
+  }
+
   function shareResult() {
     var card = document.getElementById("result-card");
     var button = document.getElementById("btn-share");
@@ -778,6 +928,10 @@
     card.classList.add("is-exporting");
 
     waitForNextFrame().then(function () {
+      return waitForResultAssets();
+    }).then(function () {
+      return waitForNextFrame();
+    }).then(function () {
       return html2canvas(card, {
         backgroundColor: "#FAF8F4",
         scale: 2,
@@ -901,6 +1055,7 @@
 
     populateLanguageSelect();
     resetScores();
+    setIssueDateLabels();
     applyLang();
     initLanguageGate();
     populateMarquees();
