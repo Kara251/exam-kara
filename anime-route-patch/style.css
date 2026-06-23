@@ -898,6 +898,28 @@ a:focus-visible {
   animation: card-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.result-card.is-exporting {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  background: var(--bg-card);
+}
+
+.result-card.is-exporting * {
+  transition: none !important;
+}
+
+.result-card.is-exporting .stripe {
+  animation: none !important;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--accent),
+    var(--accent) 4px,
+    var(--bg-card) 4px,
+    var(--bg-card) 8px
+  );
+}
+
 @keyframes card-in {
   from {
     opacity: 0;
@@ -1073,6 +1095,53 @@ a:focus-visible {
   padding-bottom: 4px;
 }
 
+.result-qr-block {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 14px 0 2px;
+  border-top: 1px solid var(--border);
+}
+
+.result-qr-code {
+  display: flex;
+  min-height: 112px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-dark);
+  background: var(--bg);
+}
+
+.result-qr-code img,
+.result-qr-code canvas,
+.result-qr-code table {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.result-qr-meta {
+  min-width: 0;
+  text-align: left;
+}
+
+.result-qr-label {
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.result-qr-url {
+  color: var(--text-light);
+  font-size: 10px;
+  line-height: 1.8;
+  letter-spacing: 1px;
+  overflow-wrap: anywhere;
+}
+
 .result-actions {
   display: grid;
   gap: 12px;
@@ -1201,6 +1270,15 @@ body::after {
   .result-description {
     font-size: 12px;
     line-height: 1.9;
+  }
+
+  .result-qr-block {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .result-qr-meta {
+    text-align: center;
   }
 }
 

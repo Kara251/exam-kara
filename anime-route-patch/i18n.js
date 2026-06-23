@@ -662,14 +662,16 @@
       gateTitle: "先選擇語言",
       gateSubtitle: "選好後會進入測驗頁，右上角也能隨時切換。",
       gateNote: "開始頁、答題頁和結果頁，都保留同一個右上角語言入口。",
-      gateToast: "右上角可隨時切換語言"
+      gateToast: "右上角可隨時切換語言",
+      qrLabel: "掃碼回到測驗"
     },
     sc: {
       gateKicker: "LANGUAGE INDEX",
       gateTitle: "先选择语言",
       gateSubtitle: "选好后进入测验页，右上角也能随时切换。",
       gateNote: "开始页、答题页和结果页都会保留同一个右上角语言入口。",
-      gateToast: "右上角可随时切换语言"
+      gateToast: "右上角可随时切换语言",
+      qrLabel: "扫码回到测验"
     },
     hx: {
       pageDescription: "50 道 ACG 題池亂抽 15 題，幫伱揪出這波最對電波、最容易上頭の本命番。",
@@ -694,7 +696,8 @@
       gateTitle: "先揀語言版本",
       gateSubtitle: "選完就進測驗頁，右上角那顆語言鍵之後隨時都能切。",
       gateNote: "開始頁、答題頁同結果頁，都會把語言入口掛喺右上角。",
-      gateToast: "右上角還能隨時換語言"
+      gateToast: "右上角還能隨時換語言",
+      qrLabel: "掃碼回來再測"
     },
     wy: {
       pageDescription: "自五十題池中隨取十五，以卜此輪最契汝意之二〇二六夏番。",
@@ -719,14 +722,16 @@
       gateTitle: "請先擇言",
       gateSubtitle: "既擇其言，乃入測頁；右上角仍可隨時更之。",
       gateNote: "首頁、答題與所得之頁，皆存右上角一語言入口。",
-      gateToast: "右上角可隨時易語"
+      gateToast: "右上角可隨時易語",
+      qrLabel: "掃碼可返此試"
     },
     en: {
       gateKicker: "LANGUAGE INDEX",
       gateTitle: "Choose Your Language",
       gateSubtitle: "After you enter, the language menu stays in the top-right corner.",
       gateNote: "The home, quiz, and result views all keep using that same top-right language switch.",
-      gateToast: "Language stays in the top-right corner"
+      gateToast: "Language stays in the top-right corner",
+      qrLabel: "Scan to reopen this test"
     },
     yue: {
       pageDescription: "50 條 ACG 題池隨機抽 15 條，幫你搵出今輪最中你電波嘅 2026 夏番。",
@@ -750,14 +755,16 @@
       gateTitle: "先揀語言",
       gateSubtitle: "揀完就會入測驗頁，右上角之後都可以隨時轉。",
       gateNote: "開始頁、答題頁同結果頁，都會留返同一個右上角語言入口。",
-      gateToast: "右上角可以隨時轉語言"
+      gateToast: "右上角可以隨時轉語言",
+      qrLabel: "掃碼返嚟再測"
     },
     ja: {
       gateKicker: "LANGUAGE INDEX",
       gateTitle: "先に言語を選んでください",
       gateSubtitle: "入った後も、右上の言語メニューからいつでも切り替えられます。",
       gateNote: "トップ、設問、結果の各画面で、同じ右上の言語メニューを使います。",
-      gateToast: "言語切替は右上にあります"
+      gateToast: "言語切替は右上にあります",
+      qrLabel: "QRでこの診断へ戻る"
     }
   };
 

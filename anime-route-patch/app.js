@@ -9,6 +9,7 @@
   var lastRanking = null;
   var questionCount = Math.min(QUIZ_DATA.questionCount || 15, QUIZ_DATA.questions.length);
   var traitLookup = {};
+  var TEST_SHARE_BASE_URL = "https://exam.kara251.com/tests/anime-summer-2026/";
 
   QUIZ_DATA.traits.forEach(function (trait) {
     traitLookup[trait.id] = trait;
@@ -597,6 +598,37 @@
     image.src = work.image;
   }
 
+  function buildShareUrl() {
+    var url = new URL(TEST_SHARE_BASE_URL);
+    url.searchParams.set("lang", lang);
+    return url.toString();
+  }
+
+  function renderResultQr() {
+    var qrContainer = document.getElementById("result-qr-code");
+    var qrUrl = document.getElementById("result-qr-url");
+    var shareUrl = buildShareUrl();
+
+    if (qrUrl) {
+      qrUrl.textContent = shareUrl.replace(/^https?:\/\//, "");
+    }
+
+    if (!qrContainer || !window.QRCode) {
+      return;
+    }
+
+    qrContainer.innerHTML = "";
+
+    new window.QRCode(qrContainer, {
+      text: shareUrl,
+      width: 112,
+      height: 112,
+      colorDark: "#1A1A1A",
+      colorLight: "#FAF8F4",
+      correctLevel: window.QRCode.CorrectLevel.M
+    });
+  }
+
   function renderResult(ranking) {
     var top = ranking[0];
     var recommendations = ranking.slice(1, 4);
@@ -617,6 +649,7 @@
     renderKeywords(top);
     renderList("alt-list", recommendations, "good");
     renderList("avoid-list", avoids, "avoid");
+    renderResultQr();
   }
 
   function showResult() {
@@ -629,6 +662,14 @@
     showPage(pageHome);
   }
 
+  function waitForNextFrame() {
+    return new Promise(function (resolve) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(resolve);
+      });
+    });
+  }
+
   function shareResult() {
     var card = document.getElementById("result-card");
     var button = document.getElementById("btn-share");
@@ -637,11 +678,14 @@
 
     button.textContent = strings.shareSaving;
     button.disabled = true;
+    card.classList.add("is-exporting");
 
-    html2canvas(card, {
-      backgroundColor: "#FAF8F4",
-      scale: 2,
-      useCORS: true
+    waitForNextFrame().then(function () {
+      return html2canvas(card, {
+        backgroundColor: "#FAF8F4",
+        scale: 2,
+        useCORS: true
+      });
     }).then(function (canvas) {
       var link = document.createElement("a");
       link.download = strings.downloadName;
@@ -650,6 +694,7 @@
     }).catch(function () {
       alert(strings.shareFailed);
     }).finally(function () {
+      card.classList.remove("is-exporting");
       button.textContent = originalText;
       button.disabled = false;
     });
