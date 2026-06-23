@@ -519,10 +519,10 @@
 
     if (lang === "hx") {
       if (phrases.length === 0) {
-        return "《" + title + "》這種" + typeLabel + "，基本就4伱這波會秒上頭の那掛。";
+        return "《" + title + "》這種" + typeLabel + "，基本就4伱這波一眼對電波の那掛。";
       }
 
-      return "伱這波明顯更吃" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》這種" + typeLabel + "最容易壹鍵命中、直接入坑。";
+      return "伱這波明顯更吃" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》這種" + typeLabel + "最容易跟伱同頻，基本一眼就能踩坑入坑。";
     }
 
     if (lang === "wy") {
