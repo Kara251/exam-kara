@@ -3,8 +3,8 @@
   var LOCALES = [
     { code: "tc", label: "繁中", htmlLang: "zh-Hant", script: "cjk" },
     { code: "sc", label: "简中", htmlLang: "zh-Hans", script: "cjk" },
-    { code: "hx", label: "火星", htmlLang: "zh-Hant", script: "cjk" },
-    { code: "wy", label: "文言", htmlLang: "lzh", script: "cjk" },
+    { code: "hx", label: "火星文", htmlLang: "zh-Hant", script: "cjk" },
+    { code: "wy", label: "文言文", htmlLang: "lzh", script: "cjk" },
     { code: "en", label: "EN", htmlLang: "en", script: "latin" },
     { code: "yue", label: "粵語", htmlLang: "yue", script: "cjk" },
     { code: "ja", label: "日本語", htmlLang: "ja", script: "cjk" }

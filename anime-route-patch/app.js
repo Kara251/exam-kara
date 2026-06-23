@@ -31,6 +31,7 @@
   var quizOptions = document.getElementById("quiz-options");
   var btnPrev = document.getElementById("btn-prev");
   var langSelect = document.getElementById("lang-select");
+  var gateToastTimer = 0;
   var marqueeTracks = [
     document.getElementById("marquee-top-track"),
     document.getElementById("marquee-bottom-track")
@@ -133,6 +134,28 @@
     langSelect.value = lang;
   }
 
+  function renderLanguageGateButtons() {
+    var container = document.getElementById("lang-gate-options");
+
+    if (!container) {
+      return;
+    }
+
+    container.innerHTML = "";
+
+    localeApi.locales.forEach(function (locale) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "lang-gate-button" + (locale.code === lang ? " is-current" : "");
+      button.textContent = locale.label;
+      button.setAttribute("aria-pressed", locale.code === lang ? "true" : "false");
+      button.addEventListener("click", function () {
+        selectGateLocale(locale.code, button);
+      });
+      container.appendChild(button);
+    });
+  }
+
   function applyStaticUi() {
     var strings = ui();
 
@@ -145,6 +168,8 @@
         element.textContent = strings[key];
       }
     });
+
+    renderLanguageGateButtons();
   }
 
   function applyLang() {
@@ -463,6 +488,14 @@
     var typeLabel = buildTypeLabel(entry);
     var title = localizedName(entry.work);
 
+    if (lang === "tc") {
+      if (phrases.length === 0) {
+        return "《" + title + "》這種" + typeLabel + "，和你這一輪的電波最合拍。";
+      }
+
+      return "你這一輪明顯更偏好" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》這種" + typeLabel + "最容易正中你的口味。";
+    }
+
     if (lang === "en") {
       if (phrases.length === 0) {
         return title + " comes out as the cleanest hit this round.";
@@ -481,18 +514,18 @@
 
     if (lang === "hx") {
       if (phrases.length === 0) {
-        return "《" + title + "》這種" + typeLabel + "，基本就是伱這波會秒上頭の那掛。";
+        return "《" + title + "》這種" + typeLabel + "，基本就4伱這波會秒上頭の那掛。";
       }
 
-      return "伱這波明顯更吃" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》這種" + typeLabel + "最容易壹鍵命中。";
+      return "伱這波明顯更吃" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》這種" + typeLabel + "最容易壹鍵命中、直接入坑。";
     }
 
     if (lang === "wy") {
       if (phrases.length === 0) {
-        return "《" + title + "》之" + typeLabel + "，最與汝今輪氣味相契。";
+        return "《" + title + "》之" + typeLabel + "，最與汝此輪氣味相契。";
       }
 
-      return "汝此輪明顯偏好" + quizI18n.joinList(lang, phrases) + "，故《" + title + "》此種" + typeLabel + "最能相應。";
+      return "汝此輪明顯偏好" + quizI18n.joinList(lang, phrases) + "，故《" + title + "》此種" + typeLabel + "最能相應，最宜先補。";
     }
 
     if (lang === "yue") {
@@ -500,7 +533,7 @@
         return "《" + title + "》呢種" + typeLabel + "，今輪同你個頻率最啱。";
       }
 
-      return "你今輪明顯食" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》呢種" + typeLabel + "最易中你口味。";
+      return "你今輪明顯係食" + quizI18n.joinList(lang, phrases) + "，所以《" + title + "》呢種" + typeLabel + "最易中你口味。";
     }
 
     if (phrases.length === 0) {
@@ -623,6 +656,95 @@
     applyLang();
   }
 
+  function closeLanguageGate() {
+    var gate = document.getElementById("lang-gate");
+
+    if (!gate) {
+      return;
+    }
+
+    gate.classList.add("is-hidden");
+    document.body.classList.remove("lang-gate-open");
+  }
+
+  function showLanguageToast() {
+    var toast = document.getElementById("lang-guide-toast");
+    var langControl = document.querySelector(".lang-control");
+
+    if (!toast || !langControl) {
+      return;
+    }
+
+    window.clearTimeout(gateToastTimer);
+    toast.classList.add("is-visible");
+    langControl.classList.add("is-guided");
+
+    gateToastTimer = window.setTimeout(function () {
+      toast.classList.remove("is-visible");
+      langControl.classList.remove("is-guided");
+    }, 1800);
+  }
+
+  function animateGateGuide(originRect, label) {
+    var gate = document.getElementById("lang-gate");
+    var langControl = document.querySelector(".lang-control");
+    var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!gate || !langControl) {
+      closeLanguageGate();
+      return;
+    }
+
+    if (prefersReducedMotion || !originRect) {
+      gate.classList.add("is-dismissing");
+      window.setTimeout(closeLanguageGate, 180);
+      showLanguageToast();
+      return;
+    }
+
+    var targetRect = langControl.getBoundingClientRect();
+    var chip = document.createElement("div");
+    var deltaX = targetRect.left + targetRect.width / 2 - (originRect.left + originRect.width / 2);
+    var deltaY = targetRect.top + targetRect.height / 2 - (originRect.top + originRect.height / 2);
+
+    chip.className = "lang-fly-chip";
+    chip.textContent = label;
+    chip.style.left = originRect.left + originRect.width / 2 + "px";
+    chip.style.top = originRect.top + originRect.height / 2 + "px";
+    document.body.appendChild(chip);
+
+    requestAnimationFrame(function () {
+      gate.classList.add("is-dismissing");
+      chip.style.transform = "translate(calc(-50% + " + deltaX + "px), calc(-50% + " + deltaY + "px)) scale(0.76)";
+      chip.style.opacity = "0.16";
+      showLanguageToast();
+    });
+
+    window.setTimeout(function () {
+      chip.remove();
+      closeLanguageGate();
+    }, 720);
+  }
+
+  function selectGateLocale(localeCode, button) {
+    var originRect = button ? button.getBoundingClientRect() : null;
+    var label = button ? button.textContent : "";
+
+    lang = localeApi.setLocale(localeCode);
+    applyLang();
+    animateGateGuide(originRect, label);
+  }
+
+  function initLanguageGate() {
+    var gate = document.getElementById("lang-gate");
+
+    if (!gate) {
+      return;
+    }
+
+    document.body.classList.add("lang-gate-open");
+  }
+
   function init() {
     document.getElementById("btn-start").addEventListener("click", startQuiz);
     document.getElementById("btn-retry").addEventListener("click", restart);
@@ -634,6 +756,7 @@
     populateLanguageSelect();
     resetScores();
     applyLang();
+    initLanguageGate();
     populateMarquees();
     triggerAnims(pageHome);
   }

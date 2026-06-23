@@ -8,8 +8,8 @@ var manifestState = {
 var SITE_COPY = {
   tc: {
     pageTitle: "EXAM KARA",
-    metaDescription: "Kara 的互動測試首頁，集中展示目前可用與準備中的測試頁。",
-    ogDescription: "集中展示目前可用與準備中的互動測試頁。",
+    metaDescription: "EXAM KARA 的互動測驗首頁，集中收納目前已開放與待加入的測驗頁。",
+    ogDescription: "把已開放與即將加入的互動測驗集中在同一個首頁。",
     marqueeTop: ["EXAM KARA", "TEST INDEX", "ANIME PERSONALITY", "EDITORIAL LAB", "SUMMER 2026"],
     marqueeBottom: ["SUBROUTE READY", "CLOUDFLARE PAGES", "STATIC DEPLOY", "EXAM KARA"],
     heroRailLeft: "試験案內",
@@ -17,22 +17,22 @@ var SITE_COPY = {
     heroTag: "号外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 測試索引 ✧",
-    heroCopyTag: "-- 測試集合 --",
-    heroCopy: "把已完成與進行中的互動測試，集中掛在同一個首頁與同一個網域下。",
-    heroPrimaryAction: "查看測試",
-    heroSecondaryAction: "進入動漫測試",
+    heroCopyTag: "-- 測驗首頁 --",
+    heroCopy: "把已上線與準備中的互動測驗收進同一個首頁與同一個網域，後續新測驗也能依同一套路由接進來。",
+    heroPrimaryAction: "查看測驗",
+    heroSecondaryAction: "隨機進入測驗",
     heroSecondaryPrefix: "進入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
-    heroFooterSecondary: "互動測試子路由首頁",
+    heroFooterSecondary: "互動測驗首頁",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "目前可用與準備中的頁面",
-    sectionNote: "版面與字體延續動漫測試的編輯感，讓後續新測試直接併進來。",
+    sectionTitle: "目前已開放與準備中的測驗頁",
+    sectionNote: "首頁沿用夏番測驗的編排語氣，之後新增測驗也能自然併進來。",
     routeLabel: "ROUTE",
     sourceLabel: "SOURCE",
-    openTest: "打開測試",
+    openTest: "進入測驗",
     comingSoon: "敬請期待",
     statusLive: "SYNCED",
     statusPending: "PENDING",
@@ -42,13 +42,13 @@ var SITE_COPY = {
       anime: {
         title: "2026 夏季番性格測驗",
         cta: "夏番測驗",
-        description: "沿用既有動漫測試的視覺與互動，掛進主站作為第一個測試頁。",
-        note: "建置時會從相鄰目錄同步，不改動原始專案路徑。"
+        description: "沿用既有夏番測驗的視覺與互動，作為主站第一個正式掛上的測驗頁。",
+        note: "建置時會自相鄰目錄同步，不改動原始專案路徑。"
       },
       next: {
-        title: "下一個測試位",
-        description: "後續新的測試可以直接照這個路由規則併進來。",
-        note: "首頁版型已預留，新增時只需要補一個子資料夾與一筆列表資料。"
+        title: "下一個測驗欄位",
+        description: "後續新增的測驗可以直接依照這套路由規則併進來。",
+        note: "首頁版型已預留位置，新增時只需要補一個子資料夾與一筆列表資料。"
       }
     }
   },
@@ -100,8 +100,8 @@ var SITE_COPY = {
   },
   hx: {
     pageTitle: "EXAM KARA",
-    metaDescription: "Kara の互動測驗首頁，把而家能玩同準備開坑の試題頁一次收齊。",
-    ogDescription: "把目前可玩同待開坑の互動測驗，全都收進同一站。",
+    metaDescription: "EXAM KARA の互動測驗首頁，把而家能玩同準備開坑の測驗頁壹次收編。",
+    ogDescription: "已開放同待開坑の互動測驗，統統塞進同一個首頁。",
     marqueeTop: ["EXAM KARA", "TEST INDEX", "ANIME PERSONALITY", "EDITORIAL LAB", "SUMMER 2026"],
     marqueeBottom: ["SUBROUTE READY", "CLOUDFLARE PAGES", "STATIC DEPLOY", "EXAM KARA"],
     heroRailLeft: "試験導航",
@@ -109,22 +109,22 @@ var SITE_COPY = {
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 試題索引 ✧",
-    heroCopyTag: "-- 試題合集 --",
-    heroCopy: "把已完結同施工中の互動測驗，集中掛喺同一個首頁；之後再開新坑也能直接塞進嚟。",
+    heroCopyTag: "-- 試題總攬 --",
+    heroCopy: "把已上線同施工中の互動測驗，全數收進同一個首頁同網域；之後再開新坑，也能順手併進來。",
     heroPrimaryAction: "查看試題",
-    heroSecondaryAction: "進入夏番測驗",
+    heroSecondaryAction: "隨機亂入壹份測驗",
     heroSecondaryPrefix: "進入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
-    heroFooterSecondary: "互動試題子路由首頁",
+    heroFooterSecondary: "互動測驗總攬",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
     sectionTitle: "而家可玩同待開坑の頁面",
-    sectionNote: "版面同字體延續夏番測驗嗰股編輯感，之後再塞新坑都唔會跳 tone。",
+    sectionNote: "版型延續夏番測驗那股編集感，之後新坑補進來也不會出戲。",
     routeLabel: "ROUTE",
     sourceLabel: "SOURCE",
-    openTest: "打開試頁",
+    openTest: "進去試試",
     comingSoon: "敬請等等",
     statusLive: "SYNCED",
     statusPending: "PENDING",
@@ -134,20 +134,20 @@ var SITE_COPY = {
       anime: {
         title: "2026 夏季番性格測驗",
         cta: "夏番測驗",
-        description: "沿用原本夏番測驗嘅視覺同互動，掛入主站做第一個正式開坑嘅試題頁。",
-        note: "建置時會從相鄰目錄同步，原始專案路徑先唔郁，方便後續繼續補完。"
+        description: "沿用原本夏番測驗嘅視覺同互動，掛入主站做第一個正式開坑の測驗頁。",
+        note: "建置時會從相鄰目錄同步，原始專案路徑先不動，後續補完也更順手。"
       },
       next: {
         title: "下一個測驗坑位",
-        description: "後續新測驗可以直接照呢個路由規則併進嚟，等主站一路開坑一路長大。",
-        note: "首頁版型已留位，新增時補一個子資料夾同一筆列表資料就搞掂。"
+        description: "後續新測驗可以直接照呢個路由規則併進嚟，讓主站一路開坑一路長大。",
+        note: "首頁版型已留位，新增時補一個子資料夾同一筆列表資料就夠用。"
       }
     }
   },
   wy: {
     pageTitle: "EXAM KARA",
-    metaDescription: "Kara 試題首頁也，今可觀與將開坑之頁，皆聚於此。",
-    ogDescription: "諸互動試頁，今已成與方備者，並收一域之中。",
+    metaDescription: "EXAM KARA 諸測總目也，今所開放與後將納入之頁，悉聚於此。",
+    ogDescription: "諸互動測頁，凡既成與將成者，咸收一首頁之內。",
     marqueeTop: ["EXAM KARA", "TEST INDEX", "ANIME PERSONALITY", "EDITORIAL LAB", "SUMMER 2026"],
     marqueeBottom: ["SUBROUTE READY", "CLOUDFLARE PAGES", "STATIC DEPLOY", "EXAM KARA"],
     heroRailLeft: "試牘總目",
@@ -155,22 +155,22 @@ var SITE_COPY = {
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 試頁總目 ✧",
-    heroCopyTag: "-- 試頁總覽 --",
-    heroCopy: "凡既成與方作之互動測頁，悉繫於一首頁、一網域之下；後有新坑，亦可徑納其中。",
-    heroPrimaryAction: "觀諸試頁",
-    heroSecondaryAction: "入夏番試",
+    heroCopyTag: "-- 測頁總目 --",
+    heroCopy: "既上線與方備之互動測頁，皆收於一首頁、一網域之內；後有新試，亦可循此例而續納。",
+    heroPrimaryAction: "覽其諸試",
+    heroSecondaryAction: "隨機入一試",
     heroSecondaryPrefix: "入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
-    heroFooterSecondary: "互動試頁子路由首頁",
+    heroFooterSecondary: "互動測頁總目",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "今可觀與將啟之頁",
-    sectionNote: "版式字體，皆承夏番試頁編輯之意，後來新試可徑併焉，不致失其調。",
+    sectionTitle: "今已開放與尚待納入之頁",
+    sectionNote: "首頁語氣與編排皆承夏番試頁之意，後來新試亦可自然附入。",
     routeLabel: "ROUTE",
     sourceLabel: "SOURCE",
-    openTest: "啟此測",
+    openTest: "入此試",
     comingSoon: "俟之",
     statusLive: "SYNCED",
     statusPending: "PENDING",
@@ -180,12 +180,12 @@ var SITE_COPY = {
       anime: {
         title: "二〇二六夏番性格試",
         cta: "夏番試",
-        description: "仍用舊夏番試頁之視覺與互動，掛於主站，為首一開坑之測頁。",
+        description: "仍用舊夏番試頁之視覺與互動，掛於主站，為首一正式納入之測頁。",
         note: "建置之時，自相鄰目錄同步，不改其原專案路徑，以便後日續修。"
       },
       next: {
         title: "後續測頁位",
-        description: "他日新測，皆可依此路由之例而併入，續開新坑而不亂其序。",
+        description: "他日新測，皆可依此路由之例而併入，後續增補亦不亂其序。",
         note: "首頁版式已預其位，增設時但補一子夾與一條目而已。"
       }
     }
@@ -238,8 +238,8 @@ var SITE_COPY = {
   },
   yue: {
     pageTitle: "EXAM KARA",
-    metaDescription: "Kara 嘅互動測驗首頁，將而家玩得同準備開坑嘅試題頁一次過收齊。",
-    ogDescription: "將而家可用同之後會上線嘅互動測驗集中喺同一個首頁。",
+    metaDescription: "EXAM KARA 嘅互動測驗首頁，集中收埋而家開放緊同之後會加落去嘅測驗頁。",
+    ogDescription: "而家用到同稍後加入嘅互動測驗，都放返喺同一個首頁。",
     marqueeTop: ["EXAM KARA", "TEST INDEX", "ANIME PERSONALITY", "EDITORIAL LAB", "SUMMER 2026"],
     marqueeBottom: ["SUBROUTE READY", "CLOUDFLARE PAGES", "STATIC DEPLOY", "EXAM KARA"],
     heroRailLeft: "試頁索引",
@@ -247,22 +247,22 @@ var SITE_COPY = {
     heroTag: "號外 EXTRA",
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 試題索引 ✧",
-    heroCopyTag: "-- 試題集合 --",
-    heroCopy: "將做完同做緊嘅互動測驗集中掛喺同一個首頁同網域，之後再開新坑都可以直接拼入去。",
-    heroPrimaryAction: "睇試題",
-    heroSecondaryAction: "入夏番測驗",
+    heroCopyTag: "-- 測驗首頁 --",
+    heroCopy: "已經上線同準備緊嘅互動測驗，都會收埋喺同一個首頁同網域底下；之後有新測驗都可以照呢套路由加返入嚟。",
+    heroPrimaryAction: "睇測驗",
+    heroSecondaryAction: "隨機入一份測驗",
     heroSecondaryPrefix: "入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
     heroMetaRoute: "ROUTE PATTERN: /tests/<slug>/",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
-    heroFooterSecondary: "互動測驗子路由首頁",
+    heroFooterSecondary: "互動測驗首頁",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "而家可用同準備開坑嘅頁面",
-    sectionNote: "版面同字體跟返夏番測驗嗰種編輯感，之後再加新測驗都可以直接拼入去。",
+    sectionTitle: "而家已開放同準備加入嘅測驗頁",
+    sectionNote: "首頁沿用夏番測驗嗰套編排口氣，之後再加新測驗都唔會突兀。",
     routeLabel: "ROUTE",
     sourceLabel: "SOURCE",
-    openTest: "打開測驗",
+    openTest: "入去測",
     comingSoon: "敬請期待",
     statusLive: "LIVE",
     statusPending: "PENDING",
@@ -272,12 +272,12 @@ var SITE_COPY = {
       anime: {
         title: "2026 夏季番性格測驗",
         cta: "夏番測驗",
-        description: "沿用原本夏番測驗嘅視覺同互動，掛入主站做第一個正式開坑嘅試題頁。",
-        note: "建置時會由相鄰目錄同步，原本專案路徑唔會改，方便你後面繼續慢慢補完。"
+        description: "沿用原本夏番測驗嘅視覺同互動，掛入主站做第一個正式上架嘅測驗頁。",
+        note: "建置時會由相鄰目錄同步，原本專案路徑唔會改，方便你之後慢慢補完。"
       },
       next: {
         title: "下一個測驗位",
-        description: "之後新測驗可以直接跟呢個路由規則加入，等成個站一路開坑一路長。",
+        description: "之後新測驗可以直接跟呢個路由規則加入，等成個站一路加一路長。",
         note: "首頁版型已經預留好，加新測驗時只要補一個子資料夾同一筆列表資料。"
       }
     }
@@ -330,9 +330,68 @@ var SITE_COPY = {
   }
 };
 
+var SITE_COPY_EXTENSIONS = {
+  tc: {
+    heroMixedLine: "✧ EXAM KARA × 測驗索引 ✧",
+    gateKicker: "LANGUAGE INDEX",
+    gateTitle: "先選擇語言",
+    gateSubtitle: "選好後會進入首頁，右上角也能隨時切換。",
+    gateNote: "後續新增的測驗頁，都會沿用右上角這個語言入口。",
+    gateToast: "右上角可隨時切換語言"
+  },
+  sc: {
+    gateKicker: "LANGUAGE INDEX",
+    gateTitle: "先选择语言",
+    gateSubtitle: "选好后进入首页，右上角也能随时切换。",
+    gateNote: "后续新增的测验页，也都会沿用右上角这个语言入口。",
+    gateToast: "右上角可随时切换语言"
+  },
+  hx: {
+    gateKicker: "LANGUAGE INDEX",
+    gateTitle: "先揀壹下語言版本",
+    gateSubtitle: "選完就進首頁，右上角那顆語言鍵之後也能隨便切。",
+    gateNote: "往後新測驗也都會掛同壹個語言入口，伱不用每次到處找。",
+    gateToast: "右上角還能隨時換語言"
+  },
+  wy: {
+    gateKicker: "LANGUAGE INDEX",
+    gateTitle: "請先擇其言",
+    gateSubtitle: "既擇其言，乃入首頁；右上角亦可隨時更易。",
+    gateNote: "後來諸測，亦皆循右上角此語言入口而轉換之。",
+    gateToast: "右上角可隨時易語"
+  },
+  en: {
+    gateKicker: "LANGUAGE INDEX",
+    gateTitle: "Choose Your Language",
+    gateSubtitle: "Once you enter, the language switch stays in the top-right corner.",
+    gateNote: "Future tests on this domain will keep using that same top-right language control.",
+    gateToast: "Language stays in the top-right corner"
+  },
+  yue: {
+    gateKicker: "LANGUAGE INDEX",
+    gateTitle: "先揀語言",
+    gateSubtitle: "揀完就會入首頁，右上角之後都可以隨時轉。",
+    gateNote: "遲啲再加新測驗，都一樣會用返右上角呢個語言入口。",
+    gateToast: "右上角可以隨時轉語言"
+  },
+  ja: {
+    gateKicker: "LANGUAGE INDEX",
+    gateTitle: "先に言語を選んでください",
+    gateSubtitle: "入った後も、右上の言語メニューからいつでも切り替えられます。",
+    gateNote: "この先追加されるテストも、右上の同じ言語メニューを使います。",
+    gateToast: "言語切替は右上にあります"
+  }
+};
+
+Object.keys(SITE_COPY_EXTENSIONS).forEach(function (locale) {
+  Object.assign(SITE_COPY[locale], SITE_COPY_EXTENSIONS[locale]);
+});
+
 function currentCopy() {
   return SITE_COPY[currentLocale] || SITE_COPY.tc;
 }
+
+var gateToastTimer = 0;
 
 function setMeta(copy) {
   document.title = copy.pageTitle;
@@ -361,6 +420,28 @@ function renderTextMarquee(trackId, items) {
   });
 }
 
+function renderLanguageGateButtons() {
+  var container = document.getElementById("lang-gate-options");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  localeApi.locales.forEach(function (locale) {
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "lang-gate-button" + (locale.code === currentLocale ? " is-current" : "");
+    button.textContent = locale.label;
+    button.setAttribute("aria-pressed", locale.code === currentLocale ? "true" : "false");
+    button.addEventListener("click", function () {
+      selectGateLocale(locale.code, button);
+    });
+    container.appendChild(button);
+  });
+}
+
 function applyStaticCopy(copy) {
   setMeta(copy);
 
@@ -373,6 +454,7 @@ function applyStaticCopy(copy) {
 
   renderTextMarquee("marquee-top-track", copy.marqueeTop);
   renderTextMarquee("marquee-bottom-track", copy.marqueeBottom);
+  renderLanguageGateButtons();
 }
 
 function buildTests(copy) {
@@ -521,6 +603,95 @@ function applyLocale() {
   document.getElementById("lang-select").value = currentLocale;
 }
 
+function closeLanguageGate() {
+  var gate = document.getElementById("lang-gate");
+
+  if (!gate) {
+    return;
+  }
+
+  gate.classList.add("is-hidden");
+  document.body.classList.remove("lang-gate-open");
+}
+
+function showLanguageToast() {
+  var toast = document.getElementById("lang-guide-toast");
+  var langControl = document.querySelector(".lang-control");
+
+  if (!toast || !langControl) {
+    return;
+  }
+
+  window.clearTimeout(gateToastTimer);
+  toast.classList.add("is-visible");
+  langControl.classList.add("is-guided");
+
+  gateToastTimer = window.setTimeout(function () {
+    toast.classList.remove("is-visible");
+    langControl.classList.remove("is-guided");
+  }, 1800);
+}
+
+function animateGateGuide(originRect, label) {
+  var gate = document.getElementById("lang-gate");
+  var langControl = document.querySelector(".lang-control");
+  var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!gate || !langControl) {
+    closeLanguageGate();
+    return;
+  }
+
+  if (prefersReducedMotion || !originRect) {
+    gate.classList.add("is-dismissing");
+    window.setTimeout(closeLanguageGate, 180);
+    showLanguageToast();
+    return;
+  }
+
+  var targetRect = langControl.getBoundingClientRect();
+  var chip = document.createElement("div");
+  var deltaX = targetRect.left + targetRect.width / 2 - (originRect.left + originRect.width / 2);
+  var deltaY = targetRect.top + targetRect.height / 2 - (originRect.top + originRect.height / 2);
+
+  chip.className = "lang-fly-chip";
+  chip.textContent = label;
+  chip.style.left = originRect.left + originRect.width / 2 + "px";
+  chip.style.top = originRect.top + originRect.height / 2 + "px";
+  document.body.appendChild(chip);
+
+  requestAnimationFrame(function () {
+    gate.classList.add("is-dismissing");
+    chip.style.transform = "translate(calc(-50% + " + deltaX + "px), calc(-50% + " + deltaY + "px)) scale(0.76)";
+    chip.style.opacity = "0.16";
+    showLanguageToast();
+  });
+
+  window.setTimeout(function () {
+    chip.remove();
+    closeLanguageGate();
+  }, 720);
+}
+
+function selectGateLocale(localeCode, button) {
+  var originRect = button ? button.getBoundingClientRect() : null;
+  var label = button ? button.textContent : "";
+
+  currentLocale = localeApi.setLocale(localeCode);
+  applyLocale();
+  animateGateGuide(originRect, label);
+}
+
+function initLanguageGate() {
+  var gate = document.getElementById("lang-gate");
+
+  if (!gate) {
+    return;
+  }
+
+  document.body.classList.add("lang-gate-open");
+}
+
 function initLanguageSelect() {
   var select = document.getElementById("lang-select");
 
@@ -565,6 +736,7 @@ async function loadManifestState() {
 function init() {
   initLanguageSelect();
   applyLocale();
+  initLanguageGate();
   loadManifestState().then(renderTests);
 }
 

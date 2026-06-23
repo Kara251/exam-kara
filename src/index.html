@@ -14,10 +14,24 @@
   <link rel="stylesheet" href="/style.css?v=__BUILD_VERSION__">
 </head>
 <body>
+  <div class="lang-gate" id="lang-gate" aria-labelledby="lang-gate-title">
+    <div class="lang-gate-panel">
+      <div class="rule-double"></div>
+      <p class="lang-gate-kicker" data-copy="gateKicker">LANGUAGE INDEX</p>
+      <h2 class="lang-gate-title" id="lang-gate-title" data-copy="gateTitle">先選擇語言</h2>
+      <p class="lang-gate-subtitle" data-copy="gateSubtitle">選好後會進入首頁，右上角也能隨時切換。</p>
+      <div class="lang-gate-options" id="lang-gate-options"></div>
+      <p class="lang-gate-note" data-copy="gateNote">之後新增的測驗也會沿用同一套語言切換位置。</p>
+      <div class="rule-double"></div>
+    </div>
+  </div>
+
   <div class="lang-control">
     <label class="sr-only" for="lang-select">Language</label>
     <select id="lang-select" class="lang-select" aria-label="Language"></select>
   </div>
+
+  <div class="lang-guide-toast" id="lang-guide-toast" aria-live="polite" data-copy="gateToast">右上角可隨時切換語言</div>
 
   <div class="marquee marquee-top" aria-hidden="true">
     <div class="marquee-track" id="marquee-top-track"></div>
@@ -35,7 +49,7 @@
           <span class="hero-date" data-copy="heroDate">VOL. 01 ── EXAM INDEX</span>
         </div>
         <div class="stripe"></div>
-        <div class="hero-mixed" aria-hidden="true" data-copy="heroMixedLine">✧ EXAM KARA × 測試索引 ✧</div>
+        <div class="hero-mixed" aria-hidden="true" data-copy="heroMixedLine">✧ EXAM KARA × 測驗索引 ✧</div>
 
         <div class="hero-title">
           <span class="hero-year glitch-text" data-text="2026">2026</span>
@@ -48,13 +62,13 @@
         <div class="rule"></div>
 
         <div class="hero-copy">
-          <span class="hero-copy-tag" data-copy="heroCopyTag">── 測試集合 ──</span>
-          <p data-copy="heroCopy">把已完成與進行中的互動測試，集中掛在同一個首頁與同一個網域下。</p>
+          <span class="hero-copy-tag" data-copy="heroCopyTag">── 測驗集合 ──</span>
+          <p data-copy="heroCopy">把已完成與進行中的互動測驗，集中掛在同一個首頁與同一個網域下。</p>
         </div>
 
         <div class="hero-actions">
-          <a class="btn-primary" href="#tests" data-copy="heroPrimaryAction">查看測試</a>
-          <a class="btn-secondary" id="hero-random-action" href="/tests/anime-summer-2026/" data-copy="heroSecondaryAction">進入動漫測試</a>
+          <a class="btn-primary" href="#tests" data-copy="heroPrimaryAction">查看測驗</a>
+          <a class="btn-secondary" id="hero-random-action" href="/tests/anime-summer-2026/" data-copy="heroSecondaryAction">進入動漫測驗</a>
         </div>
 
         <div class="hero-meta">
@@ -64,7 +78,7 @@
 
         <div class="hero-footer">
           <span data-copy="heroFooterPrimary">INTERACTIVE TEST INDEX</span>
-          <span class="hero-footer-secondary" data-copy="heroFooterSecondary">互動測試子路由首頁</span>
+          <span class="hero-footer-secondary" data-copy="heroFooterSecondary">互動測驗子路由首頁</span>
         </div>
         <div class="rule-double"></div>
         <div class="hero-sparkle" aria-hidden="true" data-copy="heroSparkle">☆ﾟ.*･｡ﾟ</div>
@@ -78,7 +92,7 @@
             <p class="section-kicker" data-copy="sectionKicker">TEST INDEX</p>
             <h2 data-copy="sectionTitle">目前可用與準備中的頁面</h2>
           </div>
-          <p class="section-note" data-copy="sectionNote">版面與字體延續動漫測試的編輯感，讓後續新測試直接併進來。</p>
+          <p class="section-note" data-copy="sectionNote">版面與字體延續動漫測驗的編輯感，讓後續新測驗直接併進來。</p>
         </div>
 
         <div class="rule"></div>

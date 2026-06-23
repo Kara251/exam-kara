@@ -14,10 +14,24 @@
   <link rel="stylesheet" href="style.css?v=__BUILD_VERSION__">
 </head>
 <body>
+  <div class="lang-gate" id="lang-gate" aria-labelledby="lang-gate-title">
+    <div class="lang-gate-panel">
+      <div class="rule-double"></div>
+      <p class="lang-gate-kicker" data-ui="gateKicker">LANGUAGE INDEX</p>
+      <h2 class="lang-gate-title" id="lang-gate-title" data-ui="gateTitle">先選擇語言</h2>
+      <p class="lang-gate-subtitle" data-ui="gateSubtitle">選好後會進入測驗頁，右上角也能隨時切換。</p>
+      <div class="lang-gate-options" id="lang-gate-options"></div>
+      <p class="lang-gate-note" data-ui="gateNote">之後開始頁、答題頁與結果頁都能從右上角改語言。</p>
+      <div class="rule-double"></div>
+    </div>
+  </div>
+
   <div class="lang-control">
     <label class="sr-only" for="lang-select">Language</label>
     <select class="lang-select" id="lang-select" aria-label="Language"></select>
   </div>
+
+  <div class="lang-guide-toast" id="lang-guide-toast" aria-live="polite" data-ui="gateToast">右上角可隨時切換語言</div>
 
   <section id="page-home" class="page active">
     <div class="marquee marquee-top" aria-hidden="true">
