@@ -4,6 +4,23 @@ var manifestState = {
   synced: true,
   href: "/tests/anime-summer-2026/"
 };
+var HERO_TYPEWRITER_LINES = [
+  "测试，人格，喜爱。",
+  "分享，共鸣。",
+  "Vanitas Vanitatum Et Omnia Vanitas.",
+  "学园 × 青春 × 物语",
+  "Where All Miracles Begin.",
+  "保护孩子们做梦的权利。",
+  "找寻，寻找，找寻。"
+];
+var heroTypewriterState = {
+  queue: [],
+  phrase: "",
+  timer: 0,
+  resizeFrame: 0,
+  running: false
+};
+var reducedMotionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
 
 var SITE_COPY = {
   tc: {
@@ -407,6 +424,212 @@ function currentCopy() {
 
 var gateToastTimer = 0;
 
+function segmentText(text) {
+  if (window.Intl && typeof window.Intl.Segmenter === "function") {
+    return Array.from(new window.Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(text), function (part) {
+      return part.segment;
+    });
+  }
+
+  return Array.from(text);
+}
+
+function shuffleItems(items) {
+  var clone = items.slice();
+  var index;
+  var swapIndex;
+  var nextValue;
+
+  for (index = clone.length - 1; index > 0; index -= 1) {
+    swapIndex = Math.floor(Math.random() * (index + 1));
+    nextValue = clone[index];
+    clone[index] = clone[swapIndex];
+    clone[swapIndex] = nextValue;
+  }
+
+  return clone;
+}
+
+function nextHeroTypewriterLine() {
+  var nextLine;
+
+  if (heroTypewriterState.queue.length === 0) {
+    heroTypewriterState.queue = shuffleItems(HERO_TYPEWRITER_LINES);
+
+    if (
+      heroTypewriterState.queue.length > 1 &&
+      heroTypewriterState.queue[0] === heroTypewriterState.phrase
+    ) {
+      nextLine = heroTypewriterState.queue[0];
+      heroTypewriterState.queue[0] = heroTypewriterState.queue[heroTypewriterState.queue.length - 1];
+      heroTypewriterState.queue[heroTypewriterState.queue.length - 1] = nextLine;
+    }
+  }
+
+  nextLine = heroTypewriterState.queue.shift() || HERO_TYPEWRITER_LINES[0];
+  heroTypewriterState.phrase = nextLine;
+  return nextLine;
+}
+
+function setHeroTypewriterAccessibleText(text) {
+  var a11yNode = document.getElementById("hero-typewriter-a11y");
+
+  if (a11yNode) {
+    a11yNode.textContent = text;
+  }
+}
+
+function setHeroTypewriterVisibleText(text) {
+  var textNode = document.getElementById("hero-typewriter-text");
+
+  if (textNode) {
+    textNode.textContent = text;
+  }
+}
+
+function fitHeroTypewriter(text) {
+  var heading = document.getElementById("hero-typewriter-heading");
+  var measure = document.getElementById("hero-typewriter-measure");
+  var availableWidth;
+  var minSize = 14;
+  var maxSize = 84;
+  var bestSize = minSize;
+  var low;
+  var high;
+  var mid;
+
+  if (!heading || !measure || !text) {
+    return;
+  }
+
+  availableWidth = (heading.parentElement ? heading.parentElement.clientWidth : heading.clientWidth) - 24;
+
+  if (availableWidth <= 0) {
+    return;
+  }
+
+  measure.textContent = text;
+  low = minSize;
+  high = maxSize;
+
+  while (low <= high) {
+    mid = Math.floor((low + high) / 2);
+    measure.style.fontSize = mid + "px";
+
+    if (measure.scrollWidth <= availableWidth) {
+      bestSize = mid;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  heading.style.setProperty("--hero-type-size", bestSize + "px");
+}
+
+function queueHeroTypewriterFit() {
+  window.cancelAnimationFrame(heroTypewriterState.resizeFrame);
+  heroTypewriterState.resizeFrame = window.requestAnimationFrame(function () {
+    fitHeroTypewriter(heroTypewriterState.phrase || HERO_TYPEWRITER_LINES[0]);
+  });
+}
+
+function scheduleHeroTypewriter(callback, delay) {
+  window.clearTimeout(heroTypewriterState.timer);
+  heroTypewriterState.timer = window.setTimeout(callback, delay);
+}
+
+function runReducedMotionHeroTypewriter() {
+  var nextLine = nextHeroTypewriterLine();
+
+  fitHeroTypewriter(nextLine);
+  setHeroTypewriterAccessibleText(nextLine);
+  setHeroTypewriterVisibleText(nextLine);
+  scheduleHeroTypewriter(runReducedMotionHeroTypewriter, 2600);
+}
+
+function runHeroTypewriterCycle() {
+  var nextLine = nextHeroTypewriterLine();
+  var segments = segmentText(nextLine);
+  var visibleCount = 0;
+
+  fitHeroTypewriter(nextLine);
+  setHeroTypewriterAccessibleText(nextLine);
+  setHeroTypewriterVisibleText("");
+
+  function typeForward() {
+    visibleCount += 1;
+    setHeroTypewriterVisibleText(segments.slice(0, visibleCount).join(""));
+
+    if (visibleCount < segments.length) {
+      scheduleHeroTypewriter(typeForward, 78 + Math.floor(Math.random() * 44));
+      return;
+    }
+
+    scheduleHeroTypewriter(typeBackward, 1380 + Math.floor(Math.random() * 420));
+  }
+
+  function typeBackward() {
+    visibleCount -= 1;
+    setHeroTypewriterVisibleText(segments.slice(0, visibleCount).join(""));
+
+    if (visibleCount > 0) {
+      scheduleHeroTypewriter(typeBackward, 36 + Math.floor(Math.random() * 24));
+      return;
+    }
+
+    scheduleHeroTypewriter(startHeroTypewriterLoop, 260 + Math.floor(Math.random() * 160));
+  }
+
+  scheduleHeroTypewriter(typeForward, 120);
+}
+
+function startHeroTypewriterLoop() {
+  window.clearTimeout(heroTypewriterState.timer);
+
+  if (reducedMotionQuery && reducedMotionQuery.matches) {
+    runReducedMotionHeroTypewriter();
+    return;
+  }
+
+  runHeroTypewriterCycle();
+}
+
+function initHeroTypewriter() {
+  var heading = document.getElementById("hero-typewriter-heading");
+
+  if (!heading) {
+    return;
+  }
+
+  if (heroTypewriterState.running) {
+    queueHeroTypewriterFit();
+    return;
+  }
+
+  heroTypewriterState.running = true;
+  fitHeroTypewriter(heroTypewriterState.phrase || HERO_TYPEWRITER_LINES[0]);
+  startHeroTypewriterLoop();
+
+  if (window.ResizeObserver) {
+    new window.ResizeObserver(queueHeroTypewriterFit).observe(heading.parentElement || heading);
+  } else {
+    window.addEventListener("resize", queueHeroTypewriterFit);
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(queueHeroTypewriterFit);
+  }
+
+  if (reducedMotionQuery) {
+    if (typeof reducedMotionQuery.addEventListener === "function") {
+      reducedMotionQuery.addEventListener("change", startHeroTypewriterLoop);
+    } else if (typeof reducedMotionQuery.addListener === "function") {
+      reducedMotionQuery.addListener(startHeroTypewriterLoop);
+    }
+  }
+}
+
 function setMeta(copy) {
   document.title = copy.pageTitle;
   document.documentElement.lang = localeApi.getConfig(currentLocale).htmlLang;
@@ -627,6 +850,7 @@ function applyLocale() {
 
   applyStaticCopy(copy);
   renderTests();
+  queueHeroTypewriterFit();
   document.getElementById("lang-select").value = currentLocale;
 }
 
@@ -763,6 +987,7 @@ async function loadManifestState() {
 function init() {
   initLanguageSelect();
   applyLocale();
+  initHeroTypewriter();
   initLanguageGate();
   loadManifestState().then(renderTests);
 }
