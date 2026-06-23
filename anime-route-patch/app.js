@@ -215,7 +215,11 @@
       );
     }
 
-    return shuffle(selected).slice(0, questionCount);
+    return shuffle(selected).slice(0, questionCount).map(function (question) {
+      return Object.assign({}, question, {
+        options: shuffle(question.options)
+      });
+    });
   }
 
   function buildMarqueeSequence() {
