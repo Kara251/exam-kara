@@ -903,21 +903,65 @@
     });
   }
 
+  function setCoverLayout(width, height) {
+    var wrap = document.getElementById("result-img-wrap");
+    var ratio;
+    var mode;
+
+    if (!wrap) {
+      return;
+    }
+
+    if (!width || !height) {
+      wrap.style.setProperty("--cover-ratio", "0.72");
+      wrap.setAttribute("data-cover-mode", "portrait");
+      return;
+    }
+
+    ratio = width / height;
+
+    if (ratio >= 1.08) {
+      mode = "landscape";
+    } else if (ratio >= 0.92) {
+      mode = "square";
+    } else {
+      mode = "portrait";
+    }
+
+    wrap.style.setProperty(
+      "--cover-ratio",
+      String(Math.max(0.68, Math.min(1.22, ratio)))
+    );
+    wrap.setAttribute("data-cover-mode", mode);
+  }
+
   function setResultImage(work) {
     var image = document.getElementById("result-img");
+    var wrap = document.getElementById("result-img-wrap");
 
     image.classList.remove("loaded");
+    if (wrap) {
+      wrap.style.setProperty("--cover-ratio", "0.72");
+      wrap.setAttribute("data-cover-mode", "portrait");
+    }
     image.alt = localizedName(work);
     image.onload = function () {
+      setCoverLayout(image.naturalWidth, image.naturalHeight);
       image.classList.add("loaded");
     };
     image.onerror = function () {
+      setCoverLayout(0, 0);
       image.classList.remove("loaded");
     };
     image.src = work.image;
 
     if (image.complete) {
-      image.classList.add("loaded");
+      if (image.naturalWidth && image.naturalHeight) {
+        setCoverLayout(image.naturalWidth, image.naturalHeight);
+        image.classList.add("loaded");
+      } else {
+        setCoverLayout(0, 0);
+      }
     }
   }
 

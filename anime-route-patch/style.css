@@ -1900,21 +1900,39 @@ body[data-script="latin"] .result-anime-name {
 }
 
 .result-img-wrap {
+  --cover-ratio: 0.72;
   position: relative;
   width: 100%;
-  aspect-ratio: 0.72;
+  aspect-ratio: var(--cover-ratio);
   overflow: hidden;
   border: 1.5px solid var(--border-dark);
   background: #f2e7d9;
+  display: grid;
+  place-items: center;
+  padding: clamp(8px, 1vw, 12px);
 }
 
 .result-img-wrap img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  box-sizing: border-box;
+  object-fit: contain;
+  object-position: center center;
   opacity: 0;
   transition: opacity 0.24s ease;
+}
+
+.result-img-wrap[data-cover-mode="landscape"] {
+  --cover-ratio: 1.22;
+}
+
+.result-img-wrap[data-cover-mode="square"] {
+  --cover-ratio: 1;
+}
+
+.result-img-wrap[data-cover-mode="portrait"] {
+  --cover-ratio: 0.72;
 }
 
 .result-img-wrap img.loaded {
