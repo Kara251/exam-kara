@@ -17,9 +17,36 @@
   });
 
   QUIZ_DATA.questions.forEach(function (question, questionIndex) {
+    var baselines = {};
+
     question.__index = questionIndex;
+
+    QUIZ_DATA.traits.forEach(function (trait) {
+      var total = 0;
+
+      question.options.forEach(function (option) {
+        total += option.scores[trait.id] || 0;
+      });
+
+      baselines[trait.id] = total / Math.max(question.options.length, 1);
+    });
+
+    question.__traitBaselines = baselines;
     question.options.forEach(function (option, optionIndex) {
+      var deltaScores = {};
+
       option.__index = optionIndex;
+
+      QUIZ_DATA.traits.forEach(function (trait) {
+        var key = trait.id;
+        var value = (option.scores[key] || 0) - baselines[key];
+
+        if (Math.abs(value) > 0.0001) {
+          deltaScores[key] = value;
+        }
+      });
+
+      option.__deltaScores = deltaScores;
     });
   });
 
@@ -496,17 +523,26 @@
     });
   }
 
+  function scoreDeltaForOption(question, option) {
+    if (option && option.__deltaScores) {
+      return option.__deltaScores;
+    }
+
+    return option ? option.scores : {};
+  }
+
   function selectOption(index) {
     var question = questionSet[current];
     var option = question.options[index];
     var buttons = quizOptions.querySelectorAll(".quiz-option");
+    var delta = scoreDeltaForOption(question, option);
 
     history.push({
       question: current,
-      delta: Object.assign({}, option.scores)
+      delta: Object.assign({}, delta)
     });
 
-    applyScores(option.scores);
+    applyScores(delta);
 
     buttons.forEach(function (button) {
       button.disabled = true;
@@ -888,7 +924,7 @@
         var best = 0;
 
         question.options.forEach(function (option) {
-          best = Math.max(best, Math.abs(option.scores[trait.id] || 0));
+          best = Math.max(best, Math.abs(scoreDeltaForOption(question, option)[trait.id] || 0));
         });
 
         maxima[trait.id] += best;
