@@ -9,7 +9,14 @@ const srcDir = path.join(rootDir, "src");
 const distDir = path.join(rootDir, "dist");
 const siblingAnimeDir = path.resolve(rootDir, "../26July-Anime-Test");
 const animeRouteDir = path.join(distDir, "tests", "anime-summer-2026");
+const animePatchDir = path.join(rootDir, "anime-route-patch");
 const syncOnly = process.argv.includes("--sync-only");
+const excludedAnimeAssets = new Set([
+  "17_tomb_raider_king1.webp",
+  "40_toy_story_51.webp",
+  "45_paw_patrol_dino_movie1.webp",
+  "49_minions_monsters1.webp"
+]);
 
 async function removeAndRecreate(dir) {
   await fs.rm(dir, { recursive: true, force: true });
@@ -48,7 +55,23 @@ function includeAnimeEntry(sourcePath, entry) {
     return false;
   }
 
+  if (/\.md$/i.test(entry.name)) {
+    return false;
+  }
+
   return true;
+}
+
+async function removeExcludedAnimeAssets() {
+  const imageDir = path.join(animeRouteDir, "images");
+
+  for (const assetName of excludedAnimeAssets) {
+    await fs.rm(path.join(imageDir, assetName), { force: true });
+  }
+}
+
+async function overlayAnimePatch() {
+  await copyDir(animePatchDir, animeRouteDir);
 }
 
 async function writeUnavailableAnimePage() {
@@ -116,6 +139,8 @@ async function syncAnimeRoute() {
     await fs.access(siblingAnimeDir);
     await removeAndRecreate(animeRouteDir);
     await copyDir(siblingAnimeDir, animeRouteDir, includeAnimeEntry);
+    await removeExcludedAnimeAssets();
+    await overlayAnimePatch();
     return { available: true };
   } catch {
     await writeUnavailableAnimePage();
@@ -156,4 +181,3 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
-

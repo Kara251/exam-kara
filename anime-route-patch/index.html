@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>2026 夏季番測驗 — 你該追哪部？</title>
+  <meta name="description" content="從 50 道 ACG 題庫隨機抽出 15 題，算出你這輪最對味的 2026 夏季番。">
+  <meta property="og:title" content="2026 夏季番你該追哪部？">
+  <meta property="og:description" content="50 題題池隨機抽 15 題，算出你這輪最適合補哪部夏季番">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="lang-btn" id="lang-btn">简</button>
+
+  <section id="page-home" class="page active">
+    <div class="marquee marquee-top" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+      </div>
+    </div>
+
+    <div class="home-vertical-left" aria-hidden="true">アニメ性格診断</div>
+    <div class="home-vertical-right" aria-hidden="true">二〇二六年夏</div>
+
+    <div class="home-container">
+      <div class="rule-double anim" style="--d:0"></div>
+      <div class="home-header anim" style="--d:1">
+        <span class="home-tag">号外 EXTRA</span>
+        <span class="home-date">VOL. 2026 ── SUMMER</span>
+      </div>
+      <div class="stripe anim" style="--d:2"></div>
+      <div class="y2k-mixed anim" style="--d:2.5" aria-hidden="true">✧ 夏のアニメ × 運命診断 ✧</div>
+      <div class="home-title anim" style="--d:3">
+        <span class="home-year glitch-text" data-text="2026">2026</span>
+        <h1>
+          <span data-i18n="h1a">夏季番</span>
+          <span data-i18n="h1b">你該追哪部？</span>
+        </h1>
+      </div>
+      <div class="rule anim" style="--d:4"></div>
+      <div class="home-feature anim" style="--d:5">
+        <span class="home-feature-tag">── 特集 ──</span>
+        <p class="home-subtitle" data-i18n="sub">從 50 道題庫隨機抽出 15 題，找到屬於你的這輪首推作品</p>
+      </div>
+
+      <div class="home-actions anim" style="--d:6">
+        <button id="btn-start" class="btn-start" data-i18n="go">開始測驗 ▶</button>
+        <a class="btn-secondary action-link" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+      </div>
+
+      <div class="stripe anim" style="--d:7"></div>
+      <div class="home-footer anim" style="--d:7.5">
+        <span>ANIME PERSONALITY TEST</span>
+        <span class="home-footer-jp">アニメ性格診断テスト</span>
+      </div>
+      <div class="rule-double anim" style="--d:8"></div>
+      <div class="y2k-sparkle anim" style="--d:8.5" aria-hidden="true">☆ﾟ.*･｡ﾟ</div>
+    </div>
+
+    <div class="marquee marquee-bottom" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+        <div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div><div class="marquee-item"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-quiz" class="page">
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <span class="quiz-q-label">Q.</span>
+        <span class="quiz-progress-text" id="progress-text">01 / 15</span>
+        <button class="quiz-prev" id="btn-prev" disabled data-i18n="prev">上一題</button>
+      </div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="quiz-body" id="quiz-body">
+        <h2 class="quiz-question" id="quiz-question"></h2>
+        <div class="quiz-options" id="quiz-options"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-result" class="page">
+    <div class="result-container">
+      <div class="result-card" id="result-card">
+        <div class="result-card-masthead">
+          <div class="rule-double"></div>
+          <div class="result-card-masthead-row">
+            <span class="result-card-tag">号外</span>
+            <span class="result-card-pub">SUMMER ANIME GUIDE</span>
+            <span class="result-card-vol">VOL.2026</span>
+          </div>
+          <div class="stripe"></div>
+        </div>
+        <div class="result-card-body">
+          <div class="result-headline" data-i18n="rl">你 的 命 定 番 是</div>
+          <div class="result-img-wrap" id="result-img-wrap">
+            <img id="result-img" src="" alt="">
+            <div class="result-img-placeholder" id="result-img-ph">COVER ART</div>
+          </div>
+          <h2 class="result-anime-name" id="result-anime-name"></h2>
+          <p class="result-anime-romaji" id="result-anime-romaji"></p>
+          <div class="rule"></div>
+          <div class="result-type-badge" id="result-type-name"></div>
+          <p class="result-description" id="result-description"></p>
+          <div class="rule-dashed"></div>
+          <div class="result-keywords" id="result-keywords"></div>
+          <div class="rule-double"></div>
+          <div class="result-columns">
+            <div class="result-section result-section-alt" id="section-alt">
+              <div class="result-section-label" data-i18n="altT">這輪也很適合你</div>
+              <div class="result-section-list" id="alt-list"></div>
+            </div>
+            <div class="result-section result-section-avoid" id="section-avoid">
+              <div class="result-section-label" data-i18n="avT">可能需要避雷</div>
+              <div class="result-section-list" id="avoid-list"></div>
+            </div>
+          </div>
+          <div class="stripe"></div>
+          <div class="result-footer">
+            <span data-i18n="ftr">2026 夏季番你該追哪部</span>
+            <span>アニメ性格診断</span>
+          </div>
+          <div class="rule-double"></div>
+        </div>
+      </div>
+
+      <div class="result-actions result-actions-primary">
+        <button id="btn-retry" class="btn-action" data-i18n="ret">再測一次</button>
+        <a class="btn-action btn-action-link" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+      </div>
+      <div class="result-actions result-actions-secondary">
+        <button id="btn-share" class="btn-action btn-share" data-i18n="sh">保存分享</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
