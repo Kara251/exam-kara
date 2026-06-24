@@ -665,6 +665,9 @@
       }
 
       applyScene(currentSceneKey, currentSpotlightWork);
+      if (!document.body.classList.contains("lang-gate-open") && pageHome.classList.contains("active")) {
+        startSceneCycle();
+      }
       updateHomeScrollHint({ immediate: true });
     } catch (error) {
       worksLoadError = error;
@@ -973,13 +976,34 @@
     var image = document.getElementById(id);
     var frame = image ? image.parentElement : null;
     var panel = frame ? frame.parentElement : null;
+    var placeholder = frame ? frame.querySelector(".result-img-placeholder") : null;
 
     if (!image || !work) {
       return;
     }
 
+    image.classList.remove("is-loaded");
     image.src = work.coverSrc || "";
     image.alt = localizedPrimaryTitle(work) || "";
+
+    if (image.complete && image.naturalWidth) {
+      image.classList.add("is-loaded");
+      if (placeholder) {
+        placeholder.classList.add("is-hidden");
+      }
+    } else {
+      image.addEventListener("load", function handleLoad() {
+        image.classList.add("is-loaded");
+        if (placeholder) {
+          placeholder.classList.add("is-hidden");
+        }
+      }, { once: true });
+      image.addEventListener("error", function handleError() {
+        if (placeholder) {
+          placeholder.classList.remove("is-hidden");
+        }
+      }, { once: true });
+    }
 
     if (frame) {
       frame.style.aspectRatio = (work.coverWidth || 460) + " / " + (work.coverHeight || 215);
@@ -1756,29 +1780,12 @@
     startSceneCycle();
   }
 
-  function cloneResultCard() {
-    var original = document.getElementById("result-card");
-    var stage = document.createElement("div");
-    var clone = original.cloneNode(true);
-
-    stage.style.position = "fixed";
-    stage.style.left = "-99999px";
-    stage.style.top = "0";
-    stage.style.pointerEvents = "none";
-    stage.style.zIndex = "-1";
-    stage.style.width = "1120px";
-    stage.appendChild(clone);
-    document.body.appendChild(stage);
-
-    clone.classList.add("is-exporting");
-    clone.querySelectorAll("[data-export-hidden='true']").forEach(function (node) {
-      node.remove();
+  function waitForNextFrame() {
+    return new Promise(function (resolve) {
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(resolve);
+      });
     });
-    clone.querySelectorAll(".poster-band-result").forEach(function (node) {
-      node.remove();
-    });
-
-    return { stage: stage, clone: clone };
   }
 
   function waitForImages(root) {
@@ -1797,6 +1804,99 @@
     );
   }
 
+  function waitForFonts() {
+    if (document.fonts && document.fonts.ready) {
+      return document.fonts.ready.catch(function () {
+        return undefined;
+      });
+    }
+
+    return Promise.resolve();
+  }
+
+  function prepareExportClone(clonedDocument) {
+    var clonedCard = clonedDocument.getElementById("result-card");
+    var clonedImage = clonedDocument.getElementById("result-img");
+
+    if (!clonedCard) {
+      return;
+    }
+
+    clonedCard.classList.add("is-exporting");
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll("[data-export-hidden='true'], .poster-band-result")
+    ).forEach(function (node) {
+      node.remove();
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".anim, .glyph, .trait-fill")
+    ).forEach(function (node) {
+      node.style.animation = "none";
+      node.style.transform = "none";
+      node.style.opacity = "1";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".glyph")
+    ).forEach(function (node) {
+      node.style.display = "inline-block";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".result-img-placeholder")
+    ).forEach(function (node) {
+      node.style.opacity = clonedImage && clonedImage.getAttribute("src") ? "0" : "1";
+    });
+
+    if (clonedImage) {
+      clonedImage.classList.add("is-loaded");
+      clonedImage.style.opacity = "1";
+      clonedImage.style.animation = "none";
+      clonedImage.style.transform = "none";
+    }
+  }
+
+  function canvasToBlob(canvas) {
+    return new Promise(function (resolve, reject) {
+      if (!canvas) {
+        reject(new Error("missing-canvas"));
+        return;
+      }
+
+      if (canvas.toBlob) {
+        canvas.toBlob(function (blob) {
+          if (blob) {
+            resolve(blob);
+            return;
+          }
+
+          reject(new Error("empty-blob"));
+        }, "image/png");
+        return;
+      }
+
+      try {
+        var dataUrl = canvas.toDataURL("image/png");
+        var parts = dataUrl.split(",");
+        var mime = parts[0].match(/data:(.*?);base64/)[1];
+        var binary = window.atob(parts[1]);
+        var length = binary.length;
+        var bytes = new Uint8Array(length);
+        var index;
+
+        for (index = 0; index < length; index++) {
+          bytes[index] = binary.charCodeAt(index);
+        }
+
+        resolve(new Blob([bytes], { type: mime }));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   function resultSignature() {
     return [
       lang,
@@ -1806,36 +1906,58 @@
     ].join("|");
   }
 
+  function captureResultBlob() {
+    var card = document.getElementById("result-card");
+    var cardRect;
+
+    if (!card) {
+      return Promise.reject(new Error("missing-result-card"));
+    }
+
+    cardRect = card.getBoundingClientRect();
+    card.classList.add("is-exporting");
+
+    return waitForNextFrame()
+      .then(function () {
+        return waitForImages(card);
+      })
+      .then(waitForFonts)
+      .then(waitForNextFrame)
+      .then(function () {
+        return window.html2canvas(card, {
+          backgroundColor: "#F3EEE5",
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          scrollX: -window.scrollX,
+          scrollY: -window.scrollY,
+          width: Math.ceil(card.scrollWidth),
+          height: Math.ceil(card.scrollHeight),
+          windowWidth: Math.max(
+            document.documentElement.clientWidth,
+            Math.ceil(cardRect.width)
+          ),
+          windowHeight: Math.max(
+            document.documentElement.clientHeight,
+            Math.ceil(cardRect.height)
+          ),
+          onclone: prepareExportClone
+        });
+      })
+      .then(canvasToBlob)
+      .finally(function () {
+        card.classList.remove("is-exporting");
+      });
+  }
+
   function buildPosterBlob() {
     var signature = resultSignature();
-    var cloneBundle;
 
     if (exportCache.key === signature && exportCache.blob) {
       return Promise.resolve(exportCache.blob);
     }
 
-    cloneBundle = cloneResultCard();
-
-    return waitForImages(cloneBundle.clone)
-      .then(function () {
-        return window.html2canvas(cloneBundle.clone, {
-          backgroundColor: "#F3EEE5",
-          scale: 2,
-          useCORS: true,
-          logging: false
-        });
-      })
-      .then(function (canvas) {
-        return new Promise(function (resolve) {
-          canvas.toBlob(function (blob) {
-            resolve(blob);
-          }, "image/png");
-        });
-      })
-      .finally(function () {
-        cloneBundle.stage.remove();
-      })
-      .then(function (blob) {
+    return captureResultBlob().then(function (blob) {
         exportCache = {
           key: signature,
           blob: blob
@@ -2000,8 +2122,25 @@
     animateGateGuide(originRect, label);
   }
 
-  function initLanguageGate() {
-    document.body.classList.add("lang-gate-open");
+  function initLanguageGate(shouldOpen) {
+    var gate = document.getElementById("lang-gate");
+
+    if (!gate) {
+      return false;
+    }
+
+    if (shouldOpen) {
+      gate.classList.remove("is-hidden", "is-dismissing");
+      document.body.classList.add("lang-gate-open");
+      return true;
+    }
+
+    gate.classList.add("is-hidden");
+    document.body.classList.remove("lang-gate-open");
+    document.body.dataset.page = currentPageId;
+    triggerAnims(pageHome);
+    updateHomeScrollHint({ immediate: true });
+    return false;
   }
 
   function initLanguageSelect() {
@@ -2040,7 +2179,7 @@
 
   function init() {
     initLanguageSelect();
-    initLanguageGate();
+    initLanguageGate(localeApi.shouldShowLanguageGate());
     resetScores();
     setIssueDateLabels();
     applyLocale();

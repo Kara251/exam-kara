@@ -2173,6 +2173,7 @@ body[data-compose="crossfade"] .stage-thread-c {
 .result-img-wrap {
   position: relative;
   width: min(100%, 640px);
+  padding: 10px;
   border: 1.5px solid var(--line);
   background: #F6F0E8;
   display: flex;
@@ -2189,8 +2190,15 @@ body[data-compose="crossfade"] .stage-thread-c {
 .result-img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
+  opacity: 0;
+  transition: opacity 0.42s ease;
+}
+
+.result-img-wrap img.is-loaded {
+  opacity: 1;
 }
 
 .result-img-placeholder {
@@ -2199,6 +2207,11 @@ body[data-compose="crossfade"] .stage-thread-c {
   font-size: 13px;
   letter-spacing: 2px;
   text-transform: uppercase;
+  transition: opacity 0.28s ease;
+}
+
+.result-img-placeholder.is-hidden {
+  opacity: 0;
 }
 
 .result-scene-chip {
@@ -2561,14 +2574,58 @@ body[data-compose="crossfade"] .stage-thread-c {
   transition: transform 1.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.28s ease;
 }
 
-.is-exporting [data-export-hidden="true"] {
+.result-frame.is-exporting {
+  width: min(calc(100vw - 18px), 1220px) !important;
+  min-height: auto !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.result-frame.is-exporting * {
+  transition: none !important;
+}
+
+.result-frame.is-exporting .anim,
+.result-frame.is-exporting .glyph,
+.result-frame.is-exporting .result-main,
+.result-frame.is-exporting .result-side,
+.result-frame.is-exporting .result-cover-panel,
+.result-frame.is-exporting .result-img-wrap img,
+.result-frame.is-exporting .result-game-name,
+.result-frame.is-exporting .result-side::before,
+.result-frame.is-exporting .result-side::after,
+.result-frame.is-exporting .result-main::before,
+.result-frame.is-exporting .result-cover-panel::before,
+.result-frame.is-exporting .result-cover-panel::after {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.result-frame.is-exporting .glyph {
+  display: inline-block;
+}
+
+.result-frame.is-exporting .trait-fill {
+  animation: none !important;
+}
+
+.result-frame.is-exporting .result-img-wrap img {
+  opacity: 1 !important;
+}
+
+.result-frame.is-exporting .result-img-placeholder {
+  opacity: 0 !important;
+}
+
+.result-frame.is-exporting [data-export-hidden="true"],
+.result-frame.is-exporting .poster-band-result {
   display: none !important;
 }
 
-.is-exporting {
-  width: 1120px !important;
-  min-height: auto !important;
-  box-shadow: none !important;
+.result-frame.is-exporting .page-surface {
+  padding-bottom: 0 !important;
 }
 
 body[data-layout="stack"] .home-title-secondary {

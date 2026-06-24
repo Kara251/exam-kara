@@ -970,14 +970,22 @@ function selectGateLocale(localeCode, button) {
   animateGateGuide(originRect, label);
 }
 
-function initLanguageGate() {
+function initLanguageGate(shouldOpen) {
   var gate = document.getElementById("lang-gate");
 
   if (!gate) {
-    return;
+    return false;
   }
 
-  document.body.classList.add("lang-gate-open");
+  if (shouldOpen) {
+    gate.classList.remove("is-hidden", "is-dismissing");
+    document.body.classList.add("lang-gate-open");
+    return true;
+  }
+
+  gate.classList.add("is-hidden");
+  document.body.classList.remove("lang-gate-open");
+  return false;
 }
 
 function initLanguageSelect() {
@@ -1034,7 +1042,7 @@ function init() {
   initLanguageSelect();
   applyLocale();
   initHeroTypewriter();
-  initLanguageGate();
+  initLanguageGate(localeApi.shouldShowLanguageGate());
   loadManifestState().then(renderTests);
 }
 

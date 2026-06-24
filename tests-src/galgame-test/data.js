@@ -681,6 +681,606 @@
           O("先跳一部所有人都說後勁很狠的", "Jump into the one everyone says leaves the nastiest afterglow.", "とにかく余韻が強いと評判の一本へ飛び込む。", { entry_barrier: 3, mystery: 2 }),
           O("先碰最危險、最怪、最忘不掉的", "Touch the most dangerous and unforgettable one first.", "いちばん危うくて、奇妙で、忘れにくいものから触る。", { adult_risk: 2, horror: 2 })
         ]
+      ),
+      Q(
+        "route_map",
+        "面對一張分歧很密的路線圖，你第一反應是？",
+        "When a route chart gets dense, what is your first reaction?",
+        "分岐だらけのルート図を見た時、最初にどう感じる？",
+        [
+          O("好耶，我想自己拆出一條最順的線", "Good. I want to carve out the cleanest route myself.", "いいね。自分でいちばんきれいな道を割り出したい。", { gameplay: 3, mystery: 1 }),
+          O("可以，但最好別破壞感情流", "Fine, as long as it does not break the emotional flow.", "いいけれど、感情の流れは壊さないでほしい。", { romance: 2, gameplay: 1 }),
+          O("別太複雜，我想先被故事帶走", "Not too dense. I want the story to carry me first.", "複雑すぎないでほしい。まずは物語に運ばれたい。", { slice_of_life: 1, tearjerker: 1 }),
+          O("越像迷宮越好，走錯也算樂趣", "The more labyrinthine, the better. Even mistakes are part of the fun.", "迷宮みたいなほど嬉しい。迷ってもそれが面白い。", { gameplay: 2, horror: 1, mystery: 1 })
+        ]
+      ),
+      Q(
+        "save_slots",
+        "你平常怎麼管理存檔？",
+        "How do you usually manage save files?",
+        "セーブ枠はふだんどう使う？",
+        [
+          O("想到哪存到哪，感覺對了就行", "I save on instinct. If it feels right, it is enough.", "感覚で置いていく。しっくり来れば十分。", { slice_of_life: 1, romance: 1 }),
+          O("關鍵選項前一定留檔", "I always keep a slot before key choices.", "重要な選択肢の前には必ず残す。", { gameplay: 2, mystery: 1 }),
+          O("會分類命名，像在做自己的攻略", "I label and sort them like a guide of my own.", "名前を付けて整理する。自分用の攻略みたいに。", { gameplay: 3, entry_barrier: 1 }),
+          O("如果作品很壞，我會存滿整頁防它", "If a work looks mean, I fill whole pages just in case.", "作品が意地悪そうなら、守りで枠を埋めていく。", { horror: 1, gameplay: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "ending_aftertaste",
+        "一部作品結束後，你最想留下哪種餘味？",
+        "What kind of aftertaste do you want a finished work to leave behind?",
+        "一本終わったあと、どんな余韻がいちばん欲しい？",
+        [
+          O("像一封回不去的情書", "Like a love letter I can never return to.", "もう戻れない恋文みたいな余韻。", { romance: 3, tearjerker: 2 }),
+          O("像謎底落下後的長長回音", "Like a long echo after the final answer lands.", "答えが落ちたあとに長く残る反響。", { mystery: 3, sci_fi: 1 }),
+          O("像夏天過完，卻還捨不得關窗", "Like the end of summer, with the window still open.", "夏が終わったのに、まだ窓を閉めたくない感じ。", { slice_of_life: 2, tearjerker: 1, romance: 1 }),
+          O("像一場惡夢醒了，但身體還記得", "Like waking from a nightmare my body still remembers.", "悪夢から醒めても、体だけがまだ覚えている感じ。", { horror: 3, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "heroine_gap",
+        "哪種『反差』最容易讓你中招？",
+        "What kind of gap is most dangerous for you?",
+        "どんな『ギャップ』にいちばん弱い？",
+        [
+          O("平常很穩，偶爾才露出脆弱", "Someone steady who only rarely shows fragility.", "普段は強いのに、たまにだけ脆さが見える人。", { romance: 2, tearjerker: 1 }),
+          O("嘴很壞，但關鍵時刻最可靠", "Sharp-tongued, but the most reliable when it matters.", "口は悪いのに、肝心な場面でいちばん頼れる人。", { comedy: 2, romance: 1, action: 1 }),
+          O("看起來像光，裡面其實有洞", "Someone bright on the surface with a void underneath.", "光みたいに見えて、内側に穴がある人。", { tearjerker: 1, mystery: 1, horror: 1 }),
+          O("像是人，卻又有哪裡不完全像人", "Someone human, but not entirely human.", "人の形をしているのに、どこか人でない人。", { fantasy: 1, sci_fi: 1, horror: 1 })
+        ]
+      ),
+      Q(
+        "prose_density",
+        "文字密度方面，你這輪想吃哪一種？",
+        "What kind of prose density do you want this round?",
+        "文章の密度は今どれくらい欲しい？",
+        [
+          O("清透一點，讀起來要很順", "Clear and light. I want it to flow.", "透き通っていて、するすると読めるほうがいい。", { slice_of_life: 2, comedy: 1 }),
+          O("有文氣，但別滿到喘不過氣", "Literary is good, but do not suffocate me with it.", "文っぽさはほしい。でも息苦しいほどは要らない。", { tearjerker: 1, romance: 1, mystery: 1 }),
+          O("越寫越深越好，我願意慢慢咀嚼", "The denser it gets, the better. I will chew on it slowly.", "濃ければ濃いほどいい。ゆっくり噛みしめたい。", { length: 2, mystery: 1, tearjerker: 1 }),
+          O("最好密到能把人整個包起來", "Dense enough to wrap around me completely.", "人を丸ごと包むくらい濃くていい。", { horror: 1, length: 2, fantasy: 1 })
+        ]
+      ),
+      Q(
+        "title_logo",
+        "你看見作品標題或 Logo，最容易被哪種感覺勾住？",
+        "When you see a title or logo, what kind of feeling hooks you first?",
+        "タイトルやロゴを見た時、どんな気配にいちばん惹かれる？",
+        [
+          O("安靜、留白很多，像把情緒藏住", "Quiet and spacious, like feeling held back on purpose.", "静かで余白が多くて、感情を隠している感じ。", { tearjerker: 2, romance: 1 }),
+          O("筆鋒很硬，像真相已經在裡面", "Hard-edged, like the truth is already hiding inside.", "線が硬くて、もう真相が潜んでいそうな感じ。", { mystery: 2, sci_fi: 1 }),
+          O("華麗、亮、角色感直接撲上來", "Bright, ornate, and immediately character-driven.", "華やかで明るくて、キャラの気配が一気に来る感じ。", { comedy: 2, romance: 1, fantasy: 1 }),
+          O("不祥、怪、看一眼就不太對勁", "Off, uncanny, a little wrong at first sight.", "不穏で妙で、一目で少しおかしい感じ。", { horror: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "rain_or_sun",
+        "這輪你更想把自己交給哪種天氣？",
+        "What weather do you want to give yourself to this round?",
+        "今はどんな天気に身を預けたい？",
+        [
+          O("雨。窗邊、傘、和沒說出口的句子", "Rain. Windows, umbrellas, and unfinished lines.", "雨。窓際、傘、言い切れなかった言葉。", { romance: 2, tearjerker: 1, mystery: 1 }),
+          O("晴天。海風、白光、像會開始的東西", "Clear skies. Sea wind, white light, and things about to begin.", "晴れ。潮風、白い光、何かが始まりそうな空気。", { slice_of_life: 2, fantasy: 1 }),
+          O("雷夜。電流感越強越好", "A storm night. The more charge in the air, the better.", "雷の夜。空気に電気が走るほどいい。", { sci_fi: 2, action: 1, mystery: 1 }),
+          O("陰天。像世界本來就不該那麼亮", "A gray sky. Like the world was never meant to be bright.", "曇り空。世界は最初からそんなに明るくない感じ。", { horror: 2, adult_risk: 1, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "adult_patch",
+        "如果作品有額外補丁或版本補完，你的態度是？",
+        "If a work has a patch or version-restore path, how do you feel about it?",
+        "補丁や版補完がある作品にはどう向き合う？",
+        [
+          O("我偏向直接玩最方便的版本", "I lean toward the most convenient version.", "できるだけ手軽な版から入りたい。", { entry_barrier: 0, adult_risk: 0 }),
+          O("只要主體完整，補不補都行", "If the core survives, patching is optional.", "本体が通るなら、補完はあってもなくてもいい。", { adult_risk: 1, entry_barrier: 1 }),
+          O("差異如果會改氣味，我願意補", "If the difference changes the tone, I will patch it.", "差分で空気が変わるなら、補う価値がある。", { adult_risk: 2, romance: 1, mystery: 1 }),
+          O("我想看最接近原貌的版本", "I want the version closest to the original face.", "できるだけ原形に近い版で触れたい。", { adult_risk: 3, entry_barrier: 2, mystery: 1 })
+        ]
+      ),
+      Q(
+        "route_unlock",
+        "隱藏線或真線，怎樣開出來最讓你滿意？",
+        "What is the most satisfying way for a hidden or true route to unlock?",
+        "隠しルートや真ルートは、どう開くのがいちばん気持ちいい？",
+        [
+          O("情緒自然推到那裡，不要太像作業", "Let emotion carry me there. Do not make it feel like chores.", "感情の流れで自然に届いてほしい。作業っぽすぎるのは嫌だ。", { romance: 2, tearjerker: 1 }),
+          O("靠觀察與伏筆理解自己打開", "I want to unlock it through observation and understanding.", "伏線や観察で、自分でこじ開けたい。", { mystery: 3, gameplay: 1 }),
+          O("靠一點系統條件也沒關係", "A few system conditions are fine.", "多少のシステム条件があっても平気。", { gameplay: 2, entry_barrier: 1 }),
+          O("最好像闖禁區，打開那刻就知道不一樣", "I want it to feel forbidden the moment it opens.", "開いた瞬間に『ここから違う』とわかる禁域感がほしい。", { horror: 2, mystery: 1, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "house_rules",
+        "如果故事有一個長期據點，你最在意它什麼？",
+        "If the story has a long-term base, what matters most about it?",
+        "物語に長く滞在する拠点があるなら、何をいちばん大事にする？",
+        [
+          O("人一走進去，日常就會自己長出來", "The kind of place where daily life grows by itself.", "入った瞬間に日常が自然に育ち始める場所。", { slice_of_life: 2, comedy: 1 }),
+          O("它要能藏秘密，甚至藏第二層規則", "It should be able to hide secrets and second rules.", "秘密や第二のルールを隠していそうな場所。", { mystery: 2, horror: 1 }),
+          O("它像舞台，隨時能切進高潮", "It should feel like a stage ready for climaxes.", "いつでも見せ場に切り替われる舞台感がほしい。", { action: 2, fantasy: 1 }),
+          O("它本身就像一個會呼吸的角色", "The place itself should breathe like a character.", "場所そのものが息をするキャラみたいであってほしい。", { tearjerker: 1, fantasy: 1, slice_of_life: 1 })
+        ]
+      ),
+      Q(
+        "opening_movie",
+        "OP Movie 最容易用哪種方式把你收走？",
+        "What kind of opening movie steals you fastest?",
+        "OPムービーはどんな作りだと一気に持っていかれる？",
+        [
+          O("角色表情一閃一閃，像感情先偷跑", "Flashes of faces that make the feelings arrive first.", "表情の断片が走って、感情だけ先に届く感じ。", { romance: 2, tearjerker: 1 }),
+          O("節奏很準，畫面像在拼一個謎", "Tight rhythm, with frames assembling a puzzle.", "テンポが鋭くて、画面が謎を組み立てていく感じ。", { mystery: 2, sci_fi: 1 }),
+          O("色彩爆開，角色一出就知道誰會很鬧", "Color exploding, with the cast telegraphing instant chemistry.", "色が弾けて、出た瞬間に掛け合いの強さがわかる感じ。", { comedy: 2, romance: 1 }),
+          O("只要最後那一秒有不祥感，我就會記住", "If the final second feels wrong, I remember it.", "最後の一秒に不穏さがあれば、それだけで残る。", { horror: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "point_of_view",
+        "你比較喜歡哪種視角手感？",
+        "What kind of point-of-view texture do you prefer?",
+        "視点の手触りはどれが好き？",
+        [
+          O("主角很近，心跳和猶豫都要聽得到", "Stay close enough to hear the heartbeat and hesitation.", "主人公の鼓動や迷いまで聞こえる近さがいい。", { romance: 2, tearjerker: 1 }),
+          O("有一點距離，讓我自己拼真相", "Keep some distance so I can piece things together myself.", "少し距離を置いて、自分で真相を組み立てたい。", { mystery: 2, sci_fi: 1 }),
+          O("視角能偶爾切換，角色群像更有勁", "Some switching helps the ensemble breathe.", "ときどき視点が切り替わるほうが群像に厚みが出る。", { fantasy: 1, action: 1, comedy: 1 }),
+          O("不可靠視角最好，最好連我都一起被騙", "An unreliable perspective. Deceive me too.", "信頼できない視点がいい。読んでいる私ごと騙してほしい。", { horror: 2, mystery: 2 })
+        ]
+      ),
+      Q(
+        "remake_bias",
+        "同一作品有原版與重製版，你這輪更偏哪種？",
+        "When both original and remaster exist, which side do you lean toward right now?",
+        "同じ作品に原版とリメイクがあるなら、今はどちら寄り？",
+        [
+          O("重製版。先把入口弄舒服比較重要", "The remaster. A comfortable entry matters most.", "リメイク版。まず入り口の良さを優先したい。", { entry_barrier: 0 }),
+          O("先重製，再決定要不要回原版", "Remaster first, then decide if the original is worth circling back for.", "まずリメイクに触れて、必要なら原版へ戻る。", { entry_barrier: 1, slice_of_life: 1 }),
+          O("如果原版氣味更重，我會偏原版", "If the original breathes harder, I will lean original.", "原版の匂いのほうが濃いなら、そちらへ寄る。", { entry_barrier: 2, tearjerker: 1, mystery: 1 }),
+          O("我想直接看最接近當年衝擊的那個", "I want the version closest to the original shockwave.", "当時の衝撃にいちばん近い版をそのまま浴びたい。", { entry_barrier: 3, length: 1, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "favorite_meltdown",
+        "角色崩潰場景，你最容易被哪種處理打中？",
+        "What kind of breakdown scene hits you hardest?",
+        "人物の崩れ方は、どんな演出だといちばん来る？",
+        [
+          O("很克制，只是聲音突然低下去", "Restrained enough that the voice simply drops.", "抑えたまま、声だけが少し落ちる感じ。", { tearjerker: 2, romance: 1 }),
+          O("講到一半停住，比哭出來更痛", "Stopping mid-sentence hurts more than crying.", "言い切れずに止まるほうが、泣くより痛い。", { tearjerker: 2, mystery: 1 }),
+          O("表面還在撐，畫面其實已經裂了", "They are still holding the surface while the frame itself cracks.", "本人は保っているのに、画面のほうが先に割れる感じ。", { sci_fi: 1, horror: 1, mystery: 1 }),
+          O("直接失控，漂亮地壞給你看", "A full, beautiful loss of control.", "きれいに壊れていくところまで見せてほしい。", { horror: 2, adult_risk: 1, action: 1 })
+        ]
+      ),
+      Q(
+        "bridge_scene",
+        "大事件與大事件之間，你最想要哪種過橋場景？",
+        "Between major beats, what kind of bridge scene do you want most?",
+        "大きな山場と山場のあいだ、どんな橋渡しがいちばん欲しい？",
+        [
+          O("兩個人安靜走一段路", "Two people walking quietly for a while.", "二人で静かに少し歩く場面。", { romance: 2, slice_of_life: 1 }),
+          O("把零碎線索悄悄對齊", "A scene that quietly aligns scattered clues.", "散らばった手がかりが静かに揃う場面。", { mystery: 2, sci_fi: 1 }),
+          O("用一點笑話把壓力先鬆開", "A joke or two to loosen the pressure first.", "軽い笑いで、いったん圧をゆるめてほしい。", { comedy: 2, slice_of_life: 1 }),
+          O("短，但能讓命運感繼續發熱", "Short, but still glowing with fate.", "短くても、運命の熱だけは絶やさないでほしい。", { fantasy: 2, action: 1 })
+        ]
+      ),
+      Q(
+        "route_commit",
+        "如果一條個別線普通，但整體很強，你會？",
+        "If one route is only average but the whole work is strong, what do you do?",
+        "個別ルートが普通でも、全体が強い作品ならどうする？",
+        [
+          O("可以接受，整體完成度更重要", "That is fine. Cohesion matters more.", "平気。全体の完成度のほうが大事。", { mystery: 2, length: 1 }),
+          O("我要至少有一條線能讓我真心記住", "I still need at least one route that stays with me.", "それでも一本は、本気で残るルートが欲しい。", { romance: 2, tearjerker: 1 }),
+          O("如果世界觀夠厚，我會繼續走", "If the world is thick enough, I keep going.", "世界が厚ければ、そのまま進める。", { fantasy: 2, action: 1, length: 1 }),
+          O("不行，個別線弱會讓我整體掉感", "No. A weak route drags down the whole feeling for me.", "駄目。個別ルートが弱いと全体まで冷める。", { slice_of_life: 1, romance: 1 })
+        ]
+      ),
+      Q(
+        "ensemble_heat",
+        "群像互動裡，你最想看見哪種熱度？",
+        "Inside ensemble scenes, what kind of heat do you want most?",
+        "群像の掛け合いでは、どんな熱がいちばん欲しい？",
+        [
+          O("大家講話很熟，像多年老朋友", "A cast that sounds lived-in, like old friends.", "長年の友人みたいに、会話が自然に噛み合う感じ。", { comedy: 2, slice_of_life: 1 }),
+          O("每個人都有心事，對白裡一直在藏刀", "Everyone is hiding something, and the dialogue keeps the knives sheathed.", "全員が何かを隠していて、台詞の裏に刃がある感じ。", { mystery: 2, horror: 1 }),
+          O("同一個目標把所有人暫時拉成一隊", "A shared goal pulling everyone into one line for a while.", "同じ目的で、しばらく全員が一列に並ぶ感じ。", { action: 2, fantasy: 1 }),
+          O("就算在鬧，也知道某天一定會散", "Even while laughing, you can already tell it will end someday.", "笑っていても、いつか散ると最初からわかっている感じ。", { tearjerker: 2, romance: 1 })
+        ]
+      ),
+      Q(
+        "cg_hunt",
+        "CG 或差分回收，你最在意哪種滿足感？",
+        "When collecting CGs or variations, what satisfaction matters most?",
+        "CGや差分回収で、どんな満足感がいちばん大きい？",
+        [
+          O("我想把喜歡的角色看完整", "I want to complete the character I love.", "好きなキャラを最後まで見届けたい。", { romance: 2, length: 1 }),
+          O("每張圖最好都帶一塊真相", "Ideally each image carries a piece of the truth.", "一枚ごとに真相の欠片が乗っていてほしい。", { mystery: 2, gameplay: 1 }),
+          O("日常小差分很多，也很幸福", "A lot of small daily variations are already bliss.", "日常の細かな差分が多いだけでもうれしい。", { slice_of_life: 2, comedy: 1 }),
+          O("我想收集所有不該看的畫面", "I want every image I probably should not be seeing.", "見てはいけない絵ほど、全部拾いたくなる。", { horror: 1, adult_risk: 2, gameplay: 1 })
+        ]
+      ),
+      Q(
+        "setting_scale",
+        "世界觀的『尺度』，你這輪偏哪一邊？",
+        "Which side of world scale are you leaning toward this round?",
+        "世界観の『尺度』は今どちら寄り？",
+        [
+          O("只要一條街、一間教室，也能很動人", "A single street or classroom is enough if it sings.", "一本の通りや一つの教室でも、ちゃんと刺さるなら十分。", { slice_of_life: 2, romance: 1 }),
+          O("城市級就剛好，有空氣也有複雜度", "City scale is perfect. Enough air, enough complexity.", "都市規模くらいがちょうどいい。空気も複雑さもある。", { mystery: 2, adult_risk: 1 }),
+          O("國家、組織、陣營，越展越好", "Nations, factions, organizations. Expand the board.", "国家、組織、陣営。盤面は広いほどいい。", { fantasy: 2, action: 2 }),
+          O("尺度不重要，只要那個核心傷口夠深", "Scale is secondary if the core wound is deep enough.", "規模より、その中心の傷が深いかどうかのほうが大事。", { tearjerker: 2, horror: 1 })
+        ]
+      ),
+      Q(
+        "support_character",
+        "你最喜歡哪種配角功能？",
+        "What is your favorite kind of supporting role?",
+        "いちばん好きな脇役の役目は？",
+        [
+          O("幫主角把日常撐出厚度", "Someone who thickens the daily world around the lead.", "主人公の周りの日常に厚みを足してくれる人。", { slice_of_life: 2, comedy: 1 }),
+          O("一開口就能把謎再擰緊一圈", "Someone who tightens the mystery with one line.", "ひと言で謎をもう一段ねじれる人。", { mystery: 2 }),
+          O("作為對手或鏡子，逼主角長大", "A rival or mirror that forces growth.", "相手役や鏡として、主人公を前へ押す人。", { action: 1, fantasy: 1, tearjerker: 1 }),
+          O("光是存在就讓氣氛變得不安", "Someone whose presence alone makes the room uneasy.", "いるだけで空気がざらつく人。", { horror: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "reading_posture",
+        "真正開始補一部時，你理想中的閱讀姿勢是？",
+        "When you really begin a work, what is your ideal reading posture?",
+        "本気で一本を始める時、理想の読み姿勢は？",
+        [
+          O("夜裡關燈，讓自己慢慢沉進去", "At night, lights dimmed, sinking slowly in.", "夜に灯りを落として、ゆっくり沈みたい。", { tearjerker: 1, romance: 1, horror: 1 }),
+          O("桌前坐好，像在進入一個系統", "Seated properly, like entering a system.", "机に座って、ひとつのシステムへ入る感じ。", { gameplay: 2, sci_fi: 1 }),
+          O("躺著補，想讓它變成陪伴型的時間", "Lying down. I want it to feel companionable.", "寝転んで触れたい。付き添ってくれる時間みたいに。", { slice_of_life: 2, romance: 1 }),
+          O("戴耳機，隔絕掉外面，別讓人打擾", "Headphones on. Seal the outside away.", "ヘッドホンで外を切って、邪魔されずに入りたい。", { mystery: 1, horror: 1, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "lore_delivery",
+        "設定說明最好怎麼來？",
+        "How do you want lore delivery to work?",
+        "設定説明はどう入ってくるのが理想？",
+        [
+          O("藏在日常裡，邊讀邊自己拼", "Hide it inside daily life so I piece it together myself.", "日常の中に紛れていて、読みながら自分で繋げたい。", { mystery: 1, slice_of_life: 1 }),
+          O("遇到關鍵就給清楚一點", "Be clear when the turning points arrive.", "要所だけは、きちんと明かしてほしい。", { mystery: 1, sci_fi: 1, fantasy: 1 }),
+          O("可以厚一點，我願意讀規則", "It can be dense. I am willing to read the rules.", "厚くてもいい。ルールを読む準備はある。", { sci_fi: 2, fantasy: 1, length: 1 }),
+          O("最好用角色立場互撞出來", "Best if it emerges from clashing viewpoints.", "人物たちの立場がぶつかる中で見えてくるのがいちばんいい。", { action: 1, fantasy: 1, mystery: 1 })
+        ]
+      ),
+      Q(
+        "route_ordering",
+        "面對推薦順序，你通常會怎麼做？",
+        "What do you usually do with a recommended route order?",
+        "推奨ルート順がある時、ふだんどうする？",
+        [
+          O("照走，我想尊重作品節奏", "I follow it. I want to respect the design.", "守る。作品のリズムを尊重したい。", { mystery: 2, entry_barrier: 1 }),
+          O("先看一眼，再按自己心情微調", "I check it, then adjust around my own mood.", "いったん見て、自分の気分に合わせて少しだけずらす。", { romance: 1, gameplay: 1 }),
+          O("只要別擋我本命，我都好說", "As long as it does not block my favorite, I can work with it.", "本命さえ遠回りしすぎなければ大丈夫。", { romance: 2, comedy: 1 }),
+          O("越限制我，我越想自己亂走", "The more it constrains me, the more I want to wander.", "縛られるほど、自分で崩したくなる。", { gameplay: 2, horror: 1 })
+        ]
+      ),
+      Q(
+        "dramatic_irony",
+        "你吃不吃那種『讀者已經知道，但角色還不知道』的戲？",
+        "Do you like scenes where the reader already knows what the characters do not?",
+        "読者だけが先に知っていて、登場人物はまだ知らない展開は好き？",
+        [
+          O("很吃，尤其是戀愛快要錯過的時候", "Very much, especially when romance is about to miss its timing.", "かなり好き。特に恋がすれ違いそうな時。", { romance: 2, tearjerker: 1 }),
+          O("很吃，真相戲這樣最折磨人", "Absolutely. It makes truth-reveal stories deliciously painful.", "好き。真相ものだといちばん効く。", { mystery: 2, horror: 1 }),
+          O("可以，但不要拖太久", "Yes, just do not drag it forever.", "いいけれど、引っぱりすぎないでほしい。", { comedy: 1, mystery: 1 }),
+          O("我更喜歡和角色一起同時知道", "I prefer finding out at the same moment as the cast.", "登場人物と同じ瞬間に知るほうが好き。", { action: 1, fantasy: 1, slice_of_life: 1 })
+        ]
+      ),
+      Q(
+        "epilogue_need",
+        "真結局之後，你對後日談的需求有多高？",
+        "How badly do you need an epilogue after the true ending?",
+        "真エンドのあと、後日談はどれくらい欲しい？",
+        [
+          O("一定要有，不然我出不來", "I need it, or I cannot leave properly.", "欲しい。ないと気持ちが出てこない。", { romance: 2, slice_of_life: 1, tearjerker: 1 }),
+          O("有最好，但收得漂亮更重要", "Nice to have, but a graceful ending matters more.", "あればうれしい。でも締めの美しさのほうが大事。", { tearjerker: 2, mystery: 1 }),
+          O("不用太多，一兩幕就夠", "Not much. One or two scenes are enough.", "長くなくていい。一、二幕で足りる。", { mystery: 1, action: 1 }),
+          O("不要補太滿，留白會更痛", "Do not overfill it. The emptiness hurts better.", "埋めすぎないでほしい。余白のほうが痛い。", { horror: 1, tearjerker: 2 })
+        ]
+      ),
+      Q(
+        "voice_priority",
+        "聲音演出裡，你最不能少的是哪一塊？",
+        "In voice work, what can you least do without?",
+        "音の演技で、いちばん欠かせないものは？",
+        [
+          O("曖昧停頓，那種差一口氣的感情", "Hesitations that sound one breath short of confession.", "告白の一歩手前みたいな、ための気配。", { romance: 2, tearjerker: 1 }),
+          O("語氣變化，讓真相一層一層翻開", "Tone shifts that peel the truth open layer by layer.", "声色の変化で、真相が一枚ずつ剥がれる感じ。", { mystery: 2, sci_fi: 1 }),
+          O("群像掛け合い，講幾句就知道熟不熟", "Ensemble banter that tells you instantly how lived-in the cast is.", "掛け合いの温度だけで関係の深さがわかる感じ。", { comedy: 2, slice_of_life: 1 }),
+          O("失控、低語、發瘋邊緣的破音", "Cracks at the edge of losing control.", "壊れる寸前のかすれや割れ。", { horror: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "joke_tolerance",
+        "主線很重時，穿插的笑點你希望到什麼程度？",
+        "When the main story is heavy, how much comedy do you want woven in?",
+        "本筋が重い時、笑いはどれくらい差し込んでほしい？",
+        [
+          O("少量就好，像讓人喘口氣", "Just enough to let me breathe.", "少しでいい。ひと息つける程度がいい。", { tearjerker: 1, mystery: 1 }),
+          O("可以多一點，反差會讓後面更狠", "More is fine. The contrast makes later hits land harder.", "多めでもいい。落差で後半がもっと効く。", { comedy: 2, tearjerker: 1 }),
+          O("最好角色一開口就自帶火花", "Ideally the cast should crackle by default.", "できれば会話そのものに火花があってほしい。", { comedy: 3, romance: 1 }),
+          O("幾乎不要，氣氛別被拆掉", "Almost none. Do not break the pressure.", "ほとんど要らない。圧を切らないでほしい。", { horror: 2, action: 1 })
+        ]
+      ),
+      Q(
+        "route_bait",
+        "作品一開始丟很多香香的路線鉤子，你會？",
+        "When a work throws a lot of tempting route hooks at you early, what do you do?",
+        "序盤から魅力的なルートの餌がたくさん投げられたら？",
+        [
+          O("很開心，我喜歡先被選擇題包圍", "I love being surrounded by choices early.", "うれしい。最初から選択肢に囲まれたい。", { romance: 2, comedy: 1 }),
+          O("可以，但希望主線別因此散掉", "Fine, as long as the spine does not dissolve.", "いいけれど、本筋まで散らないでほしい。", { mystery: 1, romance: 1 }),
+          O("我會先記住誰最像真線核心", "I immediately start reading who looks like the true-route core.", "真ルートの核っぽい相手を先に探し始める。", { mystery: 2, gameplay: 1 }),
+          O("太香反而可疑，我會開始防", "Too much bait makes me suspicious.", "甘すぎると逆に警戒する。", { horror: 1, mystery: 2 })
+        ]
+      ),
+      Q(
+        "seasonal_mood",
+        "這輪更適合你的季節感是？",
+        "What seasonal mood suits you most right now?",
+        "今の自分にいちばん合う季節感は？",
+        [
+          O("春。關係剛長出來，一切還很輕", "Spring. New feelings, still light in the air.", "春。関係が芽吹き始めて、まだ空気が軽い感じ。", { romance: 2, comedy: 1 }),
+          O("夏。日照長，情緒也跟著拉開", "Summer. Long daylight, long emotions.", "夏。日が長くて、感情の伸びも長い感じ。", { slice_of_life: 2, tearjerker: 1 }),
+          O("秋。氣味開始變深，真相也該到了", "Autumn. The air deepens, and the truth should arrive with it.", "秋。空気が深くなって、真相もそろそろ来てほしい。", { mystery: 2, tearjerker: 1 }),
+          O("冬。冷一點，痛一點，最容易記住", "Winter. Colder, sharper, easier to remember.", "冬。冷たくて、痛くて、そのぶん残りやすい。", { tearjerker: 2, horror: 1 })
+        ]
+      ),
+      Q(
+        "system_commitment",
+        "如果作品帶有戰鬥、養成或管理，你希望它介入到什麼程度？",
+        "If the work has combat, raising, or management systems, how much should they intervene?",
+        "戦闘や育成や管理があるなら、どれくらい本編に食い込んでほしい？",
+        [
+          O("點到為止，別搶戲", "Keep it light. Do not steal the show.", "軽くでいい。物語の主役は奪わないでほしい。", { romance: 1, tearjerker: 1 }),
+          O("有存在感就好，能幫節奏就行", "Give it presence, as long as it helps the pacing.", "存在感があれば十分。リズムを支えるくらいがいい。", { gameplay: 1, action: 1 }),
+          O("要能左右結果，我才會有參與感", "I want it to affect outcomes so I feel involved.", "結末や進行に効いてこそ、参加している感じが出る。", { gameplay: 3, mystery: 1 }),
+          O("最好乾脆成為作品的第二脈搏", "Ideally it becomes the work's second heartbeat.", "むしろ作品の第二の脈になってほしい。", { gameplay: 2, action: 2, fantasy: 1 })
+        ]
+      ),
+      Q(
+        "confession_timing",
+        "感情真正說破，放在哪個時點最對你？",
+        "When is the right moment for feelings to finally be spoken aloud?",
+        "感情がはっきり言葉になる瞬間は、どこに置かれるのがいちばん好き？",
+        [
+          O("中段就說，後面看兩人怎麼活", "Say it mid-route and let me watch them live with it.", "中盤で言って、その後どう生きるかまで見たい。", { romance: 2, adult_risk: 1, slice_of_life: 1 }),
+          O("結尾前夕最好，前面先把火養足", "Right before the end, after enough slow heat.", "終盤直前がいい。そこまでじっくり火を育ててほしい。", { romance: 2, tearjerker: 1 }),
+          O("真相揭開那刻一起炸開最爽", "Best when it bursts together with the truth.", "真相と一緒に弾ける形がいちばん気持ちいい。", { mystery: 2, romance: 1 }),
+          O("等一切都快毀了才講，才夠狠", "Only when everything is about to break.", "全部が壊れかけたところでようやく言うのが一番効く。", { horror: 1, tearjerker: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "trauma_shape",
+        "作品裡的傷口，哪一種最容易讓你停下來？",
+        "What kind of wound inside a work makes you stop and stare?",
+        "作品の中の傷で、どれにいちばん足が止まる？",
+        [
+          O("感情一直有，卻始終說不完整", "Feelings that are always there but never fully speakable.", "感情はずっとあるのに、最後まで言い切れない傷。", { romance: 2, tearjerker: 2 }),
+          O("記憶缺口，時間一碰就歪掉", "Memory gaps and time that warps when touched.", "記憶の欠落や、触れると歪む時間。", { mystery: 2, sci_fi: 2 }),
+          O("信念很正，但世界一直逼它變形", "A clean belief bent out of shape by the world.", "まっすぐな信念が、世界に押されて歪んでいく傷。", { action: 1, fantasy: 2, tearjerker: 1 }),
+          O("身體、知覺、倫理一起爛掉", "Body, perception, and ethics rotting at the same time.", "身体も知覚も倫理も一緒に崩れていく傷。", { horror: 3, adult_risk: 2 })
+        ]
+      ),
+      Q(
+        "menu_aesthetic",
+        "標題畫面或系統選單，你更吃哪種美感？",
+        "What kind of title-screen or menu aesthetic do you respond to most?",
+        "タイトル画面やメニューは、どんな美感だと刺さる？",
+        [
+          O("乾淨、靜、像還留著一口氣", "Clean and quiet, like holding a single breath.", "静かで整っていて、まだ息を一つ残している感じ。", { tearjerker: 1, mystery: 1 }),
+          O("資訊感很強，像一套會運作的裝置", "Interface-heavy, like a system that actually runs.", "情報量があって、本当に動いている装置みたいな感じ。", { sci_fi: 2, gameplay: 1 }),
+          O("華麗一點，打開就知道角色很多很熱鬧", "More ornate, so the cast presence hits immediately.", "少し華やかで、開いた瞬間に人の熱が伝わる感じ。", { comedy: 2, romance: 1 }),
+          O("怪一點，光是游標移動都不太對", "Strange enough that even moving the cursor feels wrong.", "少し異様で、カーソルを動かすだけでも変な感じ。", { horror: 2, mystery: 1 })
+        ]
+      ),
+      Q(
+        "scene_memory",
+        "你最常被哪一類場景記一輩子？",
+        "What kind of scene do you remember for life?",
+        "どんな場面を一生覚えていがち？",
+        [
+          O("兩個人終於講出那句話的瞬間", "The exact second two people finally say it.", "二人がとうとうあの一言を口にした瞬間。", { romance: 3, tearjerker: 1 }),
+          O("真相回收那一幕，前面全都重排", "The reveal that rearranges everything before it.", "真相の回収で、それ以前の全部が組み替わる瞬間。", { mystery: 3, sci_fi: 1 }),
+          O("某個很平凡的日常突然變得不能回去", "An ordinary day suddenly becoming unrecoverable.", "何でもない日常が、急に戻れないものになる瞬間。", { slice_of_life: 2, tearjerker: 2 }),
+          O("一張畫面安靜停住，但你知道已經壞了", "A still image that quietly tells you everything is broken.", "一枚の画が静止しているのに、もう壊れたとわかる瞬間。", { horror: 2, adult_risk: 1, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "letter_or_truth",
+        "如果要選一種推進方式，你更偏哪邊？",
+        "If you had to choose one engine, which side do you lean toward?",
+        "物語を動かす力を一つ選ぶなら、どちら寄り？",
+        [
+          O("一封信、一句話、兩個人之間的距離", "A letter, a line, the distance between two people.", "一通の手紙、一言、二人の距離。", { romance: 2, tearjerker: 1 }),
+          O("一個謎、一條規則、越追越深", "A mystery, a rule, and a chase that only deepens.", "一つの謎、一つの規則、追うほど深くなる感覚。", { mystery: 2, sci_fi: 1 }),
+          O("一個願望，要靠很多人一起撐住", "A wish that needs a whole cast to keep standing.", "多くの人で支えないと立っていられない願い。", { fantasy: 2, action: 1 }),
+          O("一個禁忌，越碰越知道不該碰", "A taboo that only becomes stronger the more it is touched.", "触れるほど、触れてはいけないとわかる禁忌。", { horror: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "route_failure",
+        "如果某條線結尾不是幸福，而是『必要』，你能接受嗎？",
+        "Can you accept an ending that is not happy, but necessary?",
+        "幸せではなく『必要だった』終わり方は受け入れられる？",
+        [
+          O("可以，只要感情有被妥善送完", "Yes, if the emotions are delivered cleanly.", "受け入れられる。感情がきちんと送られていれば。", { tearjerker: 3, romance: 1 }),
+          O("可以，只要真相層面說得通", "Yes, if it is true on the structural level.", "受け入れられる。真相や構造のレベルで納得できれば。", { mystery: 2, sci_fi: 1 }),
+          O("勉強接受，但我還是想要一點回甘", "I can try, but I still want some sweetness after.", "受け入れたいけれど、少しだけ救いもほしい。", { romance: 1, slice_of_life: 1, tearjerker: 1 }),
+          O("當然，越不留情越容易長在心裡", "Absolutely. Merciless endings stay longer.", "もちろん。容赦がないほど心に残る。", { horror: 2, adult_risk: 1, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "publisher_trust",
+        "你會因為品牌、系列或編劇名字就先加分嗎？",
+        "Do brand names, series lines, or staff names earn points from you up front?",
+        "ブランドやシリーズや書き手の名前だけで、最初から加点する？",
+        [
+          O("會，但只是一個溫柔的起跑線", "Yes, but only as a gentle head start.", "する。でも、あくまでやさしい助走くらい。", { slice_of_life: 1, romance: 1 }),
+          O("我會記住，尤其是真相系作品", "I keep track, especially for truth-driven works.", "意識する。特に真相系ではかなり見る。", { mystery: 2, entry_barrier: 1 }),
+          O("只看眼前這一部，名字不能替它寫完", "I judge the work itself. A name cannot finish it for me.", "その一本をその一本として見る。名前だけでは最後まで書けない。", { action: 1, romance: 1, horror: 1 }),
+          O("會，因為有些人就是知道怎麼把你毀掉", "Yes, because some names know exactly how to ruin me.", "する。あの人たちは、どう壊せば効くか知っているから。", { adult_risk: 1, horror: 1, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "backlog_style",
+        "面對待補清單，你通常是哪一型？",
+        "What kind of backlog person are you?",
+        "積みリストに対して、あなたはどのタイプ？",
+        [
+          O("先補最輕鬆進去的，讓自己有手感", "I start with the easiest entry to regain the feel.", "まずはいちばん入りやすいものから触って感触を戻す。", { entry_barrier: 0, slice_of_life: 1 }),
+          O("先補最該補的，哪怕門檻高一點", "I start with what deserves it most, even if it is harder.", "門檻が高くても、いちばん補うべきものから行く。", { entry_barrier: 2, mystery: 1, length: 1 }),
+          O("看今天的心情，電波對到再說", "I follow the mood of the day.", "その日の電波と気分で決める。", { romance: 1, comedy: 1, fantasy: 1 }),
+          O("會故意留一兩部重的，等自己夠穩再開", "I save the heavier ones until I feel steady enough.", "重いものは一、二本わざと残しておく。受け止められる時まで。", { horror: 1, tearjerker: 1, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "opening_temperature",
+        "作品前兩小時的溫度，你希望偏哪邊？",
+        "What temperature do you want the first two hours to have?",
+        "最初の二時間は、どんな温度で始まってほしい？",
+        [
+          O("溫一點，讓我願意把心放下來", "Warm enough that I let my guard down.", "少し温かくて、こちらの肩が下りる感じ。", { slice_of_life: 2, romance: 1 }),
+          O("冷一點，讓我知道它不是普通作品", "Cool enough that I know it is not ordinary.", "少し冷たくて、ただの作品ではないとわかる感じ。", { mystery: 2, sci_fi: 1 }),
+          O("亮一點，先用角色火花把我拉住", "Bright enough that character chemistry hooks me first.", "明るめで、まずは掛け合いの火花で掴んでほしい。", { comedy: 2, romance: 1 }),
+          O("壓一點，讓我從第一頁就開始戒備", "Pressurized enough that I am already on guard by page one.", "少し圧があって、一頁目からもう警戒したい。", { horror: 2, action: 1 })
+        ]
+      ),
+      Q(
+        "heroine_distance",
+        "主角和本命角色之間，你最喜歡哪種距離感開局？",
+        "What opening distance between the lead and your favorite character do you like most?",
+        "主人公と本命候補の距離感は、どんな始まりがいちばん好き？",
+        [
+          O("其實早就認識，只是還沒真正看見彼此", "They have known each other, but have not truly seen each other yet.", "前から知ってはいるけれど、まだ本当に見えていない関係。", { romance: 2, slice_of_life: 1 }),
+          O("完全陌生，靠事件被硬拉在一起", "Total strangers forced together by an event.", "まったくの他人が、事件で無理やり並ぶ関係。", { mystery: 1, action: 1, romance: 1 }),
+          O("表面很近，實際上隔著整層真相", "Close on the surface, separated by a whole truth underneath.", "表面は近いのに、下に真相が一枚挟まっている関係。", { mystery: 2, romance: 1 }),
+          O("像命運先認識了他們，人反而還沒有", "Fate knows them before they know each other.", "人より先に、運命のほうが二人を知っている感じ。", { fantasy: 2, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "twist_ethics",
+        "反轉如果會傷角色，你希望它遵守什麼？",
+        "If a twist is going to hurt the characters, what must it honor?",
+        "反転が人物を傷つけるなら、何だけは守ってほしい？",
+        [
+          O("感情真實，別只是技巧漂亮", "Emotional truth. Not just technical cleverness.", "感情の真実さ。技巧だけ綺麗なのは嫌だ。", { tearjerker: 2, romance: 1 }),
+          O("邏輯完整，回頭看也站得住", "Structural integrity. It has to stand on a reread.", "論理の強さ。あとから見返しても立っていてほしい。", { mystery: 3, sci_fi: 1 }),
+          O("就算殘酷，也要讓角色有選擇感", "Even cruel turns should leave the characters some agency.", "残酷でも、人物に選ぶ感覚だけは残してほしい。", { action: 1, fantasy: 1, romance: 1 }),
+          O("不用守太多，敢就行", "Not much. I mostly want nerve.", "そこまで守らなくていい。まずは胆力がほしい。", { horror: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "protagonist_edge",
+        "主角身上，你最想保留哪種『棱角』？",
+        "What kind of edge do you most want the protagonist to keep?",
+        "主人公には、どんな『角』を残していてほしい？",
+        [
+          O("溫柔，但不是誰都能進來", "Kind, but not openly available to everyone.", "やさしいけれど、誰でも入ってこられるわけじゃない感じ。", { romance: 2, slice_of_life: 1 }),
+          O("聰明，甚至有點不好親近", "Sharp, maybe even slightly hard to approach.", "頭が切れて、少し近寄りがたいくらいがいい。", { mystery: 2, sci_fi: 1 }),
+          O("有野心，做選擇時不怕得罪人", "Ambitious enough to make hard choices.", "野心があって、選ぶ時に人を嫌われるのも恐れない感じ。", { action: 2, fantasy: 1 }),
+          O("有裂痕，甚至自己都知道不太正常", "Cracked enough to know something is wrong inside.", "ひびが入っていて、自分でも普通じゃないとわかっている感じ。", { horror: 2, adult_risk: 1, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "sound_design",
+        "音效或環境音，你最希望它怎麼參與？",
+        "How do you want sound design or ambience to participate?",
+        "効果音や環境音には、どう関わってほしい？",
+        [
+          O("很淡，只在靜的地方把人推深一點", "Subtle, only deepening quiet scenes.", "淡くて、静かな場面を少しだけ深くするくらい。", { tearjerker: 1, slice_of_life: 1 }),
+          O("成為提示，讓我覺得哪裡不對", "As a hint that tells me something is off.", "手がかりとして働いて、何かがおかしいと感じさせてほしい。", { mystery: 2, horror: 1 }),
+          O("要有存在感，像整個世界都在運作", "Present enough to make the world feel active.", "存在感があって、世界そのものが動いている感じがほしい。", { fantasy: 1, sci_fi: 1, action: 1 }),
+          O("越細越可怕，最好安靜時最不安", "The finer it gets, the scarier it should become.", "細かいほど怖くて、静かな時ほど不安になるのがいい。", { horror: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "branch_density",
+        "選項頻率方面，你這輪想要什麼節奏？",
+        "What choice frequency feels right this round?",
+        "選択肢の頻度は、今どんなリズムがいい？",
+        [
+          O("少一點，重要時再出現就好", "Sparse. Let them appear only when it matters.", "少なめでいい。大事な時だけ現れてほしい。", { tearjerker: 1, romance: 1 }),
+          O("規律一點，讓我一直有參與感", "Regular enough that I keep feeling involved.", "ある程度規則的で、ずっと参加している感じがほしい。", { gameplay: 2, mystery: 1 }),
+          O("多一點，我喜歡掌舵感", "Frequent. I like steering the wheel.", "多めがいい。舵を取っている感覚が好きだ。", { gameplay: 3, action: 1 }),
+          O("表面少，但每次一來都很致命", "Rare on the surface, but devastating when they come.", "表向きは少なくていい。でも来るたびに致命的であってほしい。", { horror: 1, mystery: 2, adult_risk: 1 })
+        ]
+      ),
+      Q(
+        "screen_time",
+        "你最在意哪一種『畫面停留』？",
+        "What kind of on-screen stillness matters most to you?",
+        "どんな『画面の滞留』をいちばん大事にしたい？",
+        [
+          O("兩個人不說話，但空氣在走", "Two people silent while the air keeps moving.", "二人は黙っているのに、空気だけが流れている時間。", { romance: 2, tearjerker: 1 }),
+          O("某個道具或地點被反覆看見，慢慢變重要", "An object or place recurring until it means more.", "同じ物や場所が何度も映って、少しずつ意味を持つ感じ。", { mystery: 2, slice_of_life: 1 }),
+          O("打鬥或對峙前，那一秒的屏氣", "That held breath before a clash.", "ぶつかる直前の、息を止める一秒。", { action: 2, fantasy: 1 }),
+          O("畫面很安靜，但你知道有東西在看", "A quiet frame that still feels watched.", "静かな画なのに、何かに見られている気がする時間。", { horror: 2, mystery: 1 })
+        ]
+      ),
+      Q(
+        "unlock_grind",
+        "為了補到核心內容，你願意承受多少『程序感』？",
+        "How much procedural friction are you willing to take to reach the core?",
+        "核心へ届くための『手順感』にはどこまで付き合える？",
+        [
+          O("少一點最好，我想情緒不斷線", "As little as possible. I want emotional continuity.", "少ないほどいい。感情の線は切りたくない。", { romance: 2, tearjerker: 1 }),
+          O("適量可以，算是作品的一部分", "A little is fine. It can be part of the work.", "適度なら平気。作品の一部として受け止められる。", { gameplay: 1, mystery: 1 }),
+          O("只要最終回報夠高，我能忍", "If the final payoff is big enough, I can take it.", "最後の報いが大きいなら、かなり耐えられる。", { gameplay: 2, length: 1, mystery: 1 }),
+          O("越像儀式越好，解鎖本身就該有重量", "The more ritualized, the better. Unlocking should carry weight.", "儀式っぽいほどいい。開く行為そのものに重みがほしい。", { horror: 1, gameplay: 2, fantasy: 1 })
+        ]
+      ),
+      Q(
+        "emotional_recovery",
+        "補完一部很重的之後，你通常怎麼恢復？",
+        "How do you usually recover after something heavy?",
+        "重い一本を終えたあと、どうやって戻ってくる？",
+        [
+          O("找一部溫柔的，慢慢把自己接回來", "I find something gentle and reconnect slowly.", "やさしい一本で、ゆっくり自分を戻していく。", { slice_of_life: 2, romance: 1 }),
+          O("直接翻資料，把它徹底消化完", "I dive into notes and digest it completely.", "資料や考察に潜って、徹底的に消化しに行く。", { mystery: 2, entry_barrier: 1 }),
+          O("換個更熱的，讓自己重新活過來", "I switch to something hotter to wake back up.", "もっと熱いものに切り替えて、もう一度動き出したい。", { action: 2, fantasy: 1 }),
+          O("不恢復，我想讓那種不適再留久一點", "I do not. I want the discomfort to stay a little longer.", "戻さない。その不快さをもう少し残しておきたい。", { horror: 2, adult_risk: 1, tearjerker: 1 })
+        ]
+      ),
+      Q(
+        "classic_commitment",
+        "如果一部經典又長又慢，你願意怎麼對待它？",
+        "If a classic is both long and slow, how are you willing to meet it?",
+        "古典が長くて遅い時、どんな付き合い方ならできる？",
+        [
+          O("先不碰，我現在想要更直覺的入口", "Not now. I want more immediate entry points.", "今はまだいい。もっと直感的に入れるものが欲しい。", { entry_barrier: 0 }),
+          O("可以分段補，只要它值得", "I can take it in segments if it is worth it.", "価値があるなら、区切りながらでも付き合える。", { entry_barrier: 2, length: 1 }),
+          O("我會留出完整時間，好好進去", "I will carve out the time and enter properly.", "ちゃんと時間を空けて、きちんと入りに行く。", { length: 3, entry_barrier: 2, mystery: 1 }),
+          O("越像深井越好，我現在就想往下跳", "The deeper the well, the better. I want to jump now.", "深井みたいなほどいい。今こそ飛び込みたい。", { length: 4, entry_barrier: 3, horror: 1 })
+        ]
+      ),
+      Q(
+        "route_resolution",
+        "最後最後，你希望作品如何把你放下？",
+        "At the very end, how do you want the work to set you down?",
+        "最後の最後、作品にはどうやってこちらを着地させてほしい？",
+        [
+          O("很輕地放下，但心裡一直有餘溫", "Gently, but with warmth still lingering inside.", "やさしく着地して、内側だけずっと温かいままがいい。", { romance: 2, slice_of_life: 1, tearjerker: 1 }),
+          O("把所有線頭綁好，再讓我回頭驚一下", "Tie every thread, then make me look back in awe.", "糸口をきれいに結んだうえで、振り返って驚かせてほしい。", { mystery: 3, sci_fi: 1 }),
+          O("給我一個能繼續活下去的方向", "Leave me with a direction I can keep walking toward.", "この先も歩ける方向だけは置いていってほしい。", { fantasy: 2, action: 1, tearjerker: 1 }),
+          O("不用太安穩，殘響夠深就行", "It does not need to be comfortable. Depth matters more.", "穏やかでなくていい。残響の深さのほうが大事だ。", { horror: 1, adult_risk: 1, tearjerker: 2 })
+        ]
+      ),
+      Q(
+        "shelf_pick",
+        "如果書架上只剩四種氣味，你今晚會抽哪一種？",
+        "If only four kinds of mood were left on the shelf tonight, which one would you pull?",
+        "棚に四つの気配しか残っていない夜、どれを引き抜く？",
+        [
+          O("柔軟、近身、會慢慢變痛的", "Soft, intimate, and slowly painful.", "やわらかくて近くて、ゆっくり痛くなるもの。", { romance: 2, tearjerker: 2 }),
+          O("冷靜、銳利、像會回收很多東西的", "Cool, sharp, and likely to pay everything back.", "冷静で鋭くて、いろいろ回収してくれそうなもの。", { mystery: 2, sci_fi: 1 }),
+          O("明亮、吵鬧、角色一出場就有戲的", "Bright, lively, and instantly character-driven.", "明るくて賑やかで、出た瞬間から人物に熱があるもの。", { comedy: 2, slice_of_life: 1, romance: 1 }),
+          O("陰影、禁忌、看完大概不會舒服的", "Shadowed, taboo-laced, and unlikely to leave me comfortable.", "陰りがあって、禁忌があって、たぶん見終わっても楽ではないもの。", { horror: 2, adult_risk: 1, mystery: 1 })
+        ]
       )
     ]
   };

@@ -5,7 +5,7 @@
 当前已接入的子路由：
 
 - `/tests/anime-summer-2026/`：2026 夏季番性格测验
-- `/tests/galgame-test/`：GalGame 命定路线测验
+- `/tests/galgame-test/`：GalGame 命定路线测验（100 题池随机抽 15 题）
 
 兼容旧链接：
 
@@ -52,6 +52,12 @@ Pages 项目名：`exam-kara`
 - 把 `tests-src/galgame-test/` 输出到 `/tests/galgame-test/`
 - 生成 `/tests/galgame-match/` 到新 GalGame 路由的跳转页
 - 为首页与测试页写入新的构建版本号，用于强制刷新静态缓存
+
+## 语言与结果图
+
+- 语言选择会写入本地存储，后续访问默认沿用上次所选语言
+- 仍可通过首页或测试页右上角语言菜单随时切换
+- GalGame 测试结果图支持站内预览与下载，导出时会保留标题、封面、特质分布与二维码
 
 ## 文档
 

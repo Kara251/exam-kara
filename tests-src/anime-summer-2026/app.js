@@ -1470,14 +1470,23 @@
     animateGateGuide(originRect, label);
   }
 
-  function initLanguageGate() {
+  function initLanguageGate(shouldOpen) {
     var gate = document.getElementById("lang-gate");
 
     if (!gate) {
-      return;
+      return false;
     }
 
-    document.body.classList.add("lang-gate-open");
+    if (shouldOpen) {
+      gate.classList.remove("is-hidden", "is-dismissing");
+      document.body.classList.add("lang-gate-open");
+      return true;
+    }
+
+    gate.classList.add("is-hidden");
+    document.body.classList.remove("lang-gate-open");
+    revealInitialPageFromLanguageGate();
+    return false;
   }
 
   function init() {
@@ -1509,7 +1518,7 @@
     setIssueDateLabels();
     applyLang();
     syncCurrentUrl();
-    initLanguageGate();
+    initLanguageGate(localeApi.shouldShowLanguageGate());
     populateMarquees();
     updateHomeScrollHint({ immediate: true });
 

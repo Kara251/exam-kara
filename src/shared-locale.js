@@ -27,6 +27,14 @@
     }
   }
 
+  function hasExplicitQueryLocale() {
+    try {
+      return new URLSearchParams(window.location.search).has("lang");
+    } catch {
+      return false;
+    }
+  }
+
   function readStoredLocale() {
     try {
       return normalizeLocale(window.localStorage.getItem(STORAGE_KEY));
@@ -35,10 +43,18 @@
     }
   }
 
+  function hasStoredLocale() {
+    try {
+      return Boolean(localeMap[window.localStorage.getItem(STORAGE_KEY)]);
+    } catch {
+      return false;
+    }
+  }
+
   function getLocale() {
     var queryLocale = readQueryLocale();
 
-    if (queryLocale !== "tc" || new URLSearchParams(window.location.search).has("lang")) {
+    if (queryLocale !== "tc" || hasExplicitQueryLocale()) {
       return queryLocale;
     }
 
@@ -59,10 +75,17 @@
     return localeMap[normalizeLocale(locale)];
   }
 
+  function shouldShowLanguageGate() {
+    return !hasExplicitQueryLocale() && !hasStoredLocale();
+  }
+
   window.ExamKaraLocale = {
     locales: LOCALES.slice(),
     storageKey: STORAGE_KEY,
     normalizeLocale: normalizeLocale,
+    hasExplicitQueryLocale: hasExplicitQueryLocale,
+    hasStoredLocale: hasStoredLocale,
+    shouldShowLanguageGate: shouldShowLanguageGate,
     getLocale: getLocale,
     setLocale: setLocale,
     getConfig: getConfig
