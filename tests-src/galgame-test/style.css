@@ -817,7 +817,8 @@ select:focus-visible {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(300px, 0.9fr) minmax(280px, 0.7fr) minmax(360px, 1.08fr);
+  align-items: start;
+  grid-template-columns: minmax(380px, 1.04fr) minmax(280px, 0.72fr) minmax(380px, 1fr);
   grid-template-areas:
     "hero summary covers"
     "actions summary covers";
@@ -833,7 +834,7 @@ body[data-layout="stack"] .surface-grid {
 }
 
 body[data-layout="asym"] .surface-grid {
-  grid-template-columns: minmax(300px, 0.92fr) minmax(260px, 0.72fr) minmax(380px, 1.14fr);
+  grid-template-columns: minmax(400px, 1.08fr) minmax(270px, 0.68fr) minmax(380px, 1fr);
   grid-template-areas:
     "hero summary covers"
     "actions summary covers";
@@ -976,6 +977,7 @@ body[data-layout="asym"] .surface-grid {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 100%;
 }
 
 .home-title-primary,
@@ -988,11 +990,11 @@ body[data-layout="asym"] .surface-grid {
 }
 
 .home-title-primary {
-  font-size: clamp(4.2rem, 8.2vw, 7.6rem);
+  font-size: clamp(3.6rem, 6vw, 6.2rem);
 }
 
 .home-title-secondary {
-  font-size: clamp(3rem, 6.8vw, 6rem);
+  font-size: clamp(2.8rem, 4.8vw, 4.9rem);
   color: var(--accent);
   transform: translateX(12px) rotate(-7deg);
 }
@@ -1009,9 +1011,12 @@ body[data-layout="asym"] .surface-grid {
 .home-summary-card {
   grid-area: summary;
   position: relative;
+  justify-self: start;
   align-self: start;
   margin-top: 96px;
-  min-height: 100%;
+  width: min(100%, 360px);
+  min-height: auto;
+  height: fit-content;
   padding: 28px 24px 28px;
   border: none;
   background:
@@ -2637,23 +2642,44 @@ body[data-layout="asym"] .home-title {
 }
 
 body[data-layout="asym"] .home-summary-card {
-  align-self: end;
+  align-self: start;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1480px) {
   .surface-grid,
   body[data-layout="stack"] .surface-grid,
   body[data-layout="asym"] .surface-grid {
-    grid-template-columns: minmax(0, 0.96fr) minmax(360px, 1.04fr);
+    grid-template-columns: minmax(420px, 0.98fr) minmax(380px, 1.02fr);
     grid-template-areas:
       "hero covers"
       "summary covers"
       "actions covers";
     gap: 24px 28px;
+    min-height: 720px;
   }
 
   .home-summary-card {
     margin-top: 0;
+    width: min(100%, 420px);
+  }
+
+  .home-cover-stage {
+    min-height: 560px;
+    margin: 0 0 0 -2%;
+  }
+
+  .home-actions {
+    margin-top: 0;
+  }
+
+  .home-watermark {
+    right: 18px;
+    top: 142px;
+    font-size: clamp(4rem, 8vw, 6.8rem);
+  }
+
+  .summary-spotlight-name {
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   }
 }
 
