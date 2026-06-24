@@ -33,6 +33,14 @@
 
   <div class="lang-guide-toast" id="lang-guide-toast" aria-live="polite" data-ui="gateToast">右上角可隨時切換語言</div>
 
+  <div class="page-transition" id="page-transition" aria-hidden="true">
+    <span class="page-transition-slice page-transition-slice-a"></span>
+    <span class="page-transition-slice page-transition-slice-b"></span>
+    <span class="page-transition-slice page-transition-slice-c"></span>
+    <span class="page-transition-line page-transition-line-a"></span>
+    <span class="page-transition-line page-transition-line-b"></span>
+  </div>
+
   <section id="page-home" class="page active route-page route-home">
     <div class="route-frame home-frame">
       <header class="paper-masthead anim" style="--d:0">
@@ -76,6 +84,11 @@
             <div class="summary-scene" id="home-scene-label">信號雜訊</div>
             <div class="summary-deck" id="home-scene-deck">實驗室殘響 / 都市冷光 / 時間線焦躁</div>
             <p class="summary-note" id="home-scene-note">偏科幻、懸疑、資訊差與真相回收。</p>
+            <div class="summary-spectrum" id="summary-spectrum" aria-hidden="true">
+              <span class="summary-spectrum-key" id="home-ribbon-a">實驗室殘響</span>
+              <span class="summary-spectrum-key" id="home-ribbon-b">都市冷光</span>
+              <span class="summary-spectrum-key" id="home-ribbon-c">時間線焦躁</span>
+            </div>
             <div class="summary-divider"></div>
             <div class="summary-spotlight-label" data-ui="spotlightLabel">當前聚焦</div>
             <div class="summary-spotlight-name" id="home-spotlight-name">STEINS;GATE</div>
@@ -188,6 +201,10 @@
           </aside>
 
           <div class="quiz-stage anim anim-right">
+            <div class="quiz-stage-head">
+              <span class="quiz-stage-chip" id="quiz-stage-scene">信號雜訊</span>
+              <div class="quiz-stage-deck" id="quiz-stage-deck">實驗室殘響 / 都市冷光 / 時間線焦躁</div>
+            </div>
             <div class="quiz-body" id="quiz-body">
               <h2 class="quiz-question" id="quiz-question"></h2>
               <div class="quiz-options" id="quiz-options"></div>
@@ -232,6 +249,11 @@
         <div class="result-layout">
           <div class="result-main anim anim-left">
             <div class="result-kicker" data-ui="resultLead">你 的 命 定 路 線</div>
+            <div class="result-match-strip">
+              <span class="result-match-label" data-ui="topMatchLabel">首推</span>
+              <span class="result-match-scene" id="result-match-scene">信號雜訊</span>
+              <span class="result-match-count" data-ui="worksLiveLabel">43 部作品結果池</span>
+            </div>
             <figure class="result-cover-panel">
               <div class="result-img-wrap" id="result-img-wrap">
                 <img id="result-img" src="" alt="">
@@ -248,6 +270,10 @@
             </div>
             <div class="rule"></div>
             <p class="result-description" id="result-description"></p>
+            <div class="result-preference-strip">
+              <div class="result-preference-label" data-ui="resultKeepLabel">本輪關鍵偏好</div>
+              <div class="result-preference-tags" id="result-profile-tags"></div>
+            </div>
             <div class="result-keywords" id="result-keywords"></div>
             <div class="result-actions" data-export-hidden="true">
               <button id="btn-share" class="btn-primary btn-result wipe-fill" type="button" data-ui="save">保存結果圖</button>

@@ -60,6 +60,9 @@
   var langSelect = document.getElementById("lang-select");
   var homeScrollHint = document.getElementById("home-scroll-hint");
   var issueDateTargets = document.querySelectorAll("[data-issue-date]");
+  var pageTransition = document.getElementById("page-transition");
+  var pageTransitionTimers = [];
+  var currentPageId = "page-home";
   var worksReadyPromise;
 
   quizData.questions.forEach(function (question, questionIndex) {
@@ -107,6 +110,12 @@
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
+  }
+
+  function clearPageTransitionTimers() {
+    while (pageTransitionTimers.length) {
+      window.clearTimeout(pageTransitionTimers.pop());
+    }
   }
 
   function pad(number) {
@@ -240,15 +249,65 @@
     });
   }
 
-  function showPage(page) {
-    [pageHome, pageQuiz, pageResult].forEach(function (entry) {
-      entry.classList.remove("active");
+  function transitionDirectionFor(targetPageId) {
+    var order = ["page-home", "page-quiz", "page-result"];
+    var currentIndex = order.indexOf(currentPageId);
+    var nextIndex = order.indexOf(targetPageId);
+
+    if (nextIndex < currentIndex) {
+      return "back";
+    }
+
+    return "forward";
+  }
+
+  function runPageTransition(direction, applyChanges) {
+    var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!pageTransition || prefersReducedMotion) {
+      applyChanges();
+      return;
+    }
+
+    clearPageTransitionTimers();
+    pageTransition.classList.remove("is-active");
+    pageTransition.dataset.direction = direction || "forward";
+
+    window.requestAnimationFrame(function () {
+      pageTransition.classList.add("is-active");
     });
 
-    page.classList.add("active");
-    window.scrollTo(0, 0);
-    triggerAnims(page);
-    updateHomeScrollHint({ immediate: page === pageHome });
+    pageTransitionTimers.push(window.setTimeout(function () {
+      applyChanges();
+    }, 180));
+
+    pageTransitionTimers.push(window.setTimeout(function () {
+      pageTransition.classList.remove("is-active");
+    }, 980));
+  }
+
+  function showPage(page, options) {
+    var immediate = Boolean(options && options.immediate);
+    var targetPageId = page.id;
+    var applyChanges = function () {
+      [pageHome, pageQuiz, pageResult].forEach(function (entry) {
+        entry.classList.remove("active");
+      });
+
+      page.classList.add("active");
+      currentPageId = targetPageId;
+      document.body.dataset.page = targetPageId;
+      window.scrollTo(0, 0);
+      triggerAnims(page);
+      updateHomeScrollHint({ immediate: page === pageHome });
+    };
+
+    if (immediate) {
+      applyChanges();
+      return;
+    }
+
+    runPageTransition(transitionDirectionFor(targetPageId), applyChanges);
   }
 
   function canShowHomeScrollHint() {
@@ -591,6 +650,30 @@
     };
   }
 
+  function splitSceneDeck(deckText) {
+    return String(deckText || "")
+      .split(/\s*\/\s*/)
+      .map(function (entry) {
+        return entry.trim();
+      })
+      .filter(Boolean)
+      .slice(0, 3);
+  }
+
+  function applySceneDeck(deckParts) {
+    ["home-ribbon-a", "home-ribbon-b", "home-ribbon-c"].forEach(function (id, index) {
+      var node = document.getElementById(id);
+
+      if (node) {
+        node.textContent = deckParts[index] || deckParts[deckParts.length - 1] || "";
+      }
+    });
+
+    if (document.getElementById("quiz-stage-deck")) {
+      document.getElementById("quiz-stage-deck").textContent = deckParts.join(" / ");
+    }
+  }
+
   function uniqueWorks(list) {
     var seen = {};
 
@@ -691,6 +774,7 @@
 
   function applyScene(sceneKey, spotlight) {
     var scene = localizedSceneMeta(sceneKey);
+    var sceneDeckParts = splitSceneDeck(scene.deck);
     var posterWorks;
     var coverSet;
     var fallbackSpotlight;
@@ -714,6 +798,8 @@
     document.getElementById("home-watermark").textContent = scene.label;
     document.getElementById("quiz-scene-label").textContent = scene.label;
     document.getElementById("quiz-scene-note").textContent = scene.note;
+    document.getElementById("quiz-stage-scene").textContent = scene.label;
+    applySceneDeck(sceneDeckParts);
 
     if (currentSpotlightWork) {
       document.getElementById("home-spotlight-name").textContent = localizedPrimaryTitle(currentSpotlightWork);
@@ -1019,6 +1105,22 @@
     });
   }
 
+  function renderProfileTags() {
+    var container = document.getElementById("result-profile-tags");
+
+    if (!container) {
+      return;
+    }
+
+    container.innerHTML = "";
+
+    buildProfileTraits(3).forEach(function (traitId) {
+      var chip = document.createElement("span");
+      chip.textContent = getLocalizedTraitLabel(traitId);
+      container.appendChild(chip);
+    });
+  }
+
   function renderSection(listId, entries, negative) {
     var container = document.getElementById(listId);
 
@@ -1091,7 +1193,8 @@
 
     document.getElementById("result-band-text").textContent = ui().resultRoute;
     document.getElementById("result-scene-chip").textContent = scene.label;
-    document.getElementById("result-game-name").textContent = localizedPrimaryTitle(top.work);
+    document.getElementById("result-match-scene").textContent = scene.label;
+    setAnimatedText(document.getElementById("result-game-name"), localizedPrimaryTitle(top.work));
     document.getElementById("result-game-original").textContent = subtitle;
     document.getElementById("result-entry").textContent = top.work.recommended_entry || "—";
     document.getElementById("result-length").textContent = top.work.estimated_length || "—";
@@ -1101,6 +1204,7 @@
 
     setCoverVisual("result-img", top.work);
     renderTraits();
+    renderProfileTags();
 
     document.getElementById("result-keywords").innerHTML = "";
     (top.work.tags || []).slice(0, 5).forEach(function (tag) {
@@ -1142,6 +1246,7 @@
 
       button.className = "quiz-option";
       button.type = "button";
+      button.style.setProperty("--option-index", index);
       label.className = "quiz-option-label";
       text.className = "quiz-option-text";
       label.textContent = letters[index] + ".";
@@ -1195,12 +1300,12 @@
         window.setTimeout(function () {
           renderQuestion();
           quizBody.classList.remove("is-transitioning");
-        }, 260);
+        }, 340);
       } else {
         progressFill.style.width = "100%";
-        window.setTimeout(renderResult, 420);
+        window.setTimeout(renderResult, 520);
       }
-    }, 320);
+    }, 360);
   }
 
   function goBack() {
@@ -1421,17 +1526,20 @@
     toast.classList.add("is-visible");
     gateToastTimer = window.setTimeout(function () {
       toast.classList.remove("is-visible");
-    }, 2400);
+    }, 1800);
   }
 
   function closeLanguageGate() {
     var gate = document.getElementById("lang-gate");
 
     gate.classList.add("is-hidden");
-    document.body.classList.remove("lang-gate-open");
-    triggerAnims(pageHome);
-    startSceneCycle();
-    updateHomeScrollHint({ immediate: true });
+    runPageTransition("forward", function () {
+      document.body.classList.remove("lang-gate-open");
+      document.body.dataset.page = currentPageId;
+      triggerAnims(pageHome);
+      startSceneCycle();
+      updateHomeScrollHint({ immediate: true });
+    });
   }
 
   function animateGateGuide(originRect, label) {
@@ -1442,7 +1550,7 @@
     if (!originRect || !langControl || prefersReducedMotion) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, 420);
+      window.setTimeout(closeLanguageGate, 560);
       return;
     }
 
@@ -1459,15 +1567,15 @@
 
     window.requestAnimationFrame(function () {
       gate.classList.add("is-dismissing");
-      chip.style.transform = "translate(calc(-50% + " + deltaX + "px), calc(-50% + " + deltaY + "px)) scale(0.76)";
-      chip.style.opacity = "0.14";
+      chip.style.transform = "translate(calc(-50% + " + deltaX + "px), calc(-50% + " + deltaY + "px)) scale(0.68)";
+      chip.style.opacity = "0.08";
       showLanguageToast();
     });
 
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 1320);
+    }, 1240);
   }
 
   function renderLanguageGateButtons() {
@@ -1541,6 +1649,7 @@
     resetScores();
     setIssueDateLabels();
     applyLocale();
+    document.body.dataset.page = currentPageId;
 
     worksReadyPromise = loadWorks();
 
