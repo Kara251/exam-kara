@@ -211,7 +211,10 @@
               </div>
 
               <div class="result-action-grid" data-export-hidden="true">
-                <button id="btn-share" class="btn-action btn-share wipe-fill anim" style="--d:2.3" data-i18n="sh">保存結果圖</button>
+                <div class="result-action-stack">
+                  <button id="btn-share" class="btn-action btn-share wipe-fill anim" style="--d:2.3" data-i18n="sh">保存結果圖</button>
+                  <button id="btn-preview" class="btn-action wipe-fill wipe-fill-ghost anim" style="--d:2.38" data-ui="previewButton">查看結果圖</button>
+                </div>
                 <button id="btn-retry" class="btn-action wipe-fill wipe-fill-ghost anim" style="--d:2.45" data-i18n="ret">再測一次</button>
                 <a class="btn-action btn-action-link wipe-fill wipe-fill-ghost anim" style="--d:2.6" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
               </div>
@@ -260,6 +263,22 @@
       </div>
     </div>
   </section>
+
+  <div class="image-preview-modal" id="image-preview-modal" hidden aria-hidden="true">
+    <div class="image-preview-backdrop" id="image-preview-backdrop"></div>
+    <div class="image-preview-panel" role="dialog" aria-modal="true" aria-labelledby="image-preview-title">
+      <div class="image-preview-head">
+        <div class="image-preview-title-block">
+          <div class="image-preview-title" id="image-preview-title" data-ui="previewTitle">結果圖預覽</div>
+          <div class="image-preview-note" id="image-preview-note" data-ui="previewHint">長按圖片即可保存到本地，也能直接分享給好友。</div>
+        </div>
+        <button class="image-preview-close" id="image-preview-close" type="button" data-ui="previewClose" aria-label="Close preview">關閉</button>
+      </div>
+      <div class="image-preview-body">
+        <img id="image-preview-image" src="" alt="">
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>

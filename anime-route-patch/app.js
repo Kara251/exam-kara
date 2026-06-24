@@ -11,6 +11,7 @@
   var traitLookup = {};
   var TEST_PUBLIC_URL = "https://exam.kara251.com/tests/anime-summer-2026/";
   var exportCache = { key: "", blob: null };
+  var previewObjectUrl = "";
 
   QUIZ_DATA.traits.forEach(function (trait) {
     traitLookup[trait.id] = trait;
@@ -484,6 +485,7 @@
   }
 
   function startQuiz() {
+    closeImagePreview();
     current = 0;
     history = [];
     lastRanking = null;
@@ -1073,6 +1075,7 @@
   }
 
   function restart() {
+    closeImagePreview();
     lastRanking = null;
     exportCache = { key: "", blob: null };
     syncCurrentUrl();
@@ -1281,6 +1284,64 @@
     }, 1200);
   }
 
+  function revokePreviewUrl() {
+    if (!previewObjectUrl) {
+      return;
+    }
+
+    window.URL.revokeObjectURL(previewObjectUrl);
+    previewObjectUrl = "";
+  }
+
+  function closeImagePreview() {
+    var modal = document.getElementById("image-preview-modal");
+    var image = document.getElementById("image-preview-image");
+
+    if (!modal) {
+      return;
+    }
+
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("image-preview-open");
+
+    if (image) {
+      image.removeAttribute("src");
+    }
+
+    revokePreviewUrl();
+  }
+
+  function openImagePreview() {
+    var button = document.getElementById("btn-preview");
+    var modal = document.getElementById("image-preview-modal");
+    var image = document.getElementById("image-preview-image");
+    var strings = ui();
+    var originalText = button ? button.textContent : "";
+
+    if (!button || !modal || !image || button.disabled || !lastRanking) {
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = strings.previewLoading;
+
+    getResultImageBlob().then(function (blob) {
+      revokePreviewUrl();
+      previewObjectUrl = window.URL.createObjectURL(blob);
+      image.src = previewObjectUrl;
+      image.alt = strings.previewTitle;
+      modal.hidden = false;
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("image-preview-open");
+    }).catch(function () {
+      alert(strings.previewFailed);
+    }).finally(function () {
+      button.textContent = originalText;
+      button.disabled = false;
+    });
+  }
+
   function shareResult() {
     var button = document.getElementById("btn-share");
     var strings = ui();
@@ -1304,6 +1365,7 @@
   }
 
   function onLocaleChange() {
+    closeImagePreview();
     lang = localeApi.setLocale(langSelect.value);
     exportCache = { key: "", blob: null };
     applyLang();
@@ -1422,8 +1484,16 @@
     document.getElementById("btn-start").addEventListener("click", startQuiz);
     document.getElementById("btn-retry").addEventListener("click", restart);
     document.getElementById("btn-share").addEventListener("click", shareResult);
+    document.getElementById("btn-preview").addEventListener("click", openImagePreview);
+    document.getElementById("image-preview-close").addEventListener("click", closeImagePreview);
+    document.getElementById("image-preview-backdrop").addEventListener("click", closeImagePreview);
     btnPrev.addEventListener("click", goBack);
     langSelect.addEventListener("change", onLocaleChange);
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeImagePreview();
+      }
+    });
     window.addEventListener("resize", function () {
       refreshMarqueeLayout();
       updateHomeScrollHint({ immediate: true });
