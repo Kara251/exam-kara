@@ -14,6 +14,7 @@
   var sceneIndex = 0;
   var currentSceneKey = quizData.sceneOrder[0];
   var currentSpotlightWork = null;
+  var currentComposition = "ribbon";
   var worksLoadError = null;
   var sceneTimer = 0;
   var gateToastTimer = 0;
@@ -21,7 +22,27 @@
   var exportCache = { key: "", blob: null };
   var previewObjectUrl = "";
   var scenePickOffsets = {};
+  var globalLandscapeWorks = [];
+  var globalPortraitWorks = [];
   var questionCount = Math.min(quizData.questionCount || quizData.questions.length, quizData.questions.length);
+  var sceneSupportMap = {
+    signal: ["archive", "forge", "petal"],
+    petal: ["shore", "archive", "parade"],
+    cathedral: ["archive", "signal", "forge"],
+    forge: ["signal", "parade", "archive"],
+    parade: ["shore", "petal", "forge"],
+    shore: ["petal", "parade", "archive"],
+    archive: ["petal", "signal", "shore"]
+  };
+  var sceneCompositionMap = {
+    signal: ["ribbon", "hinge", "crossfade"],
+    petal: ["cascade", "ledger", "ribbon"],
+    cathedral: ["hinge", "ledger", "crossfade"],
+    forge: ["ribbon", "crossfade", "cascade"],
+    parade: ["cascade", "ribbon", "ledger"],
+    shore: ["ledger", "cascade", "hinge"],
+    archive: ["hinge", "ledger", "ribbon"]
+  };
 
   var pageHome = document.getElementById("page-home");
   var pageQuiz = document.getElementById("page-quiz");
@@ -114,7 +135,7 @@
     segmentText(text).forEach(function (glyph, index) {
       var span = document.createElement("span");
       span.className = "glyph";
-      span.style.animationDelay = index * 0.03 + "s";
+      span.style.animationDelay = index * 0.047 + "s";
       span.textContent = glyph;
       node.appendChild(span);
     });
@@ -134,6 +155,17 @@
     }
 
     return list;
+  }
+
+  function rotateList(items, offset) {
+    var start;
+
+    if (!items.length) {
+      return [];
+    }
+
+    start = ((offset % items.length) + items.length) % items.length;
+    return items.slice(start).concat(items.slice(0, start));
   }
 
   function getTraitMeta(id) {
@@ -262,25 +294,32 @@
     var track = document.getElementById(trackId);
     var covers = list.slice();
     var html = "";
-    var baseItemWidth = 100;
 
     if (!track || covers.length === 0) {
       return;
     }
 
-    while (covers.length < 12) {
-      covers = covers.concat(list);
+    if (covers.length < 10) {
+      covers = covers.concat(collectScenePool(currentSceneKey, null, 12));
     }
 
-    covers = covers.slice(0, Math.max(12, list.length));
+    covers = covers.slice(0, Math.max(10, Math.min(16, covers.length)));
 
     covers.forEach(function (item) {
-      html += '<div class="poster-item"><img src="' + item.coverSrc + '" alt=""></div>';
+      html += '<div class="poster-item" style="aspect-ratio:' + (item.coverWidth || 460) + " / " + (item.coverHeight || 215) + '"><img src="' + item.coverSrc + '" alt="' + localizedPrimaryTitle(item) + '"></div>';
     });
 
-    html += html;
-    track.innerHTML = html;
-    track.style.setProperty("--loop-shift", "-" + covers.length * baseItemWidth + "px");
+    track.innerHTML = '<div class="poster-group">' + html + '</div><div class="poster-group">' + html + "</div>";
+
+    window.requestAnimationFrame(function () {
+      var group = track.querySelector(".poster-group");
+
+      if (!group) {
+        return;
+      }
+
+      track.style.setProperty("--loop-shift", "-" + group.offsetWidth + "px");
+    });
   }
 
   function barrierScore(label) {
@@ -423,6 +462,48 @@
     });
   }
 
+  function coverRatio(work) {
+    return (work.coverWidth || 460) / Math.max(1, work.coverHeight || 215);
+  }
+
+  function coverOrientation(work) {
+    return coverRatio(work) >= 1.08 ? "landscape" : "portrait";
+  }
+
+  function loadCoverMetrics(work) {
+    return new Promise(function (resolve) {
+      var image = new Image();
+
+      image.addEventListener("load", function () {
+        work.coverWidth = image.naturalWidth || 460;
+        work.coverHeight = image.naturalHeight || 215;
+        resolve();
+      }, { once: true });
+
+      image.addEventListener("error", function () {
+        work.coverWidth = work.coverWidth || 460;
+        work.coverHeight = work.coverHeight || 215;
+        resolve();
+      }, { once: true });
+
+      image.src = work.coverSrc;
+    });
+  }
+
+  function hydrateCoverMetrics(list) {
+    return Promise.all(list.map(loadCoverMetrics));
+  }
+
+  function buildVisualPools() {
+    globalLandscapeWorks = works.filter(function (work) {
+      return coverOrientation(work) === "landscape";
+    });
+
+    globalPortraitWorks = works.filter(function (work) {
+      return coverOrientation(work) === "portrait";
+    });
+  }
+
   function enhanceWork(raw, index) {
     return {
       id: raw.id,
@@ -463,8 +544,10 @@
 
       payload = await response.json();
       works = payload.map(enhanceWork);
+      await hydrateCoverMetrics(works);
       buildLibraryMeans();
       buildWorksByScene();
+      buildVisualPools();
 
       if (!currentSpotlightWork) {
         currentSpotlightWork = getSceneSpotlight(currentSceneKey, true);
@@ -506,6 +589,58 @@
       note: t(meta.note),
       layout: meta.layout
     };
+  }
+
+  function uniqueWorks(list) {
+    var seen = {};
+
+    return list.filter(function (work) {
+      if (!work || seen[work.id]) {
+        return false;
+      }
+
+      seen[work.id] = true;
+      return true;
+    });
+  }
+
+  function collectScenePool(sceneKey, anchorWork, count) {
+    var merged = [];
+    var supports = sceneSupportMap[sceneKey] || [];
+
+    if (anchorWork) {
+      merged.push(anchorWork);
+    }
+
+    merged = merged.concat(worksByScene[sceneKey] || []);
+
+    supports.forEach(function (supportScene) {
+      merged = merged.concat(worksByScene[supportScene] || []);
+    });
+
+    merged = merged.concat(globalLandscapeWorks).concat(globalPortraitWorks).concat(works);
+    merged = uniqueWorks(merged);
+
+    if (!merged.length) {
+      return [];
+    }
+
+    merged = rotateList(merged, scenePickOffsets[sceneKey] || 0);
+
+    if (anchorWork) {
+      merged = [anchorWork].concat(merged.filter(function (work) {
+        return work.id !== anchorWork.id;
+      }));
+    }
+
+    return merged.slice(0, count || merged.length);
+  }
+
+  function pickSceneComposition(sceneKey, spotlight) {
+    var variants = sceneCompositionMap[sceneKey] || ["ribbon"];
+    var seed = spotlight && typeof spotlight.__index === "number" ? spotlight.__index : sceneIndex;
+
+    return variants[Math.abs(seed) % variants.length];
   }
 
   function localizedPrimaryTitle(work) {
@@ -558,13 +693,17 @@
     var scene = localizedSceneMeta(sceneKey);
     var posterWorks;
     var coverSet;
+    var fallbackSpotlight;
     var quizCover = document.getElementById("quiz-scene-cover");
 
     currentSceneKey = sceneKey;
-    currentSpotlightWork = spotlight || currentSpotlightWork || getSceneSpotlight(sceneKey, true);
+    fallbackSpotlight = spotlight || getSceneSpotlight(sceneKey, false) || collectScenePool(sceneKey, null, 1)[0] || currentSpotlightWork;
+    currentSpotlightWork = fallbackSpotlight;
+    currentComposition = pickSceneComposition(sceneKey, currentSpotlightWork);
 
     document.body.dataset.scene = sceneKey;
     document.body.dataset.layout = scene.layout;
+    document.body.dataset.compose = currentComposition;
 
     document.getElementById("home-band-text").textContent = scene.label;
     document.getElementById("quiz-band-text").textContent = ui().quizRoute;
@@ -579,44 +718,51 @@
     if (currentSpotlightWork) {
       document.getElementById("home-spotlight-name").textContent = localizedPrimaryTitle(currentSpotlightWork);
       document.getElementById("home-spotlight-note").textContent = buildHomeSpotlightNote(currentSpotlightWork, sceneKey);
-      setCoverImage("home-cover-a", currentSpotlightWork.coverSrc, localizedPrimaryTitle(currentSpotlightWork));
-      coverSet = pickPosterWorks(sceneKey, 3, currentSpotlightWork);
-      setCoverImage("home-cover-b", coverSet[1] ? coverSet[1].coverSrc : currentSpotlightWork.coverSrc, coverSet[1] ? localizedPrimaryTitle(coverSet[1]) : localizedPrimaryTitle(currentSpotlightWork));
-      setCoverImage("home-cover-c", coverSet[2] ? coverSet[2].coverSrc : currentSpotlightWork.coverSrc, coverSet[2] ? localizedPrimaryTitle(coverSet[2]) : localizedPrimaryTitle(currentSpotlightWork));
+      coverSet = collectScenePool(sceneKey, currentSpotlightWork, 8);
+      setCoverVisual("home-cover-a", coverSet[0] || currentSpotlightWork, "home-cover-a-title");
+      setCoverVisual("home-cover-b", coverSet[1] || currentSpotlightWork, "home-cover-b-title");
+      setCoverVisual("home-cover-c", coverSet[2] || currentSpotlightWork, "home-cover-c-title");
+      setCoverVisual("home-cover-d", coverSet[3] || currentSpotlightWork, "home-cover-d-title");
       if (quizCover) {
-        setCoverImage("quiz-scene-cover", currentSpotlightWork.coverSrc, localizedPrimaryTitle(currentSpotlightWork));
+        setCoverVisual("quiz-scene-cover", currentSpotlightWork);
       }
     }
 
-    posterWorks = pickPosterWorks(sceneKey, 12, currentSpotlightWork);
+    posterWorks = collectScenePool(sceneKey, currentSpotlightWork, 14);
     setPosterTrack("poster-track-home", posterWorks);
     setPosterTrack("poster-track-quiz", posterWorks.slice().reverse());
   }
 
-  function setCoverImage(id, src, alt) {
+  function setCoverVisual(id, work, titleId) {
     var image = document.getElementById(id);
+    var frame = image ? image.parentElement : null;
+    var panel = frame ? frame.parentElement : null;
 
-    if (!image) {
+    if (!image || !work) {
       return;
     }
 
-    image.src = src || "";
-    image.alt = alt || "";
-  }
+    image.src = work.coverSrc || "";
+    image.alt = localizedPrimaryTitle(work) || "";
 
-  function pickPosterWorks(sceneKey, count, anchorWork) {
-    var list = (worksByScene[sceneKey] || works).slice();
-    var result = [];
-
-    if (anchorWork) {
-      result.push(anchorWork);
-      list = list.filter(function (work) {
-        return work.id !== anchorWork.id;
-      });
+    if (frame) {
+      frame.style.aspectRatio = (work.coverWidth || 460) + " / " + (work.coverHeight || 215);
+      frame.dataset.orientation = coverOrientation(work);
+      frame.style.setProperty("--cover-ratio", String(coverRatio(work)));
     }
 
-    result = result.concat(list).slice(0, count || 12);
-    return result;
+    if (panel && panel.classList.contains("cover-panel")) {
+      panel.dataset.orientation = coverOrientation(work);
+      panel.style.setProperty("--cover-ratio", String(coverRatio(work)));
+    }
+
+    if (titleId) {
+      var title = document.getElementById(titleId);
+
+      if (title) {
+        title.textContent = localizedPrimaryTitle(work);
+      }
+    }
   }
 
   function stopSceneCycle() {
@@ -636,7 +782,7 @@
     sceneTimer = window.setInterval(function () {
       sceneIndex = (sceneIndex + 1) % quizData.sceneOrder.length;
       applyScene(quizData.sceneOrder[sceneIndex], getSceneSpotlight(quizData.sceneOrder[sceneIndex], true));
-    }, 8200);
+    }, 11600);
   }
 
   function buildQuestionSet() {
@@ -812,10 +958,10 @@
     return t({ tc: tc, en: en, ja: ja });
   }
 
-  function buildResultDescription(entry) {
+  function buildResultDescription(entry, sceneKey) {
     var work = entry.work;
     var topTraits = buildProfileTraits(3).map(getLocalizedTraitLabel);
-    var scene = localizedSceneMeta(work.scene).label;
+    var scene = localizedSceneMeta(sceneKey || work.scene).label;
     var tc = localizedPrimaryTitle(work) + " 會衝到最前面，是因為你這輪明顯偏向 " + topTraits.join("、") + " 這幾種力道，整體氣味也和 " + scene + " 這一掛對得很準。它未必最輕鬆，但很容易直接咬住你現在想補的那種後勁。";
     var en = localizedPrimaryTitle(work) + " rises because this round pushed you toward " + topTraits.join(", ") + " and a distinctly " + scene.toLowerCase() + " kind of route. It is not always the lightest pick, but it lands very close to what you seem ready for right now.";
     var ja = "今回は " + topTraits.join("・") + " が強く、全体の気配も " + scene + " にかなり寄っていました。" + localizedPrimaryTitle(work) + " は、その傾きにまっすぐ噛み合う一本です。軽さよりも、いま欲しい手触りを優先してくるタイプです。";
@@ -927,6 +1073,7 @@
     var alternatives;
     var avoids;
     var scene;
+    var displaySceneKey;
     var subtitle;
 
     if (!top) {
@@ -934,11 +1081,12 @@
     }
 
     lastRanking = ranking;
-    scene = localizedSceneMeta(top.work.scene);
+    displaySceneKey = preferredScene();
+    scene = localizedSceneMeta(displaySceneKey);
     subtitle = localizedSecondaryTitle(top.work);
 
     stopSceneCycle();
-    applyScene(top.work.scene, top.work);
+    applyScene(displaySceneKey, top.work);
     showPage(pageResult);
 
     document.getElementById("result-band-text").textContent = ui().resultRoute;
@@ -948,10 +1096,10 @@
     document.getElementById("result-entry").textContent = top.work.recommended_entry || "—";
     document.getElementById("result-length").textContent = top.work.estimated_length || "—";
     document.getElementById("result-content").textContent = i18n.getContentLevelLabel(lang, top.work.r18_level) + " / " + i18n.getAdultGateLabel(lang, top.work);
-    document.getElementById("result-description").textContent = buildResultDescription(top);
+    document.getElementById("result-description").textContent = buildResultDescription(top, displaySceneKey);
     document.getElementById("result-qr-url").textContent = quizData.publicUrl.replace(/^https?:\/\//, "");
 
-    setCoverImage("result-img", top.work.coverSrc, localizedPrimaryTitle(top.work));
+    setCoverVisual("result-img", top.work);
     renderTraits();
 
     document.getElementById("result-keywords").innerHTML = "";
@@ -971,7 +1119,7 @@
 
     renderSection("alt-list", alternatives, false);
     renderSection("avoid-list", avoids, true);
-    setPosterTrack("poster-track-result", pickPosterWorks(top.work.scene, 12, top.work));
+    setPosterTrack("poster-track-result", collectScenePool(displaySceneKey, top.work, 14));
     renderQRCode();
     exportCache = { key: "", blob: null };
   }
@@ -989,9 +1137,17 @@
 
     question.options.forEach(function (option, index) {
       var button = document.createElement("button");
+      var label = document.createElement("span");
+      var text = document.createElement("span");
+
       button.className = "quiz-option";
       button.type = "button";
-      button.textContent = letters[index] + ". " + t(option.text);
+      label.className = "quiz-option-label";
+      text.className = "quiz-option-text";
+      label.textContent = letters[index] + ".";
+      text.textContent = t(option.text);
+      button.appendChild(label);
+      button.appendChild(text);
       button.addEventListener("click", function () {
         selectOption(index);
       });
