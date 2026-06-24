@@ -1,8 +1,14 @@
 var localeApi = window.ExamKaraLocale;
 var currentLocale = localeApi.getLocale();
 var manifestState = {
-  synced: true,
-  href: "/tests/anime-summer-2026/"
+  anime: {
+    synced: true,
+    href: "/tests/anime-summer-2026/"
+  },
+  galgame: {
+    synced: true,
+    href: "/tests/galgame-match/"
+  }
 };
 var HERO_TYPEWRITER_LINES = [
   "测试，人格，喜爱。",
@@ -35,18 +41,18 @@ var SITE_COPY = {
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 測驗索引 ✧",
     heroCopyTag: "-- 測驗集合 --",
-    heroCopy: "先從動漫人格測驗開始，之後上線的測驗也都會收在這裡。",
+    heroCopy: "先從已開放的測驗裡挑一頁開始，之後上線的新測驗也都會收在這裡。",
     heroPrimaryAction: "查看測驗",
     heroSecondaryAction: "進入動漫測驗",
     heroSecondaryPrefix: "進入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT SEASON: SUMMER 2026",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗集合",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "目前開放與即將上線",
-    sectionNote: "先看目前能玩的，後續新增的測驗也都會從這裡進。",
+    sectionTitle: "目前開放",
+    sectionNote: "現在能玩的測驗都在這裡，之後新頁面也會繼續往下加。",
     routeLabel: "ROUTE",
     sourceLabel: "SEASON",
     openTest: "進入測驗",
@@ -62,10 +68,11 @@ var SITE_COPY = {
         description: "15道問題，對照追番性格找到你的本季命定番。附推薦理由與避雷提醒。",
         note: "2026夏季新番收錄完整，含動畫電影。"
       },
-      next: {
-        title: "下一個測驗",
-        description: "下一個測驗稍後上線，敬請期待。",
-        note: "新頁面開放後，會直接收進這個首頁。"
+      galgame: {
+        title: "GalGame 命定路線測驗",
+        cta: "GalGame 測驗",
+        description: "15道問題，從路線口味、節奏偏好到內容承受度，幫你對上更適合補的作品。",
+        note: "接入 43 部作品結果池，封面與版面風格會隨題型與結果變化。"
       }
     }
   },
@@ -81,18 +88,18 @@ var SITE_COPY = {
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 测验索引 ✧",
     heroCopyTag: "-- 测验集合 --",
-    heroCopy: "先从动漫人格测验开始，之后上线的测验也都会收在这里。",
+    heroCopy: "先从已开放的测验里挑一页开始，之后上线的新测验也都会收在这里。",
     heroPrimaryAction: "查看测验",
     heroSecondaryAction: "进入动漫测验",
     heroSecondaryPrefix: "进入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT SEASON: SUMMER 2026",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互动测验集合",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "目前开放与即将上线",
-    sectionNote: "先看目前能玩的，后续新增的测验也都会从这里进。",
+    sectionTitle: "目前开放",
+    sectionNote: "现在能玩的测验都在这里，之后新页面也会继续往下加。",
     routeLabel: "ROUTE",
     sourceLabel: "SEASON",
     openTest: "进入测验",
@@ -108,10 +115,11 @@ var SITE_COPY = {
         description: "15道问题，对照追番性格找到你的本季命定番。附推荐理由与避雷提醒。",
         note: "2026夏季新番收录完整，含动画电影。"
       },
-      next: {
-        title: "下一个测验",
-        description: "下一个测验稍后上线，敬请期待。",
-        note: "新页面开放后，会直接收进这个首页。"
+      galgame: {
+        title: "GalGame 命定路线测验",
+        cta: "GalGame 测验",
+        description: "15道问题，从路线口味、节奏偏好到内容承受度，帮你对上更适合补的作品。",
+        note: "接入 43 部作品结果池，封面与版面风格会随题型与结果变化。"
       }
     }
   },
@@ -127,18 +135,18 @@ var SITE_COPY = {
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 測驗索引 ✧",
     heroCopyTag: "-- 測驗合集 --",
-    heroCopy: "先從夏番診斷開刷，後面新開の測驗也都會陸續收進這裡。",
+    heroCopy: "先從已開著の測驗裡挑壹頁開刷，後面新開の測驗也都會陸續收進這裡。",
     heroPrimaryAction: "先看試題",
     heroSecondaryAction: "進夏番測驗",
     heroSecondaryPrefix: "進入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT SEASON: SUMMER 2026",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗合集",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "而家能玩同準備開坑の頁面",
-    sectionNote: "先玩而家開著の，後面新測驗也會繼續補進來。",
+    sectionTitle: "而家能玩の測驗",
+    sectionNote: "能玩の頁面都收在這裡，後面新測驗也會繼續補進來。",
     routeLabel: "ROUTE",
     sourceLabel: "SEASON",
     openTest: "進去開測",
@@ -154,10 +162,11 @@ var SITE_COPY = {
         description: "15道題，對照伱の追番電波揪出本季本命番。附推坑理由同避雷提醒。",
         note: "2026夏番收錄已補滿，動畫電影也算進去惹。"
       },
-      next: {
-        title: "下壹個試題坑",
-        description: "下壹個測驗還在準備，先蹲著等它開。",
-        note: "新頁一上線，就會直接補進這個首頁。"
+      galgame: {
+        title: "GalGame 本命路線測驗",
+        cta: "GalGame 測驗",
+        description: "15道題，從路線口味、節奏偏好到承受度，幫伱對上更想肝下去の作品。",
+        note: "43部作品結果池已接進來，封面跟版面會跟著題感亂數切換。"
       }
     }
   },
@@ -173,18 +182,18 @@ var SITE_COPY = {
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 試頁總目 ✧",
     heroCopyTag: "-- 試頁總覽 --",
-    heroCopy: "今先列夏番性格試，後續新試亦將續錄於此。",
+    heroCopy: "今可先擇已開之試而入，後續新試亦將續錄於此。",
     heroPrimaryAction: "覽其諸試",
     heroSecondaryAction: "入夏番試",
     heroSecondaryPrefix: "入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT SEASON: SUMMER 2026",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗總錄",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "今已開放與尚待上線之頁",
-    sectionNote: "先覽今可入之試，後續新試亦將續補於此。",
+    sectionTitle: "今已開放之頁",
+    sectionNote: "今可遊之試皆列於此，後續新頁亦將續補之。",
     routeLabel: "ROUTE",
     sourceLabel: "SEASON",
     openTest: "入此試",
@@ -200,10 +209,11 @@ var SITE_COPY = {
         description: "十五題以測性格，據此推本季最合汝意之命定番。附推薦之由與避雷之示。",
         note: "二〇二六夏番收錄完備，動畫電影亦納其中。"
       },
-      next: {
-        title: "後續試頁",
-        description: "後續新試，稍後當至。",
-        note: "新頁既開，便即續錄於此首頁。"
+      galgame: {
+        title: "GalGame 命定路線試",
+        cta: "GalGame 試",
+        description: "十五題以辨路線口味、節奏所好與內容承受，由此推更合汝心之作。",
+        note: "四十三部作品入池，封面與版面風貌亦隨題型與結果而變。"
       }
     }
   },
@@ -219,18 +229,18 @@ var SITE_COPY = {
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "EXAM KARA x TEST INDEX",
     heroCopyTag: "-- TEST CATALOG --",
-    heroCopy: "Start with the anime match. Every test that goes live will be listed here.",
+    heroCopy: "Start from whichever live test fits your mood. New tests will keep landing here.",
     heroPrimaryAction: "Browse Tests",
     heroSecondaryAction: "Anime Test",
     heroSecondaryPrefix: "Open ",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT SEASON: SUMMER 2026",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "test collection",
     heroSparkle: "ARCHIVE MODE",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "Live Now and Coming Next",
-    sectionNote: "Start with what's live now. New tests will be added here as they open.",
+    sectionTitle: "Live Now",
+    sectionNote: "Everything playable right now sits here, and new tests will be added underneath.",
     routeLabel: "ROUTE",
     sourceLabel: "SEASON",
     openTest: "Open Test",
@@ -246,10 +256,11 @@ var SITE_COPY = {
         description: "15 questions matched to your watching habits. Finds your fated pick for the season, with reasons and skip warnings.",
         note: "Full 2026 summer lineup, including films."
       },
-      next: {
-        title: "Next Test",
-        description: "The next test will appear here when it goes live.",
-        note: "More themes will be added here over time."
+      galgame: {
+        title: "GalGame Route Match",
+        cta: "GalGame Test",
+        description: "15 questions on route taste, pacing, and content tolerance to point you toward a better-fit visual novel.",
+        note: "Built on a 43-title result pool with rotating covers and shifting layout moods."
       }
     }
   },
@@ -265,18 +276,18 @@ var SITE_COPY = {
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "✧ EXAM KARA × 試題索引 ✧",
     heroCopyTag: "-- 測驗集合 --",
-    heroCopy: "先由夏番人格測驗開始，之後上線嘅測驗都會收埋喺度。",
+    heroCopy: "先喺已開放嘅測驗入面揀一頁開始，之後新上線嗰啲都會繼續收埋喺度。",
     heroPrimaryAction: "睇測驗",
     heroSecondaryAction: "入夏番測驗",
     heroSecondaryPrefix: "入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT SEASON: SUMMER 2026",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗集合",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "而家開放同即將上線",
-    sectionNote: "而家先玩到呢批，之後新測驗都會喺呢度繼續加。",
+    sectionTitle: "而家開放緊",
+    sectionNote: "而家玩得到嘅測驗都喺度，之後新頁都會繼續加落去。",
     routeLabel: "ROUTE",
     sourceLabel: "SEASON",
     openTest: "入去測",
@@ -292,10 +303,11 @@ var SITE_COPY = {
         description: "15題對照你嘅追番性格，搵出今季命定番。附推薦理由同避雷提醒。",
         note: "2026夏番收錄完整，包括動畫電影。"
       },
-      next: {
-        title: "下一個測驗",
-        description: "下一個測驗遲啲就會補上。",
-        note: "新頁一開，就會直接收返入呢個首頁。"
+      galgame: {
+        title: "GalGame 命定路線測驗",
+        cta: "GalGame 測驗",
+        description: "15題由路線口味、節奏偏好同內容承受度入手，幫你對到更啱補嘅作品。",
+        note: "43部作品結果池已接入，封面同版面風格會跟住題感同結果變。"
       }
     }
   },
@@ -311,18 +323,18 @@ var SITE_COPY = {
     heroDate: "VOL. 01 -- EXAM INDEX",
     heroMixedLine: "EXAM KARA × テスト索引",
     heroCopyTag: "-- テスト一覧 --",
-    heroCopy: "まずは夏アニメ診断から。公開されたテストはこのページに順次まとまります。",
+    heroCopy: "まずは公開中のテストから。今後の追加分もこのページに順次まとまります。",
     heroPrimaryAction: "テストを見る",
     heroSecondaryAction: "アニメ診断へ",
     heroSecondaryPrefix: "",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT SEASON: SUMMER 2026",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "テスト一覧",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
     sectionKicker: "TEST INDEX",
-    sectionTitle: "公開中と近日公開予定",
-    sectionNote: "いま遊べるものから始めて、追加分もここに順次並びます。",
+    sectionTitle: "公開中のテスト",
+    sectionNote: "いま遊べるテストをここにまとめています。追加分も順次ここへ入ります。",
     routeLabel: "ROUTE",
     sourceLabel: "SEASON",
     openTest: "開く",
@@ -338,10 +350,11 @@ var SITE_COPY = {
         description: "15問で追いかけるアニメの傾向を診断——今期の運命の一本を、推薦理由と地雷情報つきでお届け。",
         note: "2026夏アニメ全収録。劇場版も含みます。"
       },
-      next: {
-        title: "次のテスト",
-        description: "次のテストは公開しだいここに追加されます。",
-        note: "新しいページはこのトップに順次並びます。"
+      galgame: {
+        title: "GalGame 命定ルート診断",
+        cta: "GalGame診断へ",
+        description: "15問でルートの好み、テンポ、内容耐性を見て、相性のいいビジュアルノベルへ導きます。",
+        note: "43作品の結果プールを使い、表紙とレイアウト演出も診断に合わせて変化します。"
       }
     }
   }
@@ -709,12 +722,13 @@ function applyStaticCopy(copy) {
 }
 
 function buildTests(copy) {
-  var animeLive = manifestState.synced;
+  var animeLive = manifestState.anime && manifestState.anime.synced;
+  var galgameLive = manifestState.galgame && manifestState.galgame.synced;
 
   return [
     {
       title: copy.tests.anime.title,
-      href: animeLive ? manifestState.href : "",
+      href: animeLive ? manifestState.anime.href : "",
       route: "/tests/anime-summer-2026/",
       source: "2026.07 / TV + FILM",
       repoHref: "https://github.com/Kara251/26July-Anime-Test",
@@ -726,15 +740,17 @@ function buildTests(copy) {
       note: animeLive ? copy.tests.anime.note : copy.unavailableNote
     },
     {
-      title: copy.tests.next.title,
-      href: "",
-      route: "/tests/<next-slug>/",
-      source: "coming soon",
-      status: "pending",
-      statusLabel: copy.statusPending,
-      cta: "",
-      description: copy.tests.next.description,
-      note: copy.tests.next.note
+      title: copy.tests.galgame.title,
+      href: galgameLive ? manifestState.galgame.href : "",
+      route: "/tests/galgame-match/",
+      source: "VN / GALGAME / RESULT LIBRARY",
+      repoHref: "https://github.com/Kara251/GalGame-Test",
+      repoName: "Kara251/GalGame-Test",
+      status: galgameLive ? "live" : "pending",
+      statusLabel: galgameLive ? copy.statusLive : copy.statusWaiting,
+      cta: copy.tests.galgame.cta,
+      description: copy.tests.galgame.description,
+      note: galgameLive ? copy.tests.galgame.note : copy.unavailableNote
     }
   ];
 }
@@ -986,14 +1002,23 @@ async function loadManifestState() {
     var syncedAnime = manifest.tests.find(function (test) {
       return test.slug === "anime-summer-2026";
     });
+    var syncedGalgame = manifest.tests.find(function (test) {
+      return test.slug === "galgame-match";
+    });
 
-    if (!syncedAnime) {
+    if (!syncedAnime && !syncedGalgame) {
       return;
     }
 
     manifestState = {
-      synced: !!syncedAnime.synced,
-      href: syncedAnime.href || "/tests/anime-summer-2026/"
+      anime: {
+        synced: !!(syncedAnime && syncedAnime.synced),
+        href: (syncedAnime && syncedAnime.href) || "/tests/anime-summer-2026/"
+      },
+      galgame: {
+        synced: !!(syncedGalgame && syncedGalgame.synced),
+        href: (syncedGalgame && syncedGalgame.href) || "/tests/galgame-match/"
+      }
     };
   } catch {}
 }

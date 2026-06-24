@@ -8,8 +8,11 @@ const rootDir = path.resolve(__dirname, "..");
 const srcDir = path.join(rootDir, "src");
 const distDir = path.join(rootDir, "dist");
 const siblingAnimeDir = path.resolve(rootDir, "../26July-Anime-Test");
+const siblingGalgameDir = path.resolve(rootDir, "../GalGame-Test");
 const animeRouteDir = path.join(distDir, "tests", "anime-summer-2026");
+const galgameRouteDir = path.join(distDir, "tests", "galgame-match");
 const animePatchDir = path.join(rootDir, "anime-route-patch");
+const galgamePatchDir = path.join(rootDir, "galgame-route-patch");
 const syncOnly = process.argv.includes("--sync-only");
 const buildVersion = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 const excludedAnimeAssets = new Set([
@@ -47,7 +50,7 @@ async function copyDir(source, target, filter) {
   }
 }
 
-function includeAnimeEntry(sourcePath, entry) {
+function includeSiblingEntry(sourcePath, entry) {
   if (entry.name === ".git" || entry.name === ".claude") {
     return false;
   }
@@ -79,6 +82,10 @@ async function overlayAnimePatch() {
   await copyDir(animePatchDir, animeRouteDir);
 }
 
+async function overlayGalgamePatch() {
+  await copyDir(galgamePatchDir, galgameRouteDir);
+}
+
 async function replaceBuildVersionPlaceholders(filePath) {
   try {
     const source = await fs.readFile(filePath, "utf8");
@@ -90,7 +97,8 @@ async function applyBuildVersion() {
   await Promise.all([
     replaceBuildVersionPlaceholders(path.join(distDir, "index.html")),
     replaceBuildVersionPlaceholders(path.join(distDir, "shared-runtime.js")),
-    replaceBuildVersionPlaceholders(path.join(animeRouteDir, "index.html"))
+    replaceBuildVersionPlaceholders(path.join(animeRouteDir, "index.html")),
+    replaceBuildVersionPlaceholders(path.join(galgameRouteDir, "index.html"))
   ]);
 }
 
@@ -105,9 +113,25 @@ async function syncAnimeRoute() {
   }
 
   await removeAndRecreate(animeRouteDir);
-  await copyDir(siblingAnimeDir, animeRouteDir, includeAnimeEntry);
+  await copyDir(siblingAnimeDir, animeRouteDir, includeSiblingEntry);
   await removeExcludedAnimeAssets();
   await overlayAnimePatch();
+  return { available: true };
+}
+
+async function syncGalgameRoute() {
+  try {
+    await fs.access(siblingGalgameDir);
+  } catch (error) {
+    throw new Error(
+      `Missing galgame route source at ${siblingGalgameDir}. Refusing to deploy a placeholder page for /tests/galgame-match/.`,
+      { cause: error }
+    );
+  }
+
+  await removeAndRecreate(galgameRouteDir);
+  await copyDir(siblingGalgameDir, galgameRouteDir, includeSiblingEntry);
+  await overlayGalgamePatch();
   return { available: true };
 }
 
@@ -119,7 +143,8 @@ async function main() {
     await fs.mkdir(distDir, { recursive: true });
   }
 
-  const status = await syncAnimeRoute();
+  const animeStatus = await syncAnimeRoute();
+  const galgameStatus = await syncGalgameRoute();
 
   const manifest = {
     version: buildVersion,
@@ -130,7 +155,14 @@ async function main() {
         name: "2026 夏季番性格測驗",
         href: "/tests/anime-summer-2026/",
         source: "../26July-Anime-Test",
-        synced: status.available
+        synced: animeStatus.available
+      },
+      {
+        slug: "galgame-match",
+        name: "GalGame 命定路線測驗",
+        href: "/tests/galgame-match/",
+        source: "../GalGame-Test",
+        synced: galgameStatus.available
       }
     ]
   };

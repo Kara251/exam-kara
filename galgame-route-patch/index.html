@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="exam-kara-build" content="__BUILD_VERSION__">
+  <title>GalGame 命定路線測驗</title>
+  <meta name="description" content="15道問題，從路線口味、節奏偏好到內容承受度，替你對上更適合補的 GalGame。">
+  <meta property="og:title" content="GalGame 命定路線測驗">
+  <meta property="og:description" content="43 部作品結果池，15 題把你推向更對味的那一部。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=__BUILD_VERSION__">
+</head>
+<body data-scene="signal" data-layout="split">
+  <div class="lang-gate" id="lang-gate" aria-labelledby="lang-gate-title">
+    <div class="lang-gate-panel">
+      <div class="rule-double"></div>
+      <p class="lang-gate-kicker" data-ui="gateKicker">LANGUAGE INDEX</p>
+      <h2 class="lang-gate-title" id="lang-gate-title" data-ui="gateTitle">先選擇語言</h2>
+      <p class="lang-gate-subtitle" data-ui="gateSubtitle">選好後會進入測驗頁，右上角也能隨時切換。</p>
+      <div class="lang-gate-options" id="lang-gate-options"></div>
+      <p class="lang-gate-note" data-ui="gateNote">動態版面、開始頁、答題頁與結果頁都會跟著語言一起切換。</p>
+      <div class="rule-double"></div>
+    </div>
+  </div>
+
+  <div class="lang-control">
+    <label class="sr-only" for="lang-select">Language</label>
+    <select class="lang-select" id="lang-select" aria-label="Language"></select>
+  </div>
+
+  <div class="lang-guide-toast" id="lang-guide-toast" aria-live="polite" data-ui="gateToast">右上角可隨時切換語言</div>
+
+  <section id="page-home" class="page active route-page route-home">
+    <div class="route-frame home-frame">
+      <header class="paper-masthead anim" style="--d:0">
+        <div class="brand-lockup" aria-label="EXAM KARA">
+          <span>EXAM</span>
+          <span>KARA</span>
+        </div>
+        <div class="masthead-center">
+          <span class="masthead-volume">VOL. 02 -- GALGAME INDEX</span>
+          <span class="masthead-route" data-ui="homeRoute">GALGAME ROUTE MATCH</span>
+        </div>
+        <span class="masthead-date" data-issue-date>2026.06.24</span>
+      </header>
+
+      <div class="page-surface">
+        <div class="vertical-band vertical-band-home anim band-wipe band-wipe-left" style="--d:0.7">
+          <span id="home-band-text">信號雜訊</span>
+        </div>
+
+        <div class="surface-grid">
+          <div class="corner-lines anim" aria-hidden="true" style="--d:1.05"></div>
+          <div class="surface-diagonal anim" aria-hidden="true" style="--d:1.2"></div>
+          <div class="home-watermark anim anim-right-soft" id="home-watermark" style="--d:1.45" aria-hidden="true">SIGNAL</div>
+
+          <div class="home-hero anim anim-left" style="--d:1.65">
+            <div class="editorial-badge wipe-badge wipe-badge-right">
+              <span data-ui="homeTag">号外 EXTRA</span>
+            </div>
+            <h1 class="home-title">
+              <span class="home-title-primary" data-ui="homeTitleA">GalGame</span>
+              <span class="home-title-secondary" data-ui="homeTitleB">命定路線</span>
+            </h1>
+            <div class="rule anim" style="--d:2.05"></div>
+            <p class="home-subtitle" data-ui="homeSubtitle">15道題，把路線口味、節奏偏好與內容承受度對成一條更適合你的命定路線。</p>
+          </div>
+
+          <div class="home-summary-card anim anim-diag-right" style="--d:2.2">
+            <div class="summary-kicker" data-ui="featureTag">-- 作品取向 --</div>
+            <div class="summary-scene" id="home-scene-label">信號雜訊</div>
+            <div class="summary-deck" id="home-scene-deck">實驗室殘響 / 都市冷光 / 時間線焦躁</div>
+            <p class="summary-note" id="home-scene-note">偏科幻、懸疑、資訊差與真相回收。</p>
+            <div class="summary-divider"></div>
+            <div class="summary-spotlight-label" data-ui="spotlightLabel">當前聚焦</div>
+            <div class="summary-spotlight-name" id="home-spotlight-name">STEINS;GATE</div>
+            <div class="summary-spotlight-note" id="home-spotlight-note">如果你往時間線、懸疑、都市冷感那一邊滑，這一類作品很容易先被點開。</div>
+            <p class="home-meta-url">exam.kara251.com/tests/galgame-match/</p>
+            <a class="repo-link-inline" href="https://github.com/Kara251/GalGame-Test" target="_blank" rel="noreferrer">
+              <span class="repo-link-inline-label" data-ui="repoLabel">GalGame 測驗原始倉庫</span>
+              <span class="repo-link-inline-value">github.com/Kara251/GalGame-Test</span>
+            </a>
+          </div>
+
+          <div class="home-cover-stage anim anim-right" style="--d:2.42">
+            <div class="cover-card cover-card-a">
+              <img id="home-cover-a" src="" alt="">
+            </div>
+            <div class="cover-card cover-card-b">
+              <img id="home-cover-b" src="" alt="">
+            </div>
+            <div class="cover-card cover-card-c">
+              <img id="home-cover-c" src="" alt="">
+            </div>
+          </div>
+
+          <div class="home-actions anim anim-left" style="--d:2.76">
+            <button id="btn-start" class="btn-primary wipe-fill" type="button" data-ui="start">開始測驗 ▶</button>
+            <a class="btn-secondary wipe-fill wipe-fill-ghost" href="https://exam.kara251.com/" data-ui="more">更多測驗</a>
+          </div>
+
+          <div class="home-scroll-hint" id="home-scroll-hint" aria-hidden="true">
+            <span class="home-scroll-line"></span>
+            <span class="home-scroll-label" data-ui="scrollHint">向下滑看更多</span>
+            <span class="home-scroll-arrow"></span>
+          </div>
+        </div>
+
+        <div class="poster-band anim" style="--d:3.05">
+          <div class="poster-marquee">
+            <div class="poster-track" id="poster-track-home" data-direction="left"></div>
+          </div>
+        </div>
+
+        <footer class="paper-footer anim" style="--d:3.35">
+          <span class="paper-footer-dot">◆</span>
+          <span class="paper-footer-title" data-ui="footer">GalGame 命定路線測驗</span>
+          <span class="paper-footer-dot">◆</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-quiz" class="page route-page route-quiz">
+    <div class="route-frame quiz-frame">
+      <header class="paper-masthead">
+        <div class="brand-lockup" aria-label="EXAM KARA">
+          <span>EXAM</span>
+          <span>KARA</span>
+        </div>
+        <div class="masthead-center">
+          <span class="masthead-volume">VOL. 02 -- GALGAME INDEX</span>
+          <span class="masthead-route" data-ui="quizRoute">QUESTION</span>
+        </div>
+        <span class="masthead-date" data-issue-date>2026.06.24</span>
+      </header>
+
+      <div class="page-surface">
+        <div class="vertical-band vertical-band-quiz">
+          <span id="quiz-band-text">QUESTION</span>
+        </div>
+
+        <div class="quiz-layout">
+          <aside class="quiz-aside anim anim-left">
+            <div class="quiz-q-mark">Q.</div>
+            <div class="quiz-progress-stack">
+              <span class="quiz-progress-caption" data-ui="featureTag">-- 作品取向 --</span>
+              <span class="quiz-progress-text" id="progress-text">01 / 15</span>
+            </div>
+            <button class="btn-secondary quiz-prev wipe-fill wipe-fill-ghost" id="btn-prev" type="button" disabled data-ui="prev">上一題</button>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="quiz-scene-panel">
+              <div class="quiz-scene-label" id="quiz-scene-label">信號雜訊</div>
+              <div class="quiz-scene-note" id="quiz-scene-note">偏科幻、懸疑、資訊差與真相回收。</div>
+              <div class="quiz-scene-cover">
+                <img id="quiz-scene-cover" src="" alt="">
+              </div>
+            </div>
+          </aside>
+
+          <div class="quiz-stage anim anim-right">
+            <div class="quiz-body" id="quiz-body">
+              <h2 class="quiz-question" id="quiz-question"></h2>
+              <div class="quiz-options" id="quiz-options"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="poster-band poster-band-quiz">
+          <div class="poster-marquee">
+            <div class="poster-track" id="poster-track-quiz" data-direction="right"></div>
+          </div>
+        </div>
+
+        <footer class="paper-footer">
+          <span class="paper-footer-dot">◆</span>
+          <span class="paper-footer-title" data-ui="footer">GalGame 命定路線測驗</span>
+          <span class="paper-footer-dot">◆</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <section id="page-result" class="page route-page route-result">
+    <div class="route-frame result-frame" id="result-card">
+      <header class="paper-masthead">
+        <div class="brand-lockup" aria-label="EXAM KARA">
+          <span>EXAM</span>
+          <span>KARA</span>
+        </div>
+        <div class="masthead-center">
+          <span class="masthead-volume">VOL. 02 -- GALGAME INDEX</span>
+          <span class="masthead-route" data-ui="resultRoute">RESULT</span>
+        </div>
+        <span class="masthead-date" data-issue-date>2026.06.24</span>
+      </header>
+
+      <div class="page-surface">
+        <div class="vertical-band vertical-band-result">
+          <span id="result-band-text">RESULT</span>
+        </div>
+
+        <div class="result-layout">
+          <div class="result-main anim anim-left">
+            <div class="result-kicker" data-ui="resultLead">你 的 命 定 路 線</div>
+            <figure class="result-cover-panel">
+              <div class="result-img-wrap" id="result-img-wrap">
+                <img id="result-img" src="" alt="">
+                <div class="result-img-placeholder">COVER ART</div>
+              </div>
+            </figure>
+            <div class="result-scene-chip" id="result-scene-chip">信號雜訊</div>
+            <h2 class="result-game-name" id="result-game-name"></h2>
+            <p class="result-game-original" id="result-game-original"></p>
+            <div class="result-meta-grid">
+              <span class="result-meta-pill"><strong data-ui="entryLabel">入口</strong><span id="result-entry"></span></span>
+              <span class="result-meta-pill"><strong data-ui="lengthLabel">篇幅</strong><span id="result-length"></span></span>
+              <span class="result-meta-pill"><strong data-ui="contentLabel">內容</strong><span id="result-content"></span></span>
+            </div>
+            <div class="rule"></div>
+            <p class="result-description" id="result-description"></p>
+            <div class="result-keywords" id="result-keywords"></div>
+            <div class="result-actions" data-export-hidden="true">
+              <button id="btn-share" class="btn-primary btn-result wipe-fill" type="button" data-ui="save">保存結果圖</button>
+              <button id="btn-preview" class="btn-secondary btn-result wipe-fill wipe-fill-ghost" type="button" data-ui="preview">查看結果圖</button>
+              <button id="btn-retry" class="btn-secondary btn-result wipe-fill wipe-fill-ghost" type="button" data-ui="retry">再測一次</button>
+              <a class="btn-secondary btn-result wipe-fill wipe-fill-ghost" href="https://exam.kara251.com/" data-ui="more">更多測驗</a>
+            </div>
+          </div>
+
+          <aside class="result-side anim anim-right">
+            <div class="result-side-heading" data-ui="traitsTitle">這輪特質分佈</div>
+            <div class="result-traits" id="result-traits"></div>
+            <div class="rule-dashed"></div>
+            <div class="result-section">
+              <div class="result-section-label" data-ui="altTitle">這輪很對你的還有</div>
+              <div class="result-section-list" id="alt-list"></div>
+            </div>
+            <div class="result-section">
+              <div class="result-section-label" data-ui="avoidTitle">這輪可能卡住你的</div>
+              <div class="result-section-list result-section-list-avoid" id="avoid-list"></div>
+            </div>
+            <div class="result-qr-block">
+              <div class="result-qr-code" id="result-qr-code" aria-hidden="true"></div>
+              <div class="result-qr-meta">
+                <div class="result-qr-label" data-ui="qrLabel">掃碼回到測驗</div>
+                <div class="result-qr-url" id="result-qr-url">exam.kara251.com/tests/galgame-match/</div>
+              </div>
+            </div>
+            <a class="repo-link-inline repo-link-inline-side" href="https://github.com/Kara251/GalGame-Test" target="_blank" rel="noreferrer">
+              <span class="repo-link-inline-label" data-ui="repoLabel">GalGame 測驗原始倉庫</span>
+              <span class="repo-link-inline-value">github.com/Kara251/GalGame-Test</span>
+            </a>
+          </aside>
+        </div>
+
+        <div class="poster-band poster-band-result">
+          <div class="poster-marquee">
+            <div class="poster-track" id="poster-track-result" data-direction="left"></div>
+          </div>
+        </div>
+
+        <footer class="paper-footer">
+          <span class="paper-footer-dot">◆</span>
+          <span class="paper-footer-title" data-ui="footer">GalGame 命定路線測驗</span>
+          <span class="paper-footer-dot">◆</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <div class="image-preview-modal" id="image-preview-modal" hidden aria-hidden="true">
+    <div class="image-preview-backdrop" id="image-preview-backdrop"></div>
+    <div class="image-preview-panel" role="dialog" aria-modal="true" aria-labelledby="image-preview-title">
+      <div class="image-preview-head">
+        <div class="image-preview-title-block">
+          <div class="image-preview-title" id="image-preview-title" data-ui="previewTitle">結果圖預覽</div>
+          <div class="image-preview-note" data-ui="previewHint">長按圖片即可保存到本地，也能自己分享出去。</div>
+        </div>
+        <button class="image-preview-close" id="image-preview-close" type="button" data-ui="previewClose" aria-label="Close preview">關閉</button>
+      </div>
+      <div class="image-preview-body">
+        <img id="image-preview-image" src="" alt="">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="/shared-runtime.js?v=__BUILD_VERSION__" defer></script>
+  <script src="/shared-locale.js?v=__BUILD_VERSION__" defer></script>
+  <script src="data.js?v=__BUILD_VERSION__" defer></script>
+  <script src="i18n.js?v=__BUILD_VERSION__" defer></script>
+  <script src="app.js?v=__BUILD_VERSION__" defer></script>
+</body>
+</html>
