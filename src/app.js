@@ -356,7 +356,9 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "後續新增的測驗頁，都會沿用右上角這個語言入口。",
     gateToast: "右上角可隨時切換語言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗原始倉庫"
+    repoAnimeLabel: "夏番測驗原始倉庫",
+    rainyunLabel: "雨雲",
+    rainyunNote: "新用戶5折 | 免費MC服 | 性價比、穩定、便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
   sc: {
     gateKicker: "LANGUAGE INDEX",
@@ -365,7 +367,9 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "后续新增的测验页，也都会沿用右上角这个语言入口。",
     gateToast: "右上角可随时切换语言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番测验原始仓库"
+    repoAnimeLabel: "夏番测验原始仓库",
+    rainyunLabel: "雨云",
+    rainyunNote: "新用户5折 | 免费MC服 | 性价比、稳定、便捷 | MC面板服 / VPS / 应用一键部署"
   },
   hx: {
     gateKicker: "LANGUAGE INDEX",
@@ -374,7 +378,9 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "後面新開の測驗，也都會共用這個右上角語言入口，卟用每次重新找。",
     gateToast: "右上角隨時都能切語言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗本體倉庫"
+    repoAnimeLabel: "夏番測驗本體倉庫",
+    rainyunLabel: "雨雲",
+    rainyunNote: "新戶5折 | 免費MC服 | 性價比穩、好上手 | MC面板服 / VPS / 應用一鍵部署"
   },
   wy: {
     gateKicker: "LANGUAGE INDEX",
@@ -383,7 +389,9 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "後來諸測，亦皆循右上角此語言入口而轉換之。",
     gateToast: "右上角可隨時易語",
     repoExamLabel: "EXAM 主站庫",
-    repoAnimeLabel: "夏番試源庫"
+    repoAnimeLabel: "夏番試源庫",
+    rainyunLabel: "雨雲",
+    rainyunNote: "新客半價 | 免費MC服 | 價平而穩、用之便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
   en: {
     gateKicker: "LANGUAGE INDEX",
@@ -392,7 +400,9 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "Future tests on this domain will keep using that same top-right language control.",
     gateToast: "Language stays in the top-right corner",
     repoExamLabel: "EXAM Home Repo",
-    repoAnimeLabel: "Anime Test Repo"
+    repoAnimeLabel: "Anime Test Repo",
+    rainyunLabel: "Rainyun",
+    rainyunNote: "50% off for new users | Free MC hosting | strong value, stable, easy | MC panel hosting / VPS / one-click app deploy"
   },
   yue: {
     gateKicker: "LANGUAGE INDEX",
@@ -401,7 +411,9 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "遲啲再加新測驗，都一樣會用返右上角呢個語言入口。",
     gateToast: "右上角可以隨時轉語言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗原始倉庫"
+    repoAnimeLabel: "夏番測驗原始倉庫",
+    rainyunLabel: "雨雲",
+    rainyunNote: "新用戶5折 | 免費MC服 | 抵玩、穩定、易用 | MC面板服 / VPS / 應用一鍵部署"
   },
   ja: {
     gateKicker: "LANGUAGE INDEX",
@@ -410,7 +422,9 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "この先追加されるテストも、右上の同じ言語メニューを使います。",
     gateToast: "言語切替は右上にあります",
     repoExamLabel: "EXAM本体",
-    repoAnimeLabel: "夏アニメ診断元リポジトリ"
+    repoAnimeLabel: "夏アニメ診断元リポジトリ",
+    rainyunLabel: "Rainyun",
+    rainyunNote: "新規50%オフ | 無料MCサーバー | 高コスパ・安定・手軽 | MCパネルサーバー / VPS / アプリ一括デプロイ"
   }
 };
 

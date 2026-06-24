@@ -669,6 +669,14 @@ a {
   overflow-wrap: anywhere;
 }
 
+.repo-link-note {
+  display: block;
+  margin-top: 8px;
+  color: var(--text-light);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
 .test-link-muted {
   border-color: var(--border);
   color: var(--text-light);
