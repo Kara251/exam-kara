@@ -7,14 +7,16 @@ npm run build
 npm run dev
 ```
 
-Build output is written to `dist/`.
+构建输出目录为 `dist/`。
 
-## Create The Pages Project
+## Pages Project
 
 ```bash
 npm run cf:login
 npm run cf:project:create
 ```
+
+Pages 项目名：`exam-kara`
 
 ## Deploy
 
@@ -22,21 +24,25 @@ npm run cf:project:create
 npm run deploy:pages
 ```
 
-## Route Structure
+## Route Layout
 
-- `/` -> exam.kara251.com homepage
-- `/tests/anime-summer-2026/` -> synced from `../26July-Anime-Test`
+- `/` -> EXAM KARA 首页
+- `/tests/anime-summer-2026/` -> 夏季番测试
+- `/tests/galgame-test/` -> GalGame 测试
+- `/tests/galgame-match/` -> 兼容旧地址，自动跳转到 `/tests/galgame-test/`
 
-## Sync Notes
+## Build Notes
 
-During build:
+构建阶段会直接读取仓库内源码：
 
-- `src/` is copied into `dist/`
-- `../26July-Anime-Test` is synced into `dist/tests/anime-summer-2026/`
-- `anime-route-patch/` is overlaid onto that synced route
+- `src/`
+- `tests-src/anime-summer-2026/`
+- `tests-src/galgame-test/`
 
-If the sibling source project is missing, the build writes a placeholder page instead of failing the full site build.
+不再依赖外部兄弟目录同步。
 
 ## Custom Domain
 
-In the Cloudflare Pages project settings, attach `exam.kara251.com` as a custom domain after the first deployment.
+第一次部署完成后，在 Cloudflare Pages 项目设置中绑定：
+
+- `exam.kara251.com`

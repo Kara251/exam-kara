@@ -7,7 +7,7 @@ var manifestState = {
   },
   galgame: {
     synced: true,
-    href: "/tests/galgame-match/"
+    href: "/tests/galgame-test/"
   }
 };
 var HERO_TYPEWRITER_LINES = [
@@ -72,8 +72,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路線測驗",
         cta: "GalGame 測驗",
-        description: "15道問題，從路線口味、節奏偏好到內容承受度，幫你對上更適合補的作品。",
-        note: "接入 43 部作品結果池，封面與版面風格會隨題型與結果變化。"
+        description: "15 道問題會從更大的題池隨機抽題，對照路線口味、節奏偏好與承受度，幫你對上更適合補的作品。",
+        note: "43 部作品結果池現已內建進主站，路線與封面會跟著測試狀態切換。"
       }
     }
   },
@@ -120,8 +120,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路线测验",
         cta: "GalGame 测验",
-        description: "15道问题，从路线口味、节奏偏好到内容承受度，帮你对上更适合补的作品。",
-        note: "接入 43 部作品结果池，封面与版面风格会随题型与结果变化。"
+        description: "15 道问题会从更大的题池里随机抽题，按路线口味、节奏偏好和内容承受度给你配到更适合补的作品。",
+        note: "43 部作品结果池现已内建进主站，路由与封面会跟着测试状态切换。"
       }
     }
   },
@@ -168,8 +168,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 本命路線測驗",
         cta: "GalGame 測驗",
-        description: "15道題，從路線口味、節奏偏好到承受度，幫伱對上更想肝下去の作品。",
-        note: "43部作品結果池已接進來，封面跟版面會跟著題感亂數切換。"
+        description: "15道題會從更大題池亂數抽題，按路線口味、節奏偏好同承受度，幫伱對上更想肝下去の作品。",
+        note: "43部作品結果池而家已經直接住進主站，路線同封面都會跟住狀態切。"
       }
     }
   },
@@ -216,8 +216,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路線試",
         cta: "GalGame 試",
-        description: "十五題以辨路線口味、節奏所好與內容承受，由此推更合汝心之作。",
-        note: "四十三部作品入池，封面與版面風貌亦隨題型與結果而變。"
+        description: "十五題自更廣題池隨機取之，以辨路線所好、節奏偏向與內容承受，由此推更契汝心之作。",
+        note: "四十三部作品今皆內置於主站，路線與封面亦隨測況而轉。"
       }
     }
   },
@@ -264,8 +264,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame Route Match",
         cta: "GalGame Test",
-        description: "15 questions on route taste, pacing, and content tolerance to point you toward a better-fit visual novel.",
-        note: "Built on a 43-title result pool with rotating covers and shifting layout moods."
+        description: "15 questions are drawn from a larger pool to match route taste, pacing, and tolerance with a better-fit visual novel.",
+        note: "The 43-title result pool now lives inside the main site, with routes and covers shifting as the test state changes."
       }
     }
   },
@@ -312,8 +312,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路線測驗",
         cta: "GalGame 測驗",
-        description: "15題由路線口味、節奏偏好同內容承受度入手，幫你對到更啱補嘅作品。",
-        note: "43部作品結果池已接入，封面同版面風格會跟住題感同結果變。"
+        description: "15題會喺更大題池度隨機抽題，由路線口味、節奏偏好同內容承受度入手，幫你對到更啱補嘅作品。",
+        note: "43部作品結果池而家直接收埋喺主站，路線同封面都會跟住狀態切換。"
       }
     }
   },
@@ -360,8 +360,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定ルート診断",
         cta: "GalGame診断へ",
-        description: "15問でルートの好み、テンポ、内容耐性を見て、相性のいいビジュアルノベルへ導きます。",
-        note: "43作品の結果プールを使い、表紙とレイアウト演出も診断に合わせて変化します。"
+        description: "より大きい設問プールから15問を引き、ルートの好み、テンポ、内容耐性を今の自分に合う一本へつなぎます。",
+        note: "43作品プールは主站へ内蔵済み。ルートとカバーはテスト状況に合わせて切り替わります。"
       }
     }
   }
@@ -376,7 +376,7 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "後續新增的測驗頁，都會沿用右上角這個語言入口。",
     gateToast: "右上角可隨時切換語言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗原始倉庫",
+    repoAnimeLabel: "夏番測驗頁倉庫",
     rainyunLabel: "雨雲",
     rainyunNote: "新用戶5折 | 免費MC服 | 性價比、穩定、便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -387,7 +387,7 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "后续新增的测验页，也都会沿用右上角这个语言入口。",
     gateToast: "右上角可随时切换语言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番测验原始仓库",
+    repoAnimeLabel: "夏番测验页仓库",
     rainyunLabel: "雨云",
     rainyunNote: "新用户5折 | 免费MC服 | 性价比、稳定、便捷 | MC面板服 / VPS / 应用一键部署"
   },
@@ -398,7 +398,7 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "後面新開の測驗，也都會共用這個右上角語言入口，卟用每次重新找。",
     gateToast: "右上角隨時都能切語言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗本體倉庫",
+    repoAnimeLabel: "夏番測驗頁倉庫",
     rainyunLabel: "雨雲",
     rainyunNote: "新戶5折 | 免費MC服 | 性價比穩、好上手 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -409,7 +409,7 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "後來諸測，亦皆循右上角此語言入口而轉換之。",
     gateToast: "右上角可隨時易語",
     repoExamLabel: "EXAM 主站庫",
-    repoAnimeLabel: "夏番試源庫",
+    repoAnimeLabel: "夏番試頁庫",
     rainyunLabel: "雨雲",
     rainyunNote: "新客半價 | 免費MC服 | 價平而穩、用之便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -420,7 +420,7 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "Future tests on this domain will keep using that same top-right language control.",
     gateToast: "Language stays in the top-right corner",
     repoExamLabel: "EXAM Home Repo",
-    repoAnimeLabel: "Anime Test Repo",
+    repoAnimeLabel: "Anime test page repo",
     rainyunLabel: "Rainyun",
     rainyunNote: "50% off for new users | Free MC hosting | strong value, stable, easy | MC panel hosting / VPS / one-click app deploy"
   },
@@ -431,7 +431,7 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "遲啲再加新測驗，都一樣會用返右上角呢個語言入口。",
     gateToast: "右上角可以隨時轉語言",
     repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗原始倉庫",
+    repoAnimeLabel: "夏番測驗頁倉庫",
     rainyunLabel: "雨雲",
     rainyunNote: "新用戶5折 | 免費MC服 | 抵玩、穩定、易用 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -442,7 +442,7 @@ var SITE_COPY_EXTENSIONS = {
     gateNote: "この先追加されるテストも、右上の同じ言語メニューを使います。",
     gateToast: "言語切替は右上にあります",
     repoExamLabel: "EXAM本体",
-    repoAnimeLabel: "夏アニメ診断元リポジトリ",
+    repoAnimeLabel: "夏アニメ診断ページのリポジトリ",
     rainyunLabel: "Rainyun",
     rainyunNote: "新規50%オフ | 無料MCサーバー | 高コスパ・安定・手軽 | MCパネルサーバー / VPS / アプリ一括デプロイ"
   }
@@ -738,8 +738,8 @@ function buildTests(copy) {
       href: animeLive ? manifestState.anime.href : "",
       route: "/tests/anime-summer-2026/",
       source: "2026.07 / TV + FILM",
-      repoHref: "https://github.com/Kara251/26July-Anime-Test",
-      repoName: "Kara251/26July-Anime-Test",
+      repoHref: "https://github.com/Kara251/exam-kara",
+      repoName: "github.com/Kara251/exam-kara",
       status: animeLive ? "live" : "pending",
       statusLabel: animeLive ? copy.statusLive : copy.statusWaiting,
       cta: copy.tests.anime.cta,
@@ -749,10 +749,10 @@ function buildTests(copy) {
     {
       title: copy.tests.galgame.title,
       href: galgameLive ? manifestState.galgame.href : "",
-      route: "/tests/galgame-match/",
+      route: "/tests/galgame-test/",
       source: "VN / GALGAME / RESULT LIBRARY",
-      repoHref: "https://github.com/Kara251/GalGame-Test",
-      repoName: "Kara251/GalGame-Test",
+      repoHref: "https://github.com/Kara251/exam-kara",
+      repoName: "github.com/Kara251/exam-kara",
       status: galgameLive ? "live" : "pending",
       statusLabel: galgameLive ? copy.statusLive : copy.statusWaiting,
       cta: copy.tests.galgame.cta,
@@ -1010,7 +1010,7 @@ async function loadManifestState() {
       return test.slug === "anime-summer-2026";
     });
     var syncedGalgame = manifest.tests.find(function (test) {
-      return test.slug === "galgame-match";
+      return test.slug === "galgame-test";
     });
 
     if (!syncedAnime && !syncedGalgame) {
@@ -1024,7 +1024,7 @@ async function loadManifestState() {
       },
       galgame: {
         synced: !!(syncedGalgame && syncedGalgame.synced),
-        href: (syncedGalgame && syncedGalgame.href) || "/tests/galgame-match/"
+        href: (syncedGalgame && syncedGalgame.href) || "/tests/galgame-test/"
       }
     };
   } catch {}

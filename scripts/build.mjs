@@ -6,13 +6,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 const srcDir = path.join(rootDir, "src");
+const testsSrcDir = path.join(rootDir, "tests-src");
 const distDir = path.join(rootDir, "dist");
-const siblingAnimeDir = path.resolve(rootDir, "../26July-Anime-Test");
-const siblingGalgameDir = path.resolve(rootDir, "../GalGame-Test");
+const localAnimeDir = path.join(testsSrcDir, "anime-summer-2026");
+const localGalgameDir = path.join(testsSrcDir, "galgame-test");
 const animeRouteDir = path.join(distDir, "tests", "anime-summer-2026");
-const galgameRouteDir = path.join(distDir, "tests", "galgame-match");
-const animePatchDir = path.join(rootDir, "anime-route-patch");
-const galgamePatchDir = path.join(rootDir, "galgame-route-patch");
+const galgameRouteDir = path.join(distDir, "tests", "galgame-test");
+const legacyGalgameRouteDir = path.join(distDir, "tests", "galgame-match");
 const syncOnly = process.argv.includes("--sync-only");
 const buildVersion = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 const excludedAnimeAssets = new Set([
@@ -78,14 +78,6 @@ async function removeExcludedAnimeAssets() {
   }
 }
 
-async function overlayAnimePatch() {
-  await copyDir(animePatchDir, animeRouteDir);
-}
-
-async function overlayGalgamePatch() {
-  await copyDir(galgamePatchDir, galgameRouteDir);
-}
-
 async function replaceBuildVersionPlaceholders(filePath) {
   try {
     const source = await fs.readFile(filePath, "utf8");
@@ -102,36 +94,40 @@ async function applyBuildVersion() {
   ]);
 }
 
-async function syncAnimeRoute() {
-  try {
-    await fs.access(siblingAnimeDir);
-  } catch (error) {
-    throw new Error(
-      `Missing anime route source at ${siblingAnimeDir}. Refusing to deploy a placeholder page for /tests/anime-summer-2026/.`,
-      { cause: error }
-    );
-  }
+async function writeRedirectPage(targetDir, href) {
+  await removeAndRecreate(targetDir);
+  await fs.writeFile(
+    path.join(targetDir, "index.html"),
+    `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=${href}">
+  <meta name="robots" content="noindex">
+  <title>Redirecting…</title>
+  <script>location.replace(${JSON.stringify(href)});</script>
+</head>
+<body>
+  <p>Redirecting to <a href="${href}">${href}</a>…</p>
+</body>
+</html>
+`
+  );
+}
 
+async function syncAnimeRoute() {
+  await fs.access(localAnimeDir);
   await removeAndRecreate(animeRouteDir);
-  await copyDir(siblingAnimeDir, animeRouteDir, includeSiblingEntry);
+  await copyDir(localAnimeDir, animeRouteDir, includeSiblingEntry);
   await removeExcludedAnimeAssets();
-  await overlayAnimePatch();
   return { available: true };
 }
 
 async function syncGalgameRoute() {
-  try {
-    await fs.access(siblingGalgameDir);
-  } catch (error) {
-    throw new Error(
-      `Missing galgame route source at ${siblingGalgameDir}. Refusing to deploy a placeholder page for /tests/galgame-match/.`,
-      { cause: error }
-    );
-  }
-
+  await fs.access(localGalgameDir);
   await removeAndRecreate(galgameRouteDir);
-  await copyDir(siblingGalgameDir, galgameRouteDir, includeSiblingEntry);
-  await overlayGalgamePatch();
+  await copyDir(localGalgameDir, galgameRouteDir, includeSiblingEntry);
+  await writeRedirectPage(legacyGalgameRouteDir, "/tests/galgame-test/");
   return { available: true };
 }
 
@@ -154,14 +150,14 @@ async function main() {
         slug: "anime-summer-2026",
         name: "2026 夏季番性格測驗",
         href: "/tests/anime-summer-2026/",
-        source: "../26July-Anime-Test",
+        source: "tests-src/anime-summer-2026",
         synced: animeStatus.available
       },
       {
-        slug: "galgame-match",
+        slug: "galgame-test",
         name: "GalGame 命定路線測驗",
-        href: "/tests/galgame-match/",
-        source: "../GalGame-Test",
+        href: "/tests/galgame-test/",
+        source: "tests-src/galgame-test",
         synced: galgameStatus.available
       }
     ]

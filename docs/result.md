@@ -9,6 +9,8 @@ This repository's Summer 2026 anime test is based on:
 
 That file is the upstream research note used to define the candidate pool, screening rules, and recommendation dimensions for the test.
 
+The live site no longer depends on the sibling project during build. The current in-repo implementation lives under `tests-src/anime-summer-2026/`.
+
 ## Scope
 
 The source note uses this inclusion rule:
@@ -36,7 +38,7 @@ The test implementation in this repository then narrows that research pool into 
 - entries with weak fit for the site's ACG tone
 - items better used as side recommendations than main result cards
 
-In code, this is reflected by explicit exclusion of several non-target poster assets during build sync.
+In code, this is reflected by explicit exclusion of several non-target poster assets during build output.
 
 ## Main Result Pool Direction
 
@@ -63,7 +65,7 @@ The implementation here follows that spirit by centering the result pool around 
 - `madoka_walpurgis`
 - `chiikawa_mermaid`
 
-The final in-repo pool is defined in [anime-route-patch/data.js](../anime-route-patch/data.js).
+The final in-repo pool is defined in [tests-src/anime-summer-2026/data.js](../tests-src/anime-summer-2026/data.js).
 
 ## Test Axes Derived From The Source
 
@@ -91,5 +93,5 @@ These traits drive:
 ## Notes
 
 - This document is the normalized source-basis record for the repository.
-- The full upstream raw research remains in the sibling project at `/Users/kara/Code/material/26July-Anime-Test/result.md`.
+- The full upstream raw research remains archived in the sibling project at `/Users/kara/Code/material/26July-Anime-Test/result.md`.
 - The current site repository is [Kara251/exam-kara](https://github.com/Kara251/exam-kara).

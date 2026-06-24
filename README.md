@@ -1,62 +1,59 @@
 # EXAM KARA
 
-EXAM KARA 是 `exam.kara251.com` 的静态主站，用来承载多个互动测试，并把各个测试统一挂到同一个 Cloudflare Pages 域名下。
+`exam.kara251.com` 的静态主站与测试总仓。
 
-目前已接入的测试：
+当前已接入的子路由：
 
 - `/tests/anime-summer-2026/`：2026 夏季番性格测验
-- `/tests/galgame-match/`：GalGame 命定路线测验
+- `/tests/galgame-test/`：GalGame 命定路线测验
 
-## GitHub 仓库
+兼容旧链接：
 
-- EXAM 主页： [Kara251/exam-kara](https://github.com/Kara251/exam-kara)
-- 动漫测试来源项目： [Kara251/26July-Anime-Test](https://github.com/Kara251/26July-Anime-Test)
-- GalGame 测试来源项目： [Kara251/GalGame-Test](https://github.com/Kara251/GalGame-Test)
+- `/tests/galgame-match/` 会自动跳转到 `/tests/galgame-test/`
 
-## 仓库结构
+## GitHub
 
-- `src/`：主站源码
-- `anime-route-patch/`：夏番测试在接入主站时覆盖使用的补丁文件
-- `galgame-route-patch/`：GalGame 测试在接入主站时覆盖使用的补丁文件
-- `scripts/build.mjs`：构建脚本，会生成主站并同步测试子路由
-- `docs/`：部署说明与测试来源依据
+- 当前站点与测试页统一仓库：
+  [github.com/Kara251/exam-kara](https://github.com/Kara251/exam-kara)
 
-## 开发与构建
+上游资料来源仍保留在文档中，仅作为内容考据与题库依据，不再参与构建依赖。
+
+## 目录结构
+
+- `src/`：EXAM KARA 首页源码
+- `tests-src/anime-summer-2026/`：站内版动漫测试源码
+- `tests-src/galgame-test/`：站内版 GalGame 测试源码
+- `scripts/build.mjs`：构建脚本
+- `docs/`：部署与资料说明
+
+## 本地开发
 
 ```bash
 npm run build
 npm run dev
-npm run sync:tests
 ```
 
-构建产物会输出到 `dist/`。
+构建产物输出到 `dist/`。
 
-## 发布
+## Cloudflare Pages
 
 ```bash
 npm run deploy:pages
 ```
 
-Cloudflare Pages 项目名为 `exam-kara`，默认构建输出目录为 `dist`。
+Pages 项目名：`exam-kara`
 
-## 子路由同步规则
+## 构建行为
 
-构建时会尝试从相邻目录同步两个测试项目：
+构建时会：
 
-- 来源目录：`../26July-Anime-Test`
-- 目标路由：`/tests/anime-summer-2026/`
-- 来源目录：`../GalGame-Test`
-- 目标路由：`/tests/galgame-match/`
-
-同步时会：
-
-- 过滤来源项目中的 Markdown、README 和 `.gitignore`
-- 删除当前项目里明确排除的非日本 ACG 海报素材
-- 用 `anime-route-patch/` 覆盖测试页接入主站所需的本地化与主站集成逻辑
-
-同步时会过滤 README、Markdown、`.gitignore` 和无关目录，再用各自的 route patch 覆盖为 EXAM KARA 站内版本。
+- 把 `src/` 输出到站点根目录
+- 把 `tests-src/anime-summer-2026/` 输出到 `/tests/anime-summer-2026/`
+- 把 `tests-src/galgame-test/` 输出到 `/tests/galgame-test/`
+- 生成 `/tests/galgame-match/` 到新 GalGame 路由的跳转页
+- 为首页与测试页写入新的构建版本号，用于强制刷新静态缓存
 
 ## 文档
 
 - [部署说明](docs/deployment.md)
-- [夏番测试来源依据](docs/result.md)
+- [夏番测试资料依据](docs/result.md)
