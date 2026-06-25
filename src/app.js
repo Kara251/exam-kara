@@ -72,8 +72,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路線測驗",
         cta: "GalGame 測驗",
-        description: "15 道問題會從更大的題池隨機抽題，對照路線口味、節奏偏好與承受度，幫你對上更適合補的作品。",
-        note: "43 部作品結果池現已內建進主站，路線與封面會跟著測試狀態切換。"
+        description: "15 道問題，對照路線口味、節奏偏好與承受度，幫你找到更適合補的作品。",
+        note: "收錄 43 部作品，各附路線說明與封面圖。"
       }
     }
   },
@@ -120,8 +120,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路线测验",
         cta: "GalGame 测验",
-        description: "15 道问题会从更大的题池里随机抽题，按路线口味、节奏偏好和内容承受度给你配到更适合补的作品。",
-        note: "43 部作品结果池现已内建进主站，路由与封面会跟着测试状态切换。"
+        description: "15 道问题，按路线口味、节奏偏好和承受度，帮你找到更适合补的作品。",
+        note: "收录 43 部作品，各附路线说明与封面图。"
       }
     }
   },
@@ -168,8 +168,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 本命路線測驗",
         cta: "GalGame 測驗",
-        description: "15道題會從更大題池亂數抽題，按路線口味、節奏偏好同承受度，幫伱對上更想肝下去の作品。",
-        note: "43部作品結果池而家已經直接住進主站，路線同封面都會跟住狀態切。"
+        description: "15道題，按路線口味、節奏偏好同承受度，幫伱找到更想肝下去の作品。",
+        note: "收惹 43 部作品，每部都帶埋路線說明同封面。"
       }
     }
   },
@@ -216,8 +216,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路線試",
         cta: "GalGame 試",
-        description: "十五題自更廣題池隨機取之，以辨路線所好、節奏偏向與內容承受，由此推更契汝心之作。",
-        note: "四十三部作品今皆內置於主站，路線與封面亦隨測況而轉。"
+        description: "十五題，以辨路線所好、節奏偏向與承受，推更契汝心之作。",
+        note: "收錄四十三部作品，各附路線與封面。"
       }
     }
   },
@@ -264,8 +264,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame Route Match",
         cta: "GalGame Test",
-        description: "15 questions are drawn from a larger pool to match route taste, pacing, and tolerance with a better-fit visual novel.",
-        note: "The 43-title result pool now lives inside the main site, with routes and covers shifting as the test state changes."
+        description: "15 questions on route taste, pacing, and tolerance to find a better-fit visual novel.",
+        note: "43 titles, each with route details and a cover image."
       }
     }
   },
@@ -312,8 +312,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定路線測驗",
         cta: "GalGame 測驗",
-        description: "15題會喺更大題池度隨機抽題，由路線口味、節奏偏好同內容承受度入手，幫你對到更啱補嘅作品。",
-        note: "43部作品結果池而家直接收埋喺主站，路線同封面都會跟住狀態切換。"
+        description: "15題，由路線口味、節奏偏好同承受度入手，幫你搵到更啱補嘅作品。",
+        note: "收錄咗 43 部作品，每部都附路線說明同封面圖。"
       }
     }
   },
@@ -360,8 +360,8 @@ var SITE_COPY = {
       galgame: {
         title: "GalGame 命定ルート診断",
         cta: "GalGame診断へ",
-        description: "より大きい設問プールから15問を引き、ルートの好み、テンポ、内容耐性を今の自分に合う一本へつなぎます。",
-        note: "43作品プールは主站へ内蔵済み。ルートとカバーはテスト状況に合わせて切り替わります。"
+        description: "15問でルートの好みとテンポを測り、今の自分に合う一本を探します。",
+        note: "43作品収録。各ルートの詳細とカバー画像付き。"
       }
     }
   }
@@ -373,10 +373,10 @@ var SITE_COPY_EXTENSIONS = {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先選擇語言",
     gateSubtitle: "選好後會進入首頁，右上角也能隨時切換。",
-    gateNote: "後續新增的測驗頁，都會沿用右上角這個語言入口。",
+    gateNote: "之後加入的測驗，都能在右上角切換語言。",
     gateToast: "右上角可隨時切換語言",
-    repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗頁倉庫",
+    repoExamLabel: "GitHub",
+    repoAnimeLabel: "GitHub",
     rainyunLabel: "雨雲",
     rainyunNote: "新用戶5折 | 免費MC服 | 性價比、穩定、便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -384,10 +384,10 @@ var SITE_COPY_EXTENSIONS = {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先选择语言",
     gateSubtitle: "选好后进入首页，右上角也能随时切换。",
-    gateNote: "后续新增的测验页，也都会沿用右上角这个语言入口。",
+    gateNote: "之后加入的测验，都能在右上角切换语言。",
     gateToast: "右上角可随时切换语言",
-    repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番测验页仓库",
+    repoExamLabel: "GitHub",
+    repoAnimeLabel: "GitHub",
     rainyunLabel: "雨云",
     rainyunNote: "新用户5折 | 免费MC服 | 性价比、稳定、便捷 | MC面板服 / VPS / 应用一键部署"
   },
@@ -395,10 +395,10 @@ var SITE_COPY_EXTENSIONS = {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先揀伱想看の語言版本",
     gateSubtitle: "選完就直達首頁，右上角那顆語言鍵之後想咋切都阔以。",
-    gateNote: "後面新開の測驗，也都會共用這個右上角語言入口，卟用每次重新找。",
+    gateNote: "後面新開の測驗，右上角一樣能切語言，卟用重找。",
     gateToast: "右上角隨時都能切語言",
-    repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗頁倉庫",
+    repoExamLabel: "GitHub",
+    repoAnimeLabel: "GitHub",
     rainyunLabel: "雨雲",
     rainyunNote: "新戶5折 | 免費MC服 | 性價比穩、好上手 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -406,10 +406,10 @@ var SITE_COPY_EXTENSIONS = {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "請先擇其言",
     gateSubtitle: "既擇其言，乃入首頁；右上角亦可隨時更易。",
-    gateNote: "後來諸測，亦皆循右上角此語言入口而轉換之。",
+    gateNote: "後來諸測，皆可由右上角更語。",
     gateToast: "右上角可隨時易語",
-    repoExamLabel: "EXAM 主站庫",
-    repoAnimeLabel: "夏番試頁庫",
+    repoExamLabel: "GitHub",
+    repoAnimeLabel: "GitHub",
     rainyunLabel: "雨雲",
     rainyunNote: "新客半價 | 免費MC服 | 價平而穩、用之便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -417,10 +417,10 @@ var SITE_COPY_EXTENSIONS = {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "Choose Your Language",
     gateSubtitle: "Once you enter, the language switch stays in the top-right corner.",
-    gateNote: "Future tests on this domain will keep using that same top-right language control.",
-    gateToast: "Language stays in the top-right corner",
-    repoExamLabel: "EXAM Home Repo",
-    repoAnimeLabel: "Anime test page repo",
+    gateNote: "New tests added later will have the same language switch.",
+    gateToast: "Language switch is in the top-right corner",
+    repoExamLabel: "GitHub",
+    repoAnimeLabel: "GitHub",
     rainyunLabel: "Rainyun",
     rainyunNote: "50% off for new users | Free MC hosting | strong value, stable, easy | MC panel hosting / VPS / one-click app deploy"
   },
@@ -428,10 +428,10 @@ var SITE_COPY_EXTENSIONS = {
     gateKicker: "LANGUAGE INDEX",
     gateTitle: "先揀語言",
     gateSubtitle: "揀完就會入首頁，右上角之後都可以隨時轉。",
-    gateNote: "遲啲再加新測驗，都一樣會用返右上角呢個語言入口。",
+    gateNote: "之後加嘅測驗，都可以喺右上角轉語言。",
     gateToast: "右上角可以隨時轉語言",
-    repoExamLabel: "EXAM 主站",
-    repoAnimeLabel: "夏番測驗頁倉庫",
+    repoExamLabel: "GitHub",
+    repoAnimeLabel: "GitHub",
     rainyunLabel: "雨雲",
     rainyunNote: "新用戶5折 | 免費MC服 | 抵玩、穩定、易用 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -441,8 +441,8 @@ var SITE_COPY_EXTENSIONS = {
     gateSubtitle: "入った後も、右上の言語メニューからいつでも切り替えられます。",
     gateNote: "この先追加されるテストも、右上の同じ言語メニューを使います。",
     gateToast: "言語切替は右上にあります",
-    repoExamLabel: "EXAM本体",
-    repoAnimeLabel: "夏アニメ診断ページのリポジトリ",
+    repoExamLabel: "GitHub",
+    repoAnimeLabel: "GitHub",
     rainyunLabel: "Rainyun",
     rainyunNote: "新規50%オフ | 無料MCサーバー | 高コスパ・安定・手軽 | MCパネルサーバー / VPS / アプリ一括デプロイ"
   }
