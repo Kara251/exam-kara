@@ -21,6 +21,8 @@
   var exportCache = { key: "", blob: null };
   var previewObjectUrl = "";
   var scenePickOffsets = {};
+  var homeStageWorks = {};
+  var homeCoverResizeFrame = 0;
   var globalLandscapeWorks = [];
   var globalPortraitWorks = [];
   var questionCount = Math.min(quizData.questionCount || quizData.questions.length, quizData.questions.length);
@@ -781,6 +783,74 @@
     return variants[Math.abs(seed) % variants.length];
   }
 
+  function homeCoverScale(work) {
+    var ratio = coverRatio(work);
+
+    if (ratio < 0.82) {
+      return 0.68;
+    }
+
+    if (ratio < 0.98) {
+      return 0.8;
+    }
+
+    if (ratio < 1.18) {
+      return 0.9;
+    }
+
+    return 1;
+  }
+
+  function syncHomeCoverPanelSizing(id, panel, work) {
+    var baseWidth;
+    var scale;
+
+    if (!panel || !work || id.indexOf("home-cover-") !== 0) {
+      return;
+    }
+
+    panel.style.removeProperty("width");
+
+    if (window.matchMedia && window.matchMedia("(max-width: 860px)").matches) {
+      return;
+    }
+
+    scale = homeCoverScale(work);
+
+    if (scale >= 0.999) {
+      return;
+    }
+
+    baseWidth = parseFloat(window.getComputedStyle(panel).width);
+
+    if (!baseWidth || !window.isFinite(baseWidth)) {
+      return;
+    }
+
+    panel.style.width = Math.round(baseWidth * scale) + "px";
+  }
+
+  function syncAllHomeCoverPanels() {
+    ["home-cover-a", "home-cover-b", "home-cover-c", "home-cover-d"].forEach(function (id) {
+      var image = document.getElementById(id);
+      var panel = image && image.parentElement ? image.parentElement.parentElement : null;
+      var work = homeStageWorks[id];
+
+      syncHomeCoverPanelSizing(id, panel, work);
+    });
+  }
+
+  function queueHomeCoverPanelSync() {
+    if (homeCoverResizeFrame) {
+      window.cancelAnimationFrame(homeCoverResizeFrame);
+    }
+
+    homeCoverResizeFrame = window.requestAnimationFrame(function () {
+      homeCoverResizeFrame = 0;
+      syncAllHomeCoverPanels();
+    });
+  }
+
   function localizedPrimaryTitle(work) {
     if (!work) {
       return "";
@@ -1014,6 +1084,8 @@
     if (panel && panel.classList.contains("cover-panel")) {
       panel.dataset.orientation = coverOrientation(work);
       panel.style.setProperty("--cover-ratio", String(coverRatio(work)));
+      homeStageWorks[id] = work;
+      syncHomeCoverPanelSizing(id, panel, work);
     }
 
     if (titleId) {
@@ -2251,6 +2323,7 @@
     btnRetry.addEventListener("click", retry);
     document.getElementById("image-preview-close").addEventListener("click", closeImagePreview);
     document.getElementById("image-preview-backdrop").addEventListener("click", closeImagePreview);
+    window.addEventListener("resize", queueHomeCoverPanelSync);
     window.addEventListener("resize", function () {
       updateHomeScrollHint();
     });
