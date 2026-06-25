@@ -377,6 +377,15 @@ var SITE_COPY_EXTENSIONS = {
     gateToast: "右上角可隨時切換語言",
     repoExamLabel: "GitHub",
     repoAnimeLabel: "GitHub",
+    contactCardLabel: "WECHAT CONTACT",
+    contactCardTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactCardHandle: "點擊獲取微信好友二維碼：_UshioNoa",
+    contactModalKicker: "WECHAT CONTACT",
+    contactModalTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactModalHandle: "點擊獲取微信好友二維碼：_UshioNoa",
+    contactModalNote: "掃碼後可直接加微信，聊網站定制、測試定制與全棧開發合作。",
+    contactModalClose: "關閉",
+    contactQrAlt: "_UshioNoa 微信好友二維碼",
     rainyunLabel: "雨雲",
     rainyunNote: "新用戶5折 | 免費MC服 | 性價比、穩定、便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -388,6 +397,15 @@ var SITE_COPY_EXTENSIONS = {
     gateToast: "右上角可随时切换语言",
     repoExamLabel: "GitHub",
     repoAnimeLabel: "GitHub",
+    contactCardLabel: "WECHAT CONTACT",
+    contactCardTitle: "网站定制 / 测试定制 / 全栈开发",
+    contactCardHandle: "点击获取微信好友二维码：_UshioNoa",
+    contactModalKicker: "WECHAT CONTACT",
+    contactModalTitle: "网站定制 / 测试定制 / 全栈开发",
+    contactModalHandle: "点击获取微信好友二维码：_UshioNoa",
+    contactModalNote: "扫码后可直接加微信，聊网站定制、测试定制与全栈开发合作。",
+    contactModalClose: "关闭",
+    contactQrAlt: "_UshioNoa 微信好友二维码",
     rainyunLabel: "雨云",
     rainyunNote: "新用户5折 | 免费MC服 | 性价比、稳定、便捷 | MC面板服 / VPS / 应用一键部署"
   },
@@ -399,6 +417,15 @@ var SITE_COPY_EXTENSIONS = {
     gateToast: "右上角隨時都能切語言",
     repoExamLabel: "GitHub",
     repoAnimeLabel: "GitHub",
+    contactCardLabel: "WECHAT CONTACT",
+    contactCardTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactCardHandle: "點我拿微信好友碼：_UshioNoa",
+    contactModalKicker: "WECHAT CONTACT",
+    contactModalTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactModalHandle: "點我拿微信好友碼：_UshioNoa",
+    contactModalNote: "掃壹下就能直接加微信，網站、測驗、全棧合作都阔以聊。",
+    contactModalClose: "關閉",
+    contactQrAlt: "_UshioNoa 微信好友碼",
     rainyunLabel: "雨雲",
     rainyunNote: "新戶5折 | 免費MC服 | 性價比穩、好上手 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -410,6 +437,15 @@ var SITE_COPY_EXTENSIONS = {
     gateToast: "右上角可隨時易語",
     repoExamLabel: "GitHub",
     repoAnimeLabel: "GitHub",
+    contactCardLabel: "WECHAT CONTACT",
+    contactCardTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactCardHandle: "點此取微信友人碼：_UshioNoa",
+    contactModalKicker: "WECHAT CONTACT",
+    contactModalTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactModalHandle: "點此取微信友人碼：_UshioNoa",
+    contactModalNote: "掃碼即可加微信，可議網站定制、測試定制與全棧開發之事。",
+    contactModalClose: "關閉",
+    contactQrAlt: "_UshioNoa 微信友人碼",
     rainyunLabel: "雨雲",
     rainyunNote: "新客半價 | 免費MC服 | 價平而穩、用之便捷 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -421,6 +457,15 @@ var SITE_COPY_EXTENSIONS = {
     gateToast: "Language switch is in the top-right corner",
     repoExamLabel: "GitHub",
     repoAnimeLabel: "GitHub",
+    contactCardLabel: "WECHAT CONTACT",
+    contactCardTitle: "Custom Sites / Custom Tests / Full-Stack Dev",
+    contactCardHandle: "Tap to open the WeChat QR: _UshioNoa",
+    contactModalKicker: "WECHAT CONTACT",
+    contactModalTitle: "Custom Sites / Custom Tests / Full-Stack Dev",
+    contactModalHandle: "Tap to open the WeChat QR: _UshioNoa",
+    contactModalNote: "Scan the code to add me on WeChat for site commissions, quiz commissions, or full-stack work.",
+    contactModalClose: "Close",
+    contactQrAlt: "WeChat QR code for _UshioNoa",
     rainyunLabel: "Rainyun",
     rainyunNote: "50% off for new users | Free MC hosting | strong value, stable, easy | MC panel hosting / VPS / one-click app deploy"
   },
@@ -432,6 +477,15 @@ var SITE_COPY_EXTENSIONS = {
     gateToast: "右上角可以隨時轉語言",
     repoExamLabel: "GitHub",
     repoAnimeLabel: "GitHub",
+    contactCardLabel: "WECHAT CONTACT",
+    contactCardTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactCardHandle: "撳入去拎微信好友碼：_UshioNoa",
+    contactModalKicker: "WECHAT CONTACT",
+    contactModalTitle: "網站定制 / 測試定制 / 全棧開發",
+    contactModalHandle: "撳入去拎微信好友碼：_UshioNoa",
+    contactModalNote: "掃碼就可以直接加微信，網站定制、測試定制同全棧開發都可以傾。",
+    contactModalClose: "關閉",
+    contactQrAlt: "_UshioNoa 微信好友碼",
     rainyunLabel: "雨雲",
     rainyunNote: "新用戶5折 | 免費MC服 | 抵玩、穩定、易用 | MC面板服 / VPS / 應用一鍵部署"
   },
@@ -443,6 +497,15 @@ var SITE_COPY_EXTENSIONS = {
     gateToast: "言語切替は右上にあります",
     repoExamLabel: "GitHub",
     repoAnimeLabel: "GitHub",
+    contactCardLabel: "WECHAT CONTACT",
+    contactCardTitle: "サイト制作 / テスト制作 / フルスタック開発",
+    contactCardHandle: "WeChat QRを開く：_UshioNoa",
+    contactModalKicker: "WECHAT CONTACT",
+    contactModalTitle: "サイト制作 / テスト制作 / フルスタック開発",
+    contactModalHandle: "WeChat QRを開く：_UshioNoa",
+    contactModalNote: "QRを読み取ると WeChat で追加できます。サイト制作、テスト制作、フルスタック開発の相談用です。",
+    contactModalClose: "閉じる",
+    contactQrAlt: "_UshioNoa の WeChat QRコード",
     rainyunLabel: "Rainyun",
     rainyunNote: "新規50%オフ | 無料MCサーバー | 高コスパ・安定・手軽 | MCパネルサーバー / VPS / アプリ一括デプロイ"
   }
@@ -726,6 +789,12 @@ function applyStaticCopy(copy) {
   renderTextMarquee("marquee-top-track", copy.marqueeTop);
   renderTextMarquee("marquee-bottom-track", copy.marqueeBottom);
   renderLanguageGateButtons();
+
+  var qrImage = document.getElementById("wechat-qr-image");
+
+  if (qrImage && copy.contactQrAlt) {
+    qrImage.alt = copy.contactQrAlt;
+  }
 }
 
 function buildTests(copy) {
@@ -902,6 +971,30 @@ function closeLanguageGate() {
   document.body.classList.remove("lang-gate-open");
 }
 
+function openWeChatModal() {
+  var modal = document.getElementById("wechat-modal");
+
+  if (!modal) {
+    return;
+  }
+
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("contact-modal-open");
+}
+
+function closeWeChatModal() {
+  var modal = document.getElementById("wechat-modal");
+
+  if (!modal) {
+    return;
+  }
+
+  modal.hidden = true;
+  modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("contact-modal-open");
+}
+
 function showLanguageToast() {
   var toast = document.getElementById("lang-guide-toast");
   var langControl = document.querySelector(".lang-control");
@@ -1005,6 +1098,30 @@ function initLanguageSelect() {
   });
 }
 
+function initWeChatModal() {
+  var trigger = document.getElementById("wechat-contact-trigger");
+  var closeButton = document.getElementById("wechat-modal-close");
+  var backdrop = document.getElementById("wechat-modal-backdrop");
+
+  if (trigger) {
+    trigger.addEventListener("click", openWeChatModal);
+  }
+
+  if (closeButton) {
+    closeButton.addEventListener("click", closeWeChatModal);
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener("click", closeWeChatModal);
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeWeChatModal();
+    }
+  });
+}
+
 async function loadManifestState() {
   try {
     var response = await fetch("/tests-manifest.json", { cache: "no-store" });
@@ -1040,6 +1157,7 @@ async function loadManifestState() {
 
 function init() {
   initLanguageSelect();
+  initWeChatModal();
   applyLocale();
   initHeroTypewriter();
   initLanguageGate(localeApi.shouldShowLanguageGate());

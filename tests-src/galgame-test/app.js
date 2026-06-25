@@ -275,6 +275,12 @@
         }
       }
     });
+
+    var contactImage = document.getElementById("contact-modal-image");
+
+    if (contactImage && strings.contactQrAlt) {
+      contactImage.alt = strings.contactQrAlt;
+    }
   }
 
   function setIssueDateLabels() {
@@ -2139,6 +2145,18 @@
     image.removeAttribute("src");
   }
 
+  function closeContactModal() {
+    var modal = document.getElementById("contact-modal");
+
+    if (!modal) {
+      return;
+    }
+
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("contact-modal-open");
+  }
+
   function openImagePreview() {
     var modal = document.getElementById("image-preview-modal");
     var image = document.getElementById("image-preview-image");
@@ -2163,6 +2181,18 @@
         btnPreview.disabled = false;
         btnPreview.textContent = originalLabel;
       });
+  }
+
+  function openContactModal() {
+    var modal = document.getElementById("contact-modal");
+
+    if (!modal) {
+      return;
+    }
+
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("contact-modal-open");
   }
 
   function showLanguageToast() {
@@ -2321,8 +2351,19 @@
     btnShare.addEventListener("click", shareResult);
     btnPreview.addEventListener("click", openImagePreview);
     btnRetry.addEventListener("click", retry);
+    Array.prototype.slice.call(document.querySelectorAll(".js-open-contact")).forEach(function (trigger) {
+      trigger.addEventListener("click", openContactModal);
+    });
     document.getElementById("image-preview-close").addEventListener("click", closeImagePreview);
     document.getElementById("image-preview-backdrop").addEventListener("click", closeImagePreview);
+    document.getElementById("contact-modal-close").addEventListener("click", closeContactModal);
+    document.getElementById("contact-modal-backdrop").addEventListener("click", closeContactModal);
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeImagePreview();
+        closeContactModal();
+      }
+    });
     window.addEventListener("resize", queueHomeCoverPanelSync);
     window.addEventListener("resize", function () {
       updateHomeScrollHint();

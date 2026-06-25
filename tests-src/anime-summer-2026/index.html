@@ -80,6 +80,7 @@
 
           <div class="editorial-actions home-cta-panel anim panel-divider-right anim-right" style="--d:3.2">
             <button id="btn-start" class="btn-start wipe-fill anim" style="--d:3.28" data-i18n="go">開始測驗 ▶</button>
+            <button class="btn-secondary action-link wipe-fill wipe-fill-ghost anim js-open-contact" style="--d:3.35" type="button" data-ui="contactEntry">定制測試 / 網站</button>
             <a class="btn-secondary action-link wipe-fill wipe-fill-ghost anim" style="--d:3.42" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
           </div>
 
@@ -216,7 +217,10 @@
                   <button id="btn-preview" class="btn-action wipe-fill wipe-fill-ghost anim" style="--d:2.38" data-ui="previewButton">查看結果圖</button>
                 </div>
                 <button id="btn-retry" class="btn-action wipe-fill wipe-fill-ghost anim" style="--d:2.45" data-i18n="ret">再測一次</button>
-                <a class="btn-action btn-action-link wipe-fill wipe-fill-ghost anim" style="--d:2.6" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+                <div class="result-action-stack">
+                  <button class="btn-action wipe-fill wipe-fill-ghost anim js-open-contact" style="--d:2.53" type="button" data-ui="contactEntry">定制測試 / 網站</button>
+                  <a class="btn-action btn-action-link wipe-fill wipe-fill-ghost anim" style="--d:2.6" href="https://exam.kara251.com/" data-i18n="more">更多測驗</a>
+                </div>
               </div>
             </div>
 
@@ -276,6 +280,25 @@
       </div>
       <div class="image-preview-body">
         <img id="image-preview-image" src="" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="image-preview-modal contact-modal" id="contact-modal" hidden aria-hidden="true">
+    <div class="image-preview-backdrop" id="contact-modal-backdrop"></div>
+    <div class="image-preview-panel contact-modal-panel" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+      <div class="image-preview-head contact-modal-head">
+        <div class="image-preview-title-block">
+          <div class="image-preview-title" id="contact-modal-title" data-ui="contactTitle">網站定制 / 測試定制 / 全棧開發</div>
+          <div class="image-preview-note contact-modal-handle" data-ui="contactSubtitle">點擊獲取微信好友二維碼：_UshioNoa</div>
+        </div>
+        <button class="image-preview-close" id="contact-modal-close" type="button" data-ui="contactClose" aria-label="Close contact modal">關閉</button>
+      </div>
+      <div class="image-preview-body contact-modal-body">
+        <div class="contact-modal-qr-frame">
+          <img id="contact-modal-image" src="/wechat.png" alt="">
+        </div>
+        <div class="image-preview-note contact-modal-note" data-ui="contactHint">掃碼即可加微信，聊測試頁、網站頁或全棧開發合作。</div>
       </div>
     </div>
   </div>

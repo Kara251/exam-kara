@@ -39,7 +39,8 @@ body {
 }
 
 body.image-preview-open,
-body.lang-gate-open {
+body.lang-gate-open,
+body.contact-modal-open {
   overflow: hidden;
 }
 
@@ -2062,6 +2063,41 @@ body[data-script="latin"] .result-anime-name {
   overflow: auto;
   display: grid;
   place-items: center;
+}
+
+.contact-modal-panel {
+  width: min(92vw, 420px);
+  max-height: min(86vh, 760px);
+}
+
+.contact-modal-head {
+  align-items: flex-start;
+}
+
+.contact-modal-handle {
+  margin-top: 8px;
+}
+
+.contact-modal-body {
+  gap: 14px;
+  text-align: center;
+}
+
+.contact-modal-qr-frame {
+  width: min(100%, 280px);
+  padding: 12px;
+  border: 1px solid rgba(250, 248, 244, 0.22);
+  background: #fff;
+}
+
+.contact-modal-qr-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.contact-modal-note {
+  max-width: 280px;
 }
 
 .image-preview-body img {
