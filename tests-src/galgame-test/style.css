@@ -818,26 +818,29 @@ select:focus-visible {
   z-index: 1;
   display: grid;
   align-items: start;
-  grid-template-columns: minmax(380px, 1.04fr) minmax(280px, 0.72fr) minmax(380px, 1fr);
+  grid-template-columns: minmax(460px, 0.98fr) minmax(420px, 1.02fr);
   grid-template-areas:
-    "hero summary covers"
-    "actions summary covers";
-  gap: 26px 20px;
+    "hero covers"
+    "summary covers"
+    "actions covers";
+  gap: 24px 28px;
   padding: 70px 42px 40px 108px;
-  min-height: 800px;
+  min-height: 720px;
 }
 
 body[data-layout="stack"] .surface-grid {
   grid-template-areas:
-    "hero summary covers"
-    "actions summary covers";
+    "hero covers"
+    "summary covers"
+    "actions covers";
 }
 
 body[data-layout="asym"] .surface-grid {
-  grid-template-columns: minmax(400px, 1.08fr) minmax(270px, 0.68fr) minmax(380px, 1fr);
+  grid-template-columns: minmax(460px, 0.98fr) minmax(420px, 1.02fr);
   grid-template-areas:
-    "hero summary covers"
-    "actions summary covers";
+    "hero covers"
+    "summary covers"
+    "actions covers";
 }
 
 .corner-lines,
@@ -1013,8 +1016,8 @@ body[data-layout="asym"] .surface-grid {
   position: relative;
   justify-self: start;
   align-self: start;
-  margin-top: 96px;
-  width: min(100%, 360px);
+  margin-top: 0;
+  width: min(100%, 420px);
   min-height: auto;
   height: fit-content;
   padding: 28px 24px 28px;
@@ -1561,7 +1564,7 @@ body[data-compose="crossfade"] .stage-thread-c {
   align-items: center;
   position: relative;
   z-index: 4;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .btn-primary,
