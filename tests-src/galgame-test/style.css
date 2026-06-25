@@ -2631,6 +2631,51 @@ body[data-compose="crossfade"] .stage-thread-c {
 
 .result-frame.is-exporting .page-surface {
   padding-bottom: 0 !important;
+  background: #F3EEE5 !important;
+}
+
+.result-frame.is-exporting .result-side,
+.result-frame.is-exporting .result-match-strip,
+.result-frame.is-exporting .result-meta-pill,
+.result-frame.is-exporting .result-note-card,
+.result-frame.is-exporting .result-brief-block,
+.result-frame.is-exporting .result-preference-tags span,
+.result-frame.is-exporting .result-keywords span,
+.result-frame.is-exporting .result-section-item,
+.result-frame.is-exporting .result-qr-block {
+  background: #FBF8F2 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.result-frame.is-exporting .result-match-strip {
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+}
+
+.result-frame.is-exporting .result-match-label,
+.result-frame.is-exporting .result-match-count,
+.result-frame.is-exporting .result-game-original,
+.result-frame.is-exporting .result-note-label,
+.result-frame.is-exporting .result-brief-label,
+.result-frame.is-exporting .result-brief-text,
+.result-frame.is-exporting .result-section-label,
+.result-frame.is-exporting .result-section-item-why,
+.result-frame.is-exporting .result-side-heading,
+.result-frame.is-exporting .result-qr-label,
+.result-frame.is-exporting .result-qr-url,
+.result-frame.is-exporting .repo-link-inline-label,
+.result-frame.is-exporting .repo-link-inline-value {
+  color: #564F45 !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #564F45 !important;
+}
+
+.result-frame.is-exporting .result-match-scene,
+.result-frame.is-exporting .trait-value {
+  opacity: 1 !important;
+  -webkit-text-fill-color: currentColor !important;
 }
 
 body[data-layout="stack"] .home-title-secondary {

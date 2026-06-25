@@ -1817,6 +1817,31 @@
   function prepareExportClone(clonedDocument) {
     var clonedCard = clonedDocument.getElementById("result-card");
     var clonedImage = clonedDocument.getElementById("result-img");
+    var flattenedSelectors = [
+      ".result-match-strip",
+      ".result-meta-pill",
+      ".result-note-card",
+      ".result-brief-block",
+      ".result-preference-tags span",
+      ".result-keywords span",
+      ".result-section-item",
+      ".result-qr-block"
+    ];
+    var subtleTextSelectors = [
+      ".result-match-label",
+      ".result-match-count",
+      ".result-game-original",
+      ".result-note-label",
+      ".result-brief-label",
+      ".result-brief-text",
+      ".result-section-label",
+      ".result-section-item-why",
+      ".result-side-heading",
+      ".result-qr-label",
+      ".result-qr-url",
+      ".repo-link-inline-label",
+      ".repo-link-inline-value"
+    ];
 
     if (!clonedCard) {
       return;
@@ -1842,6 +1867,38 @@
       clonedCard.querySelectorAll(".glyph")
     ).forEach(function (node) {
       node.style.display = "inline-block";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(flattenedSelectors.join(", "))
+    ).forEach(function (node) {
+      node.style.background = "#FBF8F2";
+      node.style.boxShadow = "none";
+      node.style.backdropFilter = "none";
+      node.style.webkitBackdropFilter = "none";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(subtleTextSelectors.join(", "))
+    ).forEach(function (node) {
+      node.style.color = "#564F45";
+      node.style.opacity = "1";
+      node.style.webkitTextFillColor = "#564F45";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".result-match-strip")
+    ).forEach(function (node) {
+      node.style.clipPath = "none";
+      node.style.webkitClipPath = "none";
+    });
+
+    Array.prototype.slice.call(
+      clonedCard.querySelectorAll(".result-match-scene")
+    ).forEach(function (node) {
+      node.style.color = "#1D7FA9";
+      node.style.opacity = "1";
+      node.style.webkitTextFillColor = "#1D7FA9";
     });
 
     Array.prototype.slice.call(
