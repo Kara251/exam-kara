@@ -2067,7 +2067,11 @@ body[data-script="latin"] .result-anime-name {
 
 .contact-modal-panel {
   width: min(92vw, 420px);
-  max-height: min(86vh, 760px);
+  max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px);
+  margin: 12px auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .contact-modal-head {
@@ -2084,8 +2088,8 @@ body[data-script="latin"] .result-anime-name {
 }
 
 .contact-modal-qr-frame {
-  width: min(100%, 280px);
-  padding: 12px;
+  width: min(100%, 260px);
+  padding: 10px;
   border: 1px solid rgba(250, 248, 244, 0.22);
   background: #fff;
 }
@@ -2098,6 +2102,39 @@ body[data-script="latin"] .result-anime-name {
 
 .contact-modal-note {
   max-width: 280px;
+}
+
+@media (max-width: 640px) {
+  .contact-modal-panel {
+    width: min(calc(100vw - 20px), 380px);
+    max-height: calc(100dvh - 20px);
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .contact-modal-head {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-modal-head .image-preview-close {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  .contact-modal-body {
+    gap: 10px;
+  }
+
+  .contact-modal-qr-frame {
+    width: min(100%, 220px);
+    padding: 8px;
+  }
+
+  .contact-modal-note {
+    font-size: 12px;
+    line-height: 1.55;
+  }
 }
 
 .image-preview-body img {
