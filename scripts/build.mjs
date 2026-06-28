@@ -85,6 +85,49 @@ async function replaceBuildVersionPlaceholders(filePath) {
   } catch {}
 }
 
+async function collectHtmlFiles(dir) {
+  const files = [];
+
+  try {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const entryPath = path.join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        files.push(...await collectHtmlFiles(entryPath));
+      } else if (entry.isFile() && /\.html$/i.test(entry.name)) {
+        files.push(entryPath);
+      }
+    }
+  } catch {}
+
+  return files;
+}
+
+function lineNumberFor(source, index) {
+  return source.slice(0, index).split("\n").length;
+}
+
+async function assertNoEmptyImageSources(dirs) {
+  const files = (await Promise.all(dirs.map(collectHtmlFiles))).flat();
+  const failures = [];
+  const emptySrcPattern = /\bsrc\s*=\s*(["'])\s*\1/gi;
+
+  for (const file of files) {
+    const source = await fs.readFile(file, "utf8");
+    let match;
+
+    while ((match = emptySrcPattern.exec(source)) !== null) {
+      failures.push(`${path.relative(rootDir, file)}:${lineNumberFor(source, match.index)}`);
+    }
+  }
+
+  if (failures.length) {
+    throw new Error(`Empty image/script src attributes are not allowed:\n${failures.join("\n")}`);
+  }
+}
+
 async function applyBuildVersion() {
   await Promise.all([
     replaceBuildVersionPlaceholders(path.join(distDir, "index.html")),
@@ -141,6 +184,7 @@ async function main() {
 
   const animeStatus = await syncAnimeRoute();
   const galgameStatus = await syncGalgameRoute();
+  await assertNoEmptyImageSources([srcDir, testsSrcDir, distDir]);
 
   const manifest = {
     version: buildVersion,

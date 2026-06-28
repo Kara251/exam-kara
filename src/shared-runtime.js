@@ -106,10 +106,28 @@
     return true;
   }
 
+  function sanitizeEmptyImageSources(root) {
+    var scope = root && root.querySelectorAll ? root : document;
+    var images = scope.querySelectorAll("img[src='']");
+
+    images.forEach(function (image) {
+      image.removeAttribute("src");
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      sanitizeEmptyImageSources(document);
+    }, { once: true });
+  } else {
+    sanitizeEmptyImageSources(document);
+  }
+
   window.ExamKaraRuntime = {
     buildVersion: BUILD_VERSION,
     clearRuntimeCaches: clearRuntimeCaches,
     ensureFresh: ensureFresh,
-    fetchLatestBuildVersion: fetchLatestBuildVersion
+    fetchLatestBuildVersion: fetchLatestBuildVersion,
+    sanitizeEmptyImageSources: sanitizeEmptyImageSources
   };
 })();
