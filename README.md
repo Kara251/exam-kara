@@ -27,6 +27,7 @@
 - `tests-src/human-challenge/`：站内版人机测试闯关源码
 - `functions/api/human-challenge/`：人机测试 Orchestrator API
 - `scripts/build.mjs`：构建脚本
+- `wrangler.jsonc`：Cloudflare Pages 项目与 KV binding 配置
 - `docs/`：部署与资料说明
 
 ## 本地开发
@@ -45,6 +46,8 @@ npm run deploy:pages
 ```
 
 Pages 项目名：`exam-kara`
+
+人机测试闯关使用 `HUMAN_CHALLENGE_KV` 保存 2 小时会话。KV namespace 已写入 `wrangler.jsonc`，secret 类变量不要提交到仓库。
 
 ## 构建行为
 

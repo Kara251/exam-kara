@@ -47,9 +47,9 @@ npm run deploy:pages
 
 ## Human Challenge Bindings
 
-人机测试闯关默认不依赖付费服务。正式会话建议绑定：
+人机测试闯关默认不依赖付费服务。正式会话绑定：
 
-- `HUMAN_CHALLENGE_KV`：Cloudflare KV namespace，保存 2 小时会话。
+- `HUMAN_CHALLENGE_KV`：Cloudflare KV namespace，保存 2 小时会话，配置见 `wrangler.jsonc`。
 
 可选免费云验证：
 

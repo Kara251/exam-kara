@@ -1,5 +1,12 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "exam-kara",
-  "pages_build_output_dir": "dist"
+  "compatibility_date": "2026-06-29",
+  "pages_build_output_dir": "dist",
+  "kv_namespaces": [
+    {
+      "binding": "HUMAN_CHALLENGE_KV",
+      "id": "99d3434d2b2047d1ade27f26fefe4186"
+    }
+  ]
 }
-

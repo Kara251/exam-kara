@@ -84,9 +84,12 @@ Cloudflare Pages Functions 路由：
 
 ## 部署配置
 
-可选绑定：
+已配置绑定：
 
-- `HUMAN_CHALLENGE_KV`：正式会话存储。
+- `HUMAN_CHALLENGE_KV`：正式会话存储，KV namespace 配置见 `wrangler.jsonc`。
+
+可选免费云验证变量：
+
 - `TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`：启用 Turnstile。
 - `HCAPTCHA_SITE_KEY` / `HCAPTCHA_SECRET_KEY`：启用 hCaptcha。
 - `RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET_KEY`：启用隐藏 Google 雾门。

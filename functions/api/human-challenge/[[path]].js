@@ -5,6 +5,34 @@ const SHAPE_POOL = ["circle", "triangle", "square", "diamond", "hexagon"];
 const COLOR_POOL = ["blue", "green", "red", "black"];
 const MEMORY_SESSIONS = globalThis.__EXAM_KARA_HUMAN_CHALLENGE_SESSIONS ||
   (globalThis.__EXAM_KARA_HUMAN_CHALLENGE_SESSIONS = new Map());
+const GLYPH_GRID = {
+  A: ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+  B: ["11110", "10001", "10001", "11110", "10001", "10001", "11110"],
+  C: ["01111", "10000", "10000", "10000", "10000", "10000", "01111"],
+  D: ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
+  E: ["11111", "10000", "10000", "11110", "10000", "10000", "11111"],
+  F: ["11111", "10000", "10000", "11110", "10000", "10000", "10000"],
+  G: ["01111", "10000", "10000", "10111", "10001", "10001", "01111"],
+  H: ["10001", "10001", "10001", "11111", "10001", "10001", "10001"],
+  I: ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+  J: ["00111", "00010", "00010", "00010", "10010", "10010", "01100"],
+  K: ["10001", "10010", "10100", "11000", "10100", "10010", "10001"],
+  L: ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
+  M: ["10001", "11011", "10101", "10101", "10001", "10001", "10001"],
+  N: ["10001", "11001", "10101", "10011", "10001", "10001", "10001"],
+  O: ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+  P: ["11110", "10001", "10001", "11110", "10000", "10000", "10000"],
+  Q: ["01110", "10001", "10001", "10001", "10101", "10010", "01101"],
+  R: ["11110", "10001", "10001", "11110", "10100", "10010", "10001"],
+  S: ["01111", "10000", "10000", "01110", "00001", "00001", "11110"],
+  T: ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
+  U: ["10001", "10001", "10001", "10001", "10001", "10001", "01110"],
+  V: ["10001", "10001", "10001", "10001", "10001", "01010", "00100"],
+  W: ["10001", "10001", "10001", "10101", "10101", "11011", "10001"],
+  X: ["10001", "10001", "01010", "00100", "01010", "10001", "10001"],
+  Y: ["10001", "10001", "01010", "00100", "00100", "00100", "00100"],
+  Z: ["11111", "00001", "00010", "00100", "01000", "10000", "11111"]
+};
 
 const LAYERS = [
   { id: "letters-basic", title: "字母老验证码", type: "letters", weight: 4 },
@@ -239,12 +267,34 @@ function renderLetterSvg(answer, noisy) {
       }).join("")
     : "";
   const chars = answer.split("").map((letter, index) => {
-    const x = 34 + index * 43;
-    const y = 52 + Math.round((Math.random() - 0.5) * 8);
+    const unit = noisy ? 6 : 6.4;
+    const x = 27 + index * 43 + Math.round((Math.random() - 0.5) * 5);
+    const y = 18 + Math.round((Math.random() - 0.5) * 8);
+    const cx = x + unit * 2.5;
+    const cy = y + unit * 3.5;
     const rotate = Math.round((Math.random() - 0.5) * (noisy ? 24 : 12));
-    return `<text x="${x}" y="${y}" transform="rotate(${rotate} ${x} ${y})">${letter}</text>`;
+    return `<path transform="rotate(${rotate} ${cx} ${cy})" d="${glyphPath(letter, x, y, unit)}"/>`;
   }).join("");
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="260" height="82" viewBox="0 0 260 82" role="img" aria-label="letter captcha"><rect width="260" height="82" fill="#faf8f4"/><g font-family="Georgia,serif" font-size="34" font-weight="700" fill="#1a1a1a">${chars}</g>${lines}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="260" height="82" viewBox="0 0 260 82" role="img" aria-label="letter captcha"><rect width="260" height="82" fill="#faf8f4"/><g fill="#1a1a1a">${chars}</g>${lines}</svg>`;
+}
+
+function glyphPath(letter, x, y, unit) {
+  const grid = GLYPH_GRID[letter] || GLYPH_GRID.X;
+  const gap = unit * 0.14;
+  const cell = unit - gap;
+  return grid.flatMap((row, rowIndex) => {
+    return row.split("").map((bit, columnIndex) => {
+      if (bit !== "1") return "";
+      const left = roundPathValue(x + columnIndex * unit);
+      const top = roundPathValue(y + rowIndex * unit);
+      const size = roundPathValue(cell);
+      return `M${left} ${top}h${size}v${size}h-${size}z`;
+    });
+  }).join("");
+}
+
+function roundPathValue(value) {
+  return Math.round(value * 10) / 10;
 }
 
 function issuePickLettersChallenge(sequenceMode) {
