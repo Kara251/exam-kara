@@ -259,20 +259,20 @@ function layerStatus(layer, env) {
   }
 
   if (layer.type === "turnstile") {
-    return { state: "needs-config", label: "暂未开放" };
+    return { state: "closed", label: "暂未开放" };
   }
   if (layer.type === "hcaptcha") {
-    return { state: "needs-config", label: "暂未开放" };
+    return { state: "closed", label: "暂未开放" };
   }
   if (layer.type === "recaptcha") {
-    return { state: "needs-config", label: "暂未开放" };
+    return { state: "closed", label: "暂未开放" };
   }
   if (layer.type === "altcha") {
-    return { state: "needs-secret", label: "暂未开放" };
+    return { state: "closed", label: "暂未开放" };
   }
   if (layer.type === "integration") {
     return {
-      state: "needs-real-service",
+      state: "closed",
       label: "暂未开放",
       provider: layer.provider,
       note: layer.note
