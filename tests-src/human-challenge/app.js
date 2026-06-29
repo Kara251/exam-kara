@@ -21,7 +21,7 @@
   var COPY = {
     sc: {
       title: "你能闯过几个人机测试",
-      lead: "从老派英文字母验证码开始，一路穿过拖拽、轨迹、蜜罐、PoW 和免费云验证。你能走到第几层？",
+      lead: "从老式英文字母验证码开始，一路穿过拖拽、轨迹与反爬挑战。文字题只使用英文字母，结果会记录你的本轮通关表现。",
       start: "开始闯关",
       skip: "跳过此关",
       next: "下一层",
@@ -32,7 +32,7 @@
     },
     tc: {
       title: "你能闖過幾個人機測試",
-      lead: "從老派英文字母驗證碼開始，一路穿過拖拽、軌跡、蜜罐、PoW 與免費雲驗證。你能走到第幾層？",
+      lead: "從老式英文字母驗證碼開始，一路穿過拖拽、軌跡與反爬挑戰。文字題只使用英文字母，結果會記錄你本輪通關表現。",
       start: "開始闖關",
       skip: "跳過此關",
       next: "下一層",
@@ -43,7 +43,7 @@
     },
     en: {
       title: "How Many Human Checks Can You Clear?",
-      lead: "Start with old-school letter CAPTCHA, then drag, trace, dodge traps, solve PoW, and face free cloud checks.",
+      lead: "Start with old-school letter checks, then push through drag, trace, and anti-bot challenges. Text puzzles use A-Z letters only.",
       start: "Start",
       skip: "Skip Layer",
       next: "Next Layer",
@@ -54,7 +54,7 @@
     },
     ja: {
       title: "人間判定を何層突破できる？",
-      lead: "昔ながらの英字 CAPTCHA から、ドラッグ、軌跡、罠、PoW、無料クラウド検証まで進みます。",
+      lead: "昔ながらの英字チェックから、ドラッグ、軌跡、反ボット系の挑戦へ進みます。文字問題は英字のみです。",
       start: "開始",
       skip: "この層をスキップ",
       next: "次の層",
@@ -183,9 +183,14 @@
       if (passed.has(layer.id)) item.classList.add("is-passed");
       if (skipped.has(layer.id)) item.classList.add("is-skipped");
       if (!layer.enabled) item.classList.add("is-disabled");
-      item.innerHTML = '<span class="layer-num">' + layer.number + '</span><span><b>' + layer.title + '</b><small>' + ((layer.status && layer.status.label) || (layer.enabled ? "已启用" : "未启用")) + '</small></span>';
+      item.innerHTML = '<span class="layer-num">' + layer.number + '</span><span><b>' + layer.title + '</b><small>' + publicLayerStatus(layer) + '</small></span>';
       list.appendChild(item);
     });
+  }
+
+  function publicLayerStatus(layer) {
+    if (layer.enabled) return "可挑战";
+    return "可跳过";
   }
 
   function renderSession() {
@@ -391,14 +396,14 @@
 
   function renderBotD(challenge) {
     $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p>' +
-      '<p class="empty-state">本站只读取基础自动化信号，不保存原始指纹。检测结果只扣分，不一票否决。</p>';
+      '<p class="empty-state">这一层会快速看一眼浏览器环境，不需要你填写额外信息。</p>';
   }
 
   function renderExternal(challenge) {
     var configured = challenge.data.configured;
     $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p>' +
-      '<p class="empty-state">' + (configured ? "此层已配置，请完成官方 widget 后提交 token。" : "此免费云服务尚未配置 key。可以跳过此关并扣分。") + '</p>' +
-      '<div id="vendor-widget"></div><input class="text-input" id="vendor-token" placeholder="vendor token" ' + (configured ? "" : "disabled") + '>';
+      '<p class="empty-state">' + (configured ? "请完成页面中的验证框，然后提交本层。" : "这一层暂时不可用，可以跳过继续挑战。") + '</p>' +
+      '<div id="vendor-widget"></div><input type="hidden" id="vendor-token">';
     if (configured) {
       loadVendorWidget(challenge);
     }
@@ -406,11 +411,11 @@
 
   function renderPow(challenge) {
     $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p>' +
-      '<p class="empty-state">点击提交后浏览器会本地计算 nonce。低端手机可能需要几秒。</p><code>seed: ' + challenge.data.seed + '</code>';
+      '<p class="empty-state">点击提交后，浏览器会完成一道轻量算力题。手机较慢时请稍等几秒。</p>';
   }
 
   function renderCombo(challenge) {
-    $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p><div class="letter-grid" id="letter-grid"></div><p class="empty-state">提交时会再计算一次短 PoW。</p>';
+    $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p><div class="letter-grid" id="letter-grid"></div><p class="empty-state">提交时会再完成一道轻量算力题。</p>';
     challenge.data.letters.forEach(function (entry) {
       var button = document.createElement("button");
       button.type = "button";
@@ -426,7 +431,7 @@
 
   function renderFinal() {
     var session = state.session || {};
-    $("challenge-card").innerHTML = '<p class="challenge-prompt">人类白名单</p><p class="empty-state">本轮已生成结果。可以保存结果图，或者重置再闯一次。</p>';
+    $("challenge-card").innerHTML = '<p class="challenge-prompt">通行结果</p><p class="empty-state">本轮已生成结果。可以保存结果图，或者重置再闯一次。</p>';
     $("result-panel").hidden = false;
     $("result-title").textContent = session.title || "验证码新兵";
     $("result-copy").textContent = "你本轮通过 " + (session.passedCount || 0) + " 层，跳过 " + (session.skippedCount || 0) + " 层。";
@@ -573,12 +578,12 @@
     var configured = challenge.data.configured;
     if (!configured) {
       $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p>' +
-        '<p class="empty-state">' + (challenge.data.note || "ALTCHA 尚未配置，不能签发官方 challenge。") + '</p>';
+        '<p class="empty-state">' + (challenge.data.note || "这一层暂时不可用，可以跳过继续挑战。") + '</p>';
       return;
     }
 
     $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p>' +
-      '<p class="empty-state">这是官方 ALTCHA widget，使用 PBKDF2/SHA-256 做浏览器端 PoW；提交前需要它显示已验证。</p>' +
+      '<p class="empty-state">请完成下方验证框。它会在浏览器里自动做一道轻量算力题。</p>' +
       '<div class="altcha-wrap"><altcha-widget id="altcha-widget" name="altcha" auto="off" type="checkbox" workers="2"></altcha-widget></div>';
 
     var widget = $("altcha-widget");
@@ -594,25 +599,24 @@
       });
       widget.addEventListener("statechange", function (event) {
         if (event.detail && event.detail.state === "verifying") {
-          setMessage("ALTCHA 正在计算官方 PoW...");
+          setMessage("正在完成算力验证...");
         }
       });
       widget.addEventListener("verified", function () {
-        setMessage("ALTCHA 已生成 payload，可以提交验证。");
+        setMessage("验证已完成，可以提交本层。");
       });
     }).catch(function () {
-      setMessage("ALTCHA widget 加载失败，可以跳过此关。");
+      setMessage("验证框加载失败，可以跳过此关。");
     });
   }
 
   function renderIntegrationNotice(challenge) {
     var data = challenge.data || {};
     $("challenge-card").innerHTML = '<p class="challenge-prompt">' + data.prompt + '</p>' +
-      '<p class="empty-state">' + (data.note || "此层需要真实服务接入。") + '</p>' +
+      '<p class="empty-state">' + (data.note || "这一层还在接入中，先跳过继续挑战。") + '</p>' +
       '<div class="integration-box">' +
       '<strong>' + (data.provider || "Provider") + '</strong>' +
-      '<span>当前状态：未接入真服务</span>' +
-      (data.docsUrl ? '<a href="' + data.docsUrl + '" target="_blank" rel="noopener noreferrer">查看官方项目</a>' : '') +
+      '<span>当前状态：暂未开放，可以跳过继续挑战。</span>' +
       '</div>';
   }
 
@@ -659,17 +663,17 @@
     } else if (["turnstile", "hcaptcha", "recaptcha"].indexOf(challenge.type) >= 0) {
       payload.token = $("vendor-token") ? $("vendor-token").value : "";
     } else if (challenge.type === "pow") {
-      setMessage("正在计算 PoW...");
+      setMessage("正在完成算力题...");
       payload.nonce = await solvePow(challenge.data.seed, challenge.data.difficulty);
     } else if (challenge.type === "altcha") {
       if (state.altchaWidget && state.altchaWidget.getState && state.altchaWidget.getState() !== "verified") {
-        setMessage("正在等待 ALTCHA widget 完成官方 PoW...");
+        setMessage("正在等待验证框完成...");
         await state.altchaWidget.verify();
       }
       var altchaInput = document.querySelector('input[name="altcha"]');
       payload.altcha = altchaInput ? altchaInput.value : "";
     } else if (challenge.type === "combo") {
-      setMessage("正在计算 Boss PoW...");
+      setMessage("正在完成最后的算力题...");
       payload.selected = state.selected.slice();
       payload.nonce = await solvePow(challenge.data.powSeed, challenge.data.difficulty);
     }
@@ -808,7 +812,7 @@
     try {
       window.sessionStorage.removeItem("human-challenge-session");
     } catch {}
-    $("challenge-card").innerHTML = '<p class="empty-state">点击“开始闯关”，从第一层开始称量你的浏览器灵魂。</p>';
+    $("challenge-card").innerHTML = '<p class="empty-state">点击“开始闯关”，从第一层开始记录你的通关表现。</p>';
     $("result-panel").hidden = true;
     startSession();
   }

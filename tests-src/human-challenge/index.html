@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="exam-kara-build" content="__BUILD_VERSION__">
   <title>你能闯过几个人机测试</title>
-  <meta name="description" content="免费优先、中国玩家优先的人机测试闯关页，挑战字母验证码、拖拽、轨迹、PoW 与云验证码。">
+  <meta name="description" content="从老式英文字母验证码一路闯到拖拽、轨迹与反爬挑战，看看你能走到第几层。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -45,16 +45,15 @@
       <div class="hero-copy">
         <span class="tag">号外 EXTRA</span>
         <h1>人类<br><em>通行证</em></h1>
-        <p id="hero-lead">从老派英文字母验证码开始，一路穿过拖拽、轨迹、蜜罐、PoW 和免费云验证。你能走到第几层？</p>
+        <p id="hero-lead">从老式英文字母验证码开始，一路穿过拖拽、轨迹与反爬挑战。文字题只使用英文字母，结果会记录你的本轮通关表现。</p>
         <div class="hero-actions">
           <button class="btn btn-primary" id="start-btn" type="button">开始闯关</button>
           <a class="btn btn-ghost" href="/">更多测验</a>
-          <button class="btn btn-ghost" id="reset-btn" type="button">重置会话</button>
         </div>
       </div>
       <div class="hero-stack" aria-hidden="true">
-        <div class="stamp stamp-a">FREE FIRST</div>
-        <div class="stamp stamp-b">NO PAID VENDOR</div>
+        <div class="stamp stamp-a">LETTER GATE</div>
+        <div class="stamp stamp-b">TRACE ROUTE</div>
         <div class="stamp stamp-c">A-Z ONLY</div>
       </div>
     </section>
@@ -83,13 +82,14 @@
         <div class="rule"></div>
 
         <div class="challenge-card" id="challenge-card">
-          <p class="empty-state">点击“开始闯关”，从第一层开始称量你的浏览器灵魂。</p>
+          <p class="empty-state">点击“开始闯关”，从第一层开始记录你的通关表现。</p>
         </div>
 
         <div class="arena-actions">
           <button class="btn btn-primary" id="verify-btn" type="button" disabled>提交验证</button>
           <button class="btn btn-ghost" id="skip-btn" type="button" disabled>跳过此关</button>
           <button class="btn btn-ghost" id="next-btn" type="button" disabled>下一层</button>
+          <button class="btn btn-ghost" id="reset-btn" type="button">重置会话</button>
         </div>
 
         <div class="message-line" id="message-line" aria-live="polite"></div>

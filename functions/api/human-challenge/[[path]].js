@@ -51,24 +51,22 @@ const LAYERS = [
   { id: "botd", title: "BotD 检测", type: "botd", weight: 8 },
   { id: "turnstile", title: "Cloudflare 守门人", type: "turnstile", weight: 9 },
   { id: "hcaptcha", title: "hCaptcha 图像关", type: "hcaptcha", weight: 9 },
-  { id: "altcha", title: "ALTCHA 官方称重", type: "altcha", weight: 12 },
+  { id: "altcha", title: "ALTCHA 算力门", type: "altcha", weight: 12 },
   {
     id: "cap-gate",
-    title: "Cap 真服务门",
+    title: "Cap 挑战门",
     type: "integration",
     provider: "Cap",
     weight: 10,
-    docsUrl: "https://trycap.dev",
-    note: "需要部署或绑定 Cap 官方服务后才能启用，当前不会用自制 PoW 冒充。"
+    note: "这一层还在接入中，先跳过继续挑战。"
   },
   {
     id: "mcaptcha",
-    title: "mCaptcha 实例门",
+    title: "mCaptcha 挑战门",
     type: "integration",
     provider: "mCaptcha",
     weight: 10,
-    docsUrl: "https://mcaptcha.org/docs/",
-    note: "需要可访问的 mCaptcha 实例、site key 与 secret，当前不会用本地哈希代替。"
+    note: "这一层还在接入中，先跳过继续挑战。"
   },
   {
     id: "anubis",
@@ -76,8 +74,7 @@ const LAYERS = [
     type: "integration",
     provider: "Anubis",
     weight: 12,
-    docsUrl: "https://github.com/TecharoHQ/anubis",
-    note: "Anubis 是独立反爬网关，不是页面内 widget；需要部署在受保护路由前。"
+    note: "这一层还在接入中，先跳过继续挑战。"
   },
   { id: "recaptcha", title: "Google 雾门", type: "recaptcha", weight: 8 },
   { id: "combo-boss", title: "连续组合 Boss", type: "combo", weight: 14 },
@@ -262,23 +259,22 @@ function layerStatus(layer, env) {
   }
 
   if (layer.type === "turnstile") {
-    return { state: "needs-config", label: "需要 Turnstile key", env: ["TURNSTILE_SITE_KEY", "TURNSTILE_SECRET_KEY"] };
+    return { state: "needs-config", label: "暂未开放" };
   }
   if (layer.type === "hcaptcha") {
-    return { state: "needs-config", label: "需要 hCaptcha key", env: ["HCAPTCHA_SITE_KEY", "HCAPTCHA_SECRET_KEY"] };
+    return { state: "needs-config", label: "暂未开放" };
   }
   if (layer.type === "recaptcha") {
-    return { state: "needs-config", label: "需要 reCAPTCHA key", env: ["RECAPTCHA_SITE_KEY", "RECAPTCHA_SECRET_KEY"] };
+    return { state: "needs-config", label: "暂未开放" };
   }
   if (layer.type === "altcha") {
-    return { state: "needs-secret", label: "需要 ALTCHA_HMAC_SECRET", env: ["ALTCHA_HMAC_SECRET"] };
+    return { state: "needs-secret", label: "暂未开放" };
   }
   if (layer.type === "integration") {
     return {
       state: "needs-real-service",
-      label: "未接入真服务",
+      label: "暂未开放",
       provider: layer.provider,
-      docsUrl: layer.docsUrl,
       note: layer.note
     };
   }
@@ -470,7 +466,7 @@ async function issuePowChallenge(layer) {
   const difficulty = layer.difficulty || 3;
   return {
     publicData: {
-      prompt: `计算一个 SHA-256 hex 前缀为 ${"0".repeat(difficulty)} 的 nonce`,
+      prompt: "完成一道轻量算力题",
       seed,
       difficulty,
       algorithm: "SHA-256"
@@ -483,10 +479,10 @@ async function issueAltchaChallenge(env) {
   if (!env.ALTCHA_HMAC_SECRET) {
     return {
       publicData: {
-        prompt: "ALTCHA 官方 PoW widget",
+        prompt: "ALTCHA 算力验证",
         provider: "altcha",
         configured: false,
-        note: "缺少 ALTCHA_HMAC_SECRET，不能签发官方 ALTCHA challenge。"
+        note: "这一层暂时不可用，可以跳过继续挑战。"
       },
       answer: {}
     };
@@ -511,7 +507,7 @@ async function issueAltchaChallenge(env) {
 
   return {
     publicData: {
-      prompt: "完成官方 ALTCHA PoW widget",
+      prompt: "完成 ALTCHA 算力验证",
       provider: "altcha",
       configured: true,
       challenge,
@@ -529,7 +525,7 @@ function issueExternalChallenge(layer, env) {
   if (layer.type === "turnstile") {
     return {
       publicData: {
-        prompt: "Cloudflare Turnstile Free",
+        prompt: "Cloudflare Turnstile 验证",
         provider: "turnstile",
         siteKey: env.TURNSTILE_SITE_KEY || "",
         configured: isLayerEnabled(layer, env)
@@ -540,7 +536,7 @@ function issueExternalChallenge(layer, env) {
   if (layer.type === "hcaptcha") {
     return {
       publicData: {
-        prompt: "hCaptcha Basic Free",
+        prompt: "hCaptcha 图像验证",
         provider: "hcaptcha",
         siteKey: env.HCAPTCHA_SITE_KEY || "",
         configured: isLayerEnabled(layer, env)
@@ -550,7 +546,7 @@ function issueExternalChallenge(layer, env) {
   }
   return {
     publicData: {
-      prompt: "Google reCAPTCHA 噩梦彩蛋",
+      prompt: "Google 验证挑战",
       provider: "recaptcha",
       siteKey: env.RECAPTCHA_SITE_KEY || "",
       configured: isLayerEnabled(layer, env)
@@ -562,10 +558,9 @@ function issueExternalChallenge(layer, env) {
 function issueIntegrationPlaceholder(layer) {
   return {
     publicData: {
-      prompt: `${layer.provider} 需要真服务接入`,
+      prompt: `${layer.provider} 挑战暂未开放`,
       provider: layer.provider,
       configured: false,
-      docsUrl: layer.docsUrl,
       note: layer.note
     },
     answer: { provider: layer.provider }
@@ -600,7 +595,7 @@ async function issueChallenge(layer, env) {
     const letters = shuffle(TEXT_ALPHABET.split("")).slice(0, 4).join("");
     return {
       publicData: {
-        prompt: `按 ${letters.split("").join("-")} 顺序点击，再完成一次短 PoW`,
+        prompt: `按 ${letters.split("").join("-")} 顺序点击，再完成一道轻量算力题`,
         letters: shuffle(letters.split("").concat(shuffle(TEXT_ALPHABET.split("")).slice(0, 6))).map((letter, index) => ({ id: `combo_${index}`, letter })),
         powSeed: randomId("combo"),
         difficulty: 3
@@ -623,13 +618,13 @@ async function verifyExternal(layer, answer, body, env) {
     return {
       passed: false,
       skipped: true,
-      message: "此免费云服务尚未配置 key，本轮跳过并扣分。",
+      message: "这一层暂未开放，本轮已跳过并记录。",
       riskTags: ["vendor_not_configured"]
     };
   }
   const token = String(body.token || "");
   if (!token) {
-    return { passed: false, message: "缺少 vendor token。", riskTags: ["missing_token"] };
+    return { passed: false, message: "还没有完成页面验证。", riskTags: ["missing_token"] };
   }
 
   let endpoint = "";
@@ -653,7 +648,7 @@ async function verifyExternal(layer, answer, body, env) {
   const passed = Boolean(result.success);
   return {
     passed,
-    message: passed ? "官方校验通过。" : "官方校验未通过。",
+    message: passed ? "验证通过。" : "验证未通过。",
     riskTags: passed ? ["vendor_pass"] : ["vendor_reject"]
   };
 }
@@ -684,19 +679,19 @@ async function verifyAltcha(answer, body, env) {
     return {
       passed: false,
       skipped: true,
-      message: "ALTCHA_HMAC_SECRET 尚未配置，不能进行官方 ALTCHA 校验。",
+      message: "这一层暂未开放，本轮已跳过并记录。",
       riskTags: ["altcha_not_configured"]
     };
   }
 
   const payload = decodeAltchaPayload(body.altcha || body.payload);
   if (!payload || !payload.challenge || !payload.solution) {
-    return { passed: false, message: "缺少 ALTCHA widget payload。", riskTags: ["missing_altcha_payload"] };
+    return { passed: false, message: "还没有完成页面验证。", riskTags: ["missing_altcha_payload"] };
   }
 
   const parameters = payload.challenge.parameters || {};
   if (parameters.nonce !== answer.nonce || (payload.challenge.signature || "") !== answer.signature) {
-    return { passed: false, message: "ALTCHA payload 不是本关签发的 challenge。", riskTags: ["altcha_challenge_mismatch"] };
+    return { passed: false, message: "验证信息已过期，请重试本层。", riskTags: ["altcha_challenge_mismatch"] };
   }
 
   const result = await verifySolution({
@@ -709,7 +704,7 @@ async function verifyAltcha(answer, body, env) {
 
   return {
     passed: Boolean(result.verified),
-    message: result.verified ? "官方 ALTCHA 校验通过。" : "官方 ALTCHA 校验未通过。",
+    message: result.verified ? "验证通过。" : "验证未通过。",
     riskTags: result.verified ? ["altcha_pass"] : ["altcha_reject"]
   };
 }
@@ -718,7 +713,7 @@ function verifyIntegrationPlaceholder(layer) {
   return {
     passed: false,
     skipped: true,
-    message: `${layer.provider} 尚未接入真服务，本轮明示跳过，不再用本地 PoW 冒充。`,
+    message: `${layer.provider} 挑战暂未开放，本轮已跳过并记录。`,
     riskTags: ["real_integration_missing"]
   };
 }
@@ -776,7 +771,7 @@ async function verifyChallenge(layer, challenge, body, env) {
     const nonce = String(body.nonce || "");
     const digest = await sha256Hex(`${answer.seed}:${nonce}`);
     const passed = digest.startsWith("0".repeat(answer.difficulty));
-    return { passed, message: passed ? "PoW 通过。" : "PoW nonce 不正确。", riskTags: passed ? [] : ["pow_failed"] };
+    return { passed, message: passed ? "算力题通过。" : "算力题结果不正确。", riskTags: passed ? [] : ["pow_failed"] };
   }
   if (["turnstile", "hcaptcha", "recaptcha"].includes(layer.type)) {
     return verifyExternal(layer, answer, body, env);
