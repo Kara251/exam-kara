@@ -220,6 +220,10 @@ function isLayerEnabled(layer, env) {
   return true;
 }
 
+function storageMode(env) {
+  return env && env.HUMAN_CHALLENGE_KV && typeof env.HUMAN_CHALLENGE_KV.put === "function" ? "kv" : "memory";
+}
+
 async function createSession(request) {
   const now = Date.now();
   const ua = request.headers.get("user-agent") || "";
@@ -646,13 +650,14 @@ async function handleRequest(context) {
   }
 
   if (segments.length === 0 && request.method === "GET") {
-    return json({ ok: true, layers: publicLayers(context.env || {}) });
+    return json({ ok: true, storage: storageMode(context.env || {}), layers: publicLayers(context.env || {}) });
   }
 
   if (segments[0] === "session" && request.method === "POST") {
     const session = await createSession(request);
     return responseWithSession(context.env, session, {
       session: summarize(session),
+      storage: storageMode(context.env || {}),
       layers: publicLayers(context.env || {})
     });
   }
@@ -662,6 +667,7 @@ async function handleRequest(context) {
     if (state.error) return state.error;
     return responseWithSession(context.env, state.session, {
       session: summarize(state.session),
+      storage: storageMode(context.env || {}),
       layers: publicLayers(context.env || {})
     });
   }
