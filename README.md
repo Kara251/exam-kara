@@ -47,7 +47,7 @@ npm run deploy:pages
 
 Pages 项目名：`exam-kara`
 
-人机测试闯关使用 `HUMAN_CHALLENGE_KV` 保存 2 小时会话。KV namespace 已写入 `wrangler.jsonc`，secret 类变量不要提交到仓库。
+人机测试闯关使用 `HUMAN_CHALLENGE_KV` 保存 2 小时会话。KV namespace 已写入 `wrangler.jsonc`。ALTCHA、Turnstile、hCaptcha、reCAPTCHA 的 secret 类变量不要提交到仓库。
 
 ## 构建行为
 
@@ -58,6 +58,7 @@ Pages 项目名：`exam-kara`
 - 把 `tests-src/galgame-test/` 输出到 `/tests/galgame-test/`
 - 把 `tests-src/human-challenge/` 输出到 `/tests/human-challenge/`
 - 生成 `/tests/galgame-match/` 到新 GalGame 路由的跳转页
+- 把官方 ALTCHA widget 输出到 `/vendor/altcha.js`
 - 为首页与测试页写入新的构建版本号，用于强制刷新静态缓存
 
 ## 语言与结果图

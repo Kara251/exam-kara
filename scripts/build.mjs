@@ -15,6 +15,7 @@ const animeRouteDir = path.join(distDir, "tests", "anime-summer-2026");
 const galgameRouteDir = path.join(distDir, "tests", "galgame-test");
 const humanChallengeRouteDir = path.join(distDir, "tests", "human-challenge");
 const legacyGalgameRouteDir = path.join(distDir, "tests", "galgame-match");
+const vendorDir = path.join(distDir, "vendor");
 const syncOnly = process.argv.includes("--sync-only");
 const buildVersion = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 const excludedAnimeAssets = new Set([
@@ -184,6 +185,14 @@ async function syncHumanChallengeRoute() {
   return { available: true };
 }
 
+async function copyVendorAssets() {
+  await fs.mkdir(vendorDir, { recursive: true });
+  await fs.copyFile(
+    path.join(rootDir, "node_modules", "altcha", "dist", "main", "altcha.js"),
+    path.join(vendorDir, "altcha.js")
+  );
+}
+
 async function main() {
   if (!syncOnly) {
     await removeAndRecreate(distDir);
@@ -195,6 +204,7 @@ async function main() {
   const animeStatus = await syncAnimeRoute();
   const galgameStatus = await syncGalgameRoute();
   const humanChallengeStatus = await syncHumanChallengeRoute();
+  await copyVendorAssets();
   await assertNoEmptyImageSources([srcDir, testsSrcDir, distDir]);
 
   const manifest = {

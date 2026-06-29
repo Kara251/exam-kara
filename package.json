@@ -2,6 +2,7 @@
   "name": "exam-kara",
   "private": true,
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "build": "node ./scripts/build.mjs",
     "sync:anime": "node ./scripts/build.mjs --sync-only",
@@ -10,5 +11,9 @@
     "deploy:pages": "npm run build && npx wrangler@4 pages deploy --branch main",
     "cf:login": "npx wrangler@4 login",
     "cf:project:create": "npx wrangler@4 pages project create exam-kara"
+  },
+  "dependencies": {
+    "altcha": "^3.1.0",
+    "altcha-lib": "^2.2.0"
   }
 }

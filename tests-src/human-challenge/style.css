@@ -361,6 +361,17 @@ input {
   font-size: 13px;
 }
 
+.layer-item b,
+.layer-item small {
+  display: block;
+}
+
+.layer-item small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
 .layer-item.is-current {
   border-width: 3px;
 }
@@ -568,6 +579,43 @@ input {
 
 .timing-fill.is-running {
   width: 100%;
+}
+
+.altcha-wrap {
+  width: min(100%, 420px);
+}
+
+altcha-widget {
+  --altcha-border-radius: 0;
+  --altcha-checkbox-border-radius: 0;
+  --altcha-color-primary: var(--blue);
+  --altcha-color-primary-content: var(--paper);
+  --altcha-color-border: var(--line);
+  --altcha-color-base: var(--paper);
+  --altcha-color-text: var(--ink);
+  --altcha-max-width: 100%;
+  display: block;
+  margin-top: 16px;
+}
+
+.integration-box {
+  display: grid;
+  gap: 8px;
+  width: min(100%, 460px);
+  margin-top: 18px;
+  border: 2px solid var(--line);
+  padding: 16px;
+  background: #f7f2ea;
+}
+
+.integration-box strong {
+  font-family: var(--font-serif);
+  font-size: 28px;
+}
+
+.integration-box a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .message-line {

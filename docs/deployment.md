@@ -55,9 +55,10 @@ npm run deploy:pages
 
 - `TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`
 - `HCAPTCHA_SITE_KEY` / `HCAPTCHA_SECRET_KEY`
+- `ALTCHA_HMAC_SECRET`，启用官方 ALTCHA widget + `altcha-lib` 签发/验签
 - `RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET_KEY`，仅作为隐藏彩蛋层
 
-未配置的云验证层会显示为未启用，用户可跳过并扣分。
+未配置的云验证层会显示为未启用，用户可跳过并扣分。Cap / mCaptcha / Anubis 没有真实服务或网关时只显示接入状态，不再用本地 PoW 冒充。
 
 ## Custom Domain
 

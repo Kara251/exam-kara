@@ -30,10 +30,10 @@
 | 11 | BotD 检测 | BotD v2 Open Source | 检查 webdriver/headless，仅扣分 |
 | 12 | Cloudflare 守门人 | Turnstile Free | 配置 key 后启用 |
 | 13 | hCaptcha 图像关 | hCaptcha Basic Free | 配置 key 后启用 |
-| 14 | Cap 哈希门 | Cap 思路的 PoW | 免费开源 PoW 形态的浏览器称重 |
-| 15 | ALTCHA 称重 | ALTCHA 思路的 PoW | 免费开源 PoW 形态的浏览器称重 |
-| 16 | mCaptcha 备用 PoW | mCaptcha 思路的 PoW | 免费开源 PoW 形态的浏览器称重 |
-| 17 | Anubis 反爬门 | Anubis 思路的 PoW | 免费开源反爬网关形态 |
+| 14 | ALTCHA 官方称重 | ALTCHA widget + altcha-lib | 配置 secret 后启用官方签发/验签 |
+| 15 | Cap 真服务门 | 未启用 | 只展示真实接入状态，不再用本地 PoW 冒充 |
+| 16 | mCaptcha 实例门 | 未启用 | 需要真实 mCaptcha 实例和 key |
+| 17 | Anubis 网关门 | 未启用 | 需要独立 Anubis 网关，不是页面内 widget |
 | 18 | Google 雾门 | reCAPTCHA | 隐藏彩蛋，默认不作为中国玩家主线 |
 | 19 | 连续组合 Boss | 本站 Orchestrator | 字母顺序 + 短 PoW |
 | 20 | 人类白名单 | 结果页 | 生成称号和结果图 |
@@ -43,8 +43,10 @@
 1. Cloudflare Turnstile：免费层、无感优先，正式生产第一优先。
 2. hCaptcha Basic：免费云服务，作为图像/选择题体验补位。
 3. BotD Open Source：浏览器端自动化信号，结果只扣分。
-4. Cap / ALTCHA / mCaptcha / Anubis：优先使用成熟开源项目的思路和可替换接口；本站 MVP 先用本地 SHA-256 PoW 做闯关体验，不宣称等同这些项目的完整安全能力。
-5. reCAPTCHA：仅保留隐藏彩蛋或海外支线，不放进中国玩家默认主线。
+4. ALTCHA：已接官方 widget 和 `altcha-lib`；只在配置 `ALTCHA_HMAC_SECRET` 后启用。
+5. Cap / mCaptcha / Anubis：不再放本地 PoW 替身；没有真实服务或网关时只显示“未接入真服务”并跳过扣分。
+6. 本站自建 PoW：只保留在组合 Boss 内作为站内机制，不再挂 Cap / ALTCHA / mCaptcha / Anubis 的名字。
+7. reCAPTCHA：仅保留隐藏彩蛋或海外支线，不放进中国玩家默认主线。
 
 ## 不进入默认主线
 
@@ -56,7 +58,8 @@ reCAPTCHA 虽有免费额度，但对中国玩家可访问性和体感压力过�
 
 - 已做真实服务端编排、会话、签发、验证、计分和结果图。
 - 已做 Turnstile、hCaptcha、reCAPTCHA 的正式 token 校验接口；只有配置 key 后才启用。
-- PoW 关卡现在是轻量兼容层，不需要自建额外服务，后续可以替换为 Cap / ALTCHA / mCaptcha / Anubis 的完整部署。
+- 已做 ALTCHA 官方签发/验签接口；只有配置 `ALTCHA_HMAC_SECRET` 后才启用。
+- Cap / mCaptcha / Anubis 当前只做真实接入状态展示，不会使用自制检测替代，也不会让用户误以为已经接入真货。
 - 阴招层包括蜜罐、过快提交、零移动、隐藏字段、反向拖拽、轨迹自然度、BotD 自动化信号和组合 Boss，但所有异常都以扣分为主，避免误伤玩家。
 
 ## API
@@ -92,4 +95,18 @@ Cloudflare Pages Functions 路由：
 
 - `TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`：启用 Turnstile。
 - `HCAPTCHA_SITE_KEY` / `HCAPTCHA_SECRET_KEY`：启用 hCaptcha。
+- `ALTCHA_HMAC_SECRET`：启用官方 ALTCHA challenge 签发与验签。
+- `ALTCHA_COST` / `ALTCHA_COUNTER_MIN` / `ALTCHA_COUNTER_MAX`：可选，调整 ALTCHA PoW 强度；默认值偏中高，兼顾手机玩家。
 - `RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET_KEY`：启用隐藏 Google 雾门。
+
+## 需要确认或配置
+
+以下内容不能由页面代码凭空完成，需要在 Cloudflare 或外部服务侧确认：
+
+- Turnstile：需要你在 Cloudflare 创建 widget，并把 site key / secret 配到 Pages。
+- hCaptcha：需要你创建免费站点 key 和 secret，并确认中国玩家访问体验是否能接受。
+- ALTCHA：需要一个服务端 HMAC secret；已可在 Pages Functions 内运行，不需要外部服务器。
+- Cap：需要确认采用哪个 Cap 官方项目或服务地址，再接它的真实 widget 和验证接口。
+- mCaptcha：需要一个可访问的 mCaptcha 实例、site key 和 account secret；没有实例就不能启用。
+- Anubis：需要作为独立反爬网关部署在受保护路由前。建议只保护 `/tests/human-challenge/anubis-gate/` 或 `/api/human-challenge/anubis/*`，不要直接保护整个 EXAM KARA 主页。
+- reCAPTCHA：对中国玩家压力很大，只建议作为海外隐藏支线；启用前需要你确认是否接受。

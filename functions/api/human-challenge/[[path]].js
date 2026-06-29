@@ -1,3 +1,6 @@
+import { createChallenge, randomInt, verifySolution } from "altcha-lib";
+import { deriveKey } from "altcha-lib/algorithms/pbkdf2";
+
 const SESSION_TTL_MS = 2 * 60 * 60 * 1000;
 const CHALLENGE_TTL_MS = 8 * 60 * 1000;
 const TEXT_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -48,10 +51,34 @@ const LAYERS = [
   { id: "botd", title: "BotD 检测", type: "botd", weight: 8 },
   { id: "turnstile", title: "Cloudflare 守门人", type: "turnstile", weight: 9 },
   { id: "hcaptcha", title: "hCaptcha 图像关", type: "hcaptcha", weight: 9 },
-  { id: "cap-pow", title: "Cap 哈希门", type: "pow", weight: 10, prefix: "cap", difficulty: 3 },
-  { id: "altcha-pow", title: "ALTCHA 称重", type: "pow", weight: 10, prefix: "altcha", difficulty: 3 },
-  { id: "mcaptcha-pow", title: "mCaptcha 备用 PoW", type: "pow", weight: 10, prefix: "mcaptcha", difficulty: 4 },
-  { id: "anubis", title: "Anubis 反爬门", type: "pow", weight: 11, prefix: "anubis", difficulty: 4 },
+  { id: "altcha", title: "ALTCHA 官方称重", type: "altcha", weight: 12 },
+  {
+    id: "cap-gate",
+    title: "Cap 真服务门",
+    type: "integration",
+    provider: "Cap",
+    weight: 10,
+    docsUrl: "https://trycap.dev",
+    note: "需要部署或绑定 Cap 官方服务后才能启用，当前不会用自制 PoW 冒充。"
+  },
+  {
+    id: "mcaptcha",
+    title: "mCaptcha 实例门",
+    type: "integration",
+    provider: "mCaptcha",
+    weight: 10,
+    docsUrl: "https://mcaptcha.org/docs/",
+    note: "需要可访问的 mCaptcha 实例、site key 与 secret，当前不会用本地哈希代替。"
+  },
+  {
+    id: "anubis",
+    title: "Anubis 网关门",
+    type: "integration",
+    provider: "Anubis",
+    weight: 12,
+    docsUrl: "https://github.com/TecharoHQ/anubis",
+    note: "Anubis 是独立反爬网关，不是页面内 widget；需要部署在受保护路由前。"
+  },
   { id: "recaptcha", title: "Google 雾门", type: "recaptcha", weight: 8 },
   { id: "combo-boss", title: "连续组合 Boss", type: "combo", weight: 14 },
   { id: "whitelist", title: "人类白名单", type: "final", weight: 0 }
@@ -203,7 +230,9 @@ function publicLayers(env) {
     type: layer.type,
     number: index + 1,
     enabled: isLayerEnabled(layer, env),
-    weight: layer.weight
+    weight: layer.weight,
+    provider: layer.provider || layer.type,
+    status: layerStatus(layer, env)
   }));
 }
 
@@ -217,7 +246,51 @@ function isLayerEnabled(layer, env) {
   if (layer.type === "recaptcha") {
     return Boolean(env.RECAPTCHA_SITE_KEY && env.RECAPTCHA_SECRET_KEY);
   }
+  if (layer.type === "altcha") {
+    return Boolean(env.ALTCHA_HMAC_SECRET);
+  }
+  if (layer.type === "integration") {
+    return false;
+  }
   return true;
+}
+
+function layerStatus(layer, env) {
+  const enabled = isLayerEnabled(layer, env);
+  if (enabled) {
+    return { state: "ready", label: "已启用" };
+  }
+
+  if (layer.type === "turnstile") {
+    return { state: "needs-config", label: "需要 Turnstile key", env: ["TURNSTILE_SITE_KEY", "TURNSTILE_SECRET_KEY"] };
+  }
+  if (layer.type === "hcaptcha") {
+    return { state: "needs-config", label: "需要 hCaptcha key", env: ["HCAPTCHA_SITE_KEY", "HCAPTCHA_SECRET_KEY"] };
+  }
+  if (layer.type === "recaptcha") {
+    return { state: "needs-config", label: "需要 reCAPTCHA key", env: ["RECAPTCHA_SITE_KEY", "RECAPTCHA_SECRET_KEY"] };
+  }
+  if (layer.type === "altcha") {
+    return { state: "needs-secret", label: "需要 ALTCHA_HMAC_SECRET", env: ["ALTCHA_HMAC_SECRET"] };
+  }
+  if (layer.type === "integration") {
+    return {
+      state: "needs-real-service",
+      label: "未接入真服务",
+      provider: layer.provider,
+      docsUrl: layer.docsUrl,
+      note: layer.note
+    };
+  }
+  return { state: "ready", label: "已启用" };
+}
+
+function readBoundedInt(value, fallback, min, max) {
+  const parsed = Number.parseInt(String(value || ""), 10);
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+  return Math.min(max, Math.max(min, parsed));
 }
 
 function storageMode(env) {
@@ -249,11 +322,11 @@ function addEvent(session, event) {
 }
 
 function issueLettersChallenge(layer) {
-  const length = layer.id === "letters-noisy" ? 5 : 4;
+  const length = layer.id === "letters-noisy" ? 6 : 5;
   const answer = randomLetters(length);
   return {
     publicData: {
-      prompt: layer.id === "letters-noisy" ? "输入图中的 5 个英文字母" : "输入图中的 4 个英文字母",
+      prompt: layer.id === "letters-noisy" ? "输入图中的 6 个英文字母" : "输入图中的 5 个英文字母",
       lettersSvg: renderLetterSvg(answer, layer.id === "letters-noisy")
     },
     answer: { value: answer }
@@ -261,10 +334,11 @@ function issueLettersChallenge(layer) {
 }
 
 function renderLetterSvg(answer, noisy) {
+  const width = answer.length >= 6 ? 318 : 288;
   const lines = noisy
-    ? Array.from({ length: 8 }, (_, index) => {
-        const x1 = Math.round(Math.random() * 250);
-        const x2 = Math.round(Math.random() * 250);
+    ? Array.from({ length: 14 }, (_, index) => {
+        const x1 = Math.round(Math.random() * width);
+        const x2 = Math.round(Math.random() * width);
         const y1 = Math.round(Math.random() * 78);
         const y2 = Math.round(Math.random() * 78);
         return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#1a1a1a" stroke-opacity="0.22" stroke-width="${index % 3 + 1}"/>`;
@@ -272,14 +346,14 @@ function renderLetterSvg(answer, noisy) {
     : "";
   const chars = answer.split("").map((letter, index) => {
     const unit = noisy ? 6 : 6.4;
-    const x = 27 + index * 43 + Math.round((Math.random() - 0.5) * 5);
+    const x = 24 + index * 43 + Math.round((Math.random() - 0.5) * 5);
     const y = 18 + Math.round((Math.random() - 0.5) * 8);
     const cx = x + unit * 2.5;
     const cy = y + unit * 3.5;
     const rotate = Math.round((Math.random() - 0.5) * (noisy ? 24 : 12));
     return `<path transform="rotate(${rotate} ${cx} ${cy})" d="${glyphPath(letter, x, y, unit)}"/>`;
   }).join("");
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="260" height="82" viewBox="0 0 260 82" role="img" aria-label="letter captcha"><rect width="260" height="82" fill="#faf8f4"/><g fill="#1a1a1a">${chars}</g>${lines}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="82" viewBox="0 0 ${width} 82" role="img" aria-label="letter captcha"><rect width="${width}" height="82" fill="#faf8f4"/><g fill="#1a1a1a">${chars}</g>${lines}</svg>`;
 }
 
 function glyphPath(letter, x, y, unit) {
@@ -302,8 +376,8 @@ function roundPathValue(value) {
 }
 
 function issuePickLettersChallenge(sequenceMode) {
-  const target = shuffle(TEXT_ALPHABET.split("")).slice(0, sequenceMode ? 4 : 2);
-  const distractors = shuffle(TEXT_ALPHABET.split("").filter((item) => !target.includes(item))).slice(0, 10);
+  const target = shuffle(TEXT_ALPHABET.split("")).slice(0, sequenceMode ? 5 : 3);
+  const distractors = shuffle(TEXT_ALPHABET.split("").filter((item) => !target.includes(item))).slice(0, sequenceMode ? 12 : 13);
   const cards = shuffle(target.concat(distractors)).map((letter, index) => ({
     id: `card_${index}`,
     letter,
@@ -405,6 +479,52 @@ async function issuePowChallenge(layer) {
   };
 }
 
+async function issueAltchaChallenge(env) {
+  if (!env.ALTCHA_HMAC_SECRET) {
+    return {
+      publicData: {
+        prompt: "ALTCHA 官方 PoW widget",
+        provider: "altcha",
+        configured: false,
+        note: "缺少 ALTCHA_HMAC_SECRET，不能签发官方 ALTCHA challenge。"
+      },
+      answer: {}
+    };
+  }
+
+  const cost = readBoundedInt(env.ALTCHA_COST, 1600, 250, 12000);
+  const counterMin = readBoundedInt(env.ALTCHA_COUNTER_MIN, 2400, 100, 20000);
+  const counterMax = readBoundedInt(env.ALTCHA_COUNTER_MAX, 5600, counterMin + 1, 40000);
+  const challenge = await createChallenge({
+    algorithm: "PBKDF2/SHA-256",
+    cost,
+    counter: randomInt(counterMax, counterMin),
+    deriveKey,
+    expiresAt: new Date(Date.now() + CHALLENGE_TTL_MS),
+    hmacSignatureSecret: env.ALTCHA_HMAC_SECRET,
+    hmacKeySignatureSecret: `${env.ALTCHA_HMAC_SECRET}:key-signature-v1`,
+    data: {
+      route: "exam-kara-human-challenge",
+      layer: "altcha"
+    }
+  });
+
+  return {
+    publicData: {
+      prompt: "完成官方 ALTCHA PoW widget",
+      provider: "altcha",
+      configured: true,
+      challenge,
+      cost,
+      counterRange: `${counterMin}-${counterMax}`
+    },
+    answer: {
+      nonce: challenge.parameters.nonce,
+      signature: challenge.signature || ""
+    }
+  };
+}
+
 function issueExternalChallenge(layer, env) {
   if (layer.type === "turnstile") {
     return {
@@ -439,6 +559,19 @@ function issueExternalChallenge(layer, env) {
   };
 }
 
+function issueIntegrationPlaceholder(layer) {
+  return {
+    publicData: {
+      prompt: `${layer.provider} 需要真服务接入`,
+      provider: layer.provider,
+      configured: false,
+      docsUrl: layer.docsUrl,
+      note: layer.note
+    },
+    answer: { provider: layer.provider }
+  };
+}
+
 async function issueChallenge(layer, env) {
   if (layer.type === "letters") return issueLettersChallenge(layer);
   if (layer.type === "pickLetters") return issuePickLettersChallenge(false);
@@ -460,6 +593,8 @@ async function issueChallenge(layer, env) {
     };
   }
   if (layer.type === "pow") return issuePowChallenge(layer);
+  if (layer.type === "altcha") return issueAltchaChallenge(env);
+  if (layer.type === "integration") return issueIntegrationPlaceholder(layer);
   if (["turnstile", "hcaptcha", "recaptcha"].includes(layer.type)) return issueExternalChallenge(layer, env);
   if (layer.type === "combo") {
     const letters = shuffle(TEXT_ALPHABET.split("")).slice(0, 4).join("");
@@ -523,6 +658,71 @@ async function verifyExternal(layer, answer, body, env) {
   };
 }
 
+function decodeAltchaPayload(value) {
+  if (value && typeof value === "object") {
+    return value;
+  }
+
+  const encoded = String(value || "");
+  if (!encoded || encoded.length > 12000) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(atob(encoded));
+  } catch {
+    try {
+      return JSON.parse(encoded);
+    } catch {
+      return null;
+    }
+  }
+}
+
+async function verifyAltcha(answer, body, env) {
+  if (!env.ALTCHA_HMAC_SECRET) {
+    return {
+      passed: false,
+      skipped: true,
+      message: "ALTCHA_HMAC_SECRET 尚未配置，不能进行官方 ALTCHA 校验。",
+      riskTags: ["altcha_not_configured"]
+    };
+  }
+
+  const payload = decodeAltchaPayload(body.altcha || body.payload);
+  if (!payload || !payload.challenge || !payload.solution) {
+    return { passed: false, message: "缺少 ALTCHA widget payload。", riskTags: ["missing_altcha_payload"] };
+  }
+
+  const parameters = payload.challenge.parameters || {};
+  if (parameters.nonce !== answer.nonce || (payload.challenge.signature || "") !== answer.signature) {
+    return { passed: false, message: "ALTCHA payload 不是本关签发的 challenge。", riskTags: ["altcha_challenge_mismatch"] };
+  }
+
+  const result = await verifySolution({
+    challenge: payload.challenge,
+    solution: payload.solution,
+    deriveKey,
+    hmacSignatureSecret: env.ALTCHA_HMAC_SECRET,
+    hmacKeySignatureSecret: `${env.ALTCHA_HMAC_SECRET}:key-signature-v1`
+  });
+
+  return {
+    passed: Boolean(result.verified),
+    message: result.verified ? "官方 ALTCHA 校验通过。" : "官方 ALTCHA 校验未通过。",
+    riskTags: result.verified ? ["altcha_pass"] : ["altcha_reject"]
+  };
+}
+
+function verifyIntegrationPlaceholder(layer) {
+  return {
+    passed: false,
+    skipped: true,
+    message: `${layer.provider} 尚未接入真服务，本轮明示跳过，不再用本地 PoW 冒充。`,
+    riskTags: ["real_integration_missing"]
+  };
+}
+
 async function verifyChallenge(layer, challenge, body, env) {
   const answer = challenge.answer || {};
   if (layer.type === "letters") {
@@ -580,6 +780,12 @@ async function verifyChallenge(layer, challenge, body, env) {
   }
   if (["turnstile", "hcaptcha", "recaptcha"].includes(layer.type)) {
     return verifyExternal(layer, answer, body, env);
+  }
+  if (layer.type === "altcha") {
+    return verifyAltcha(answer, body, env);
+  }
+  if (layer.type === "integration") {
+    return verifyIntegrationPlaceholder(layer);
   }
   if (layer.type === "combo") {
     const selected = Array.isArray(body.selected) ? body.selected : [];

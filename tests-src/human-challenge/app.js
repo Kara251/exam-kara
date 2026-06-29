@@ -11,6 +11,7 @@
     mapping: {},
     activeDrag: "",
     trace: null,
+    altchaWidget: null,
     startedAt: 0,
     pointerMoves: 0,
     previewUrl: "",
@@ -182,7 +183,7 @@
       if (passed.has(layer.id)) item.classList.add("is-passed");
       if (skipped.has(layer.id)) item.classList.add("is-skipped");
       if (!layer.enabled) item.classList.add("is-disabled");
-      item.innerHTML = '<span class="layer-num">' + layer.number + '</span><span>' + layer.title + '</span>';
+      item.innerHTML = '<span class="layer-num">' + layer.number + '</span><span><b>' + layer.title + '</b><small>' + ((layer.status && layer.status.label) || (layer.enabled ? "已启用" : "未启用")) + '</small></span>';
       list.appendChild(item);
     });
   }
@@ -215,6 +216,7 @@
     state.mapping = {};
     state.activeDrag = "";
     state.trace = null;
+    state.altchaWidget = null;
     state.startedAt = Date.now();
     state.pointerMoves = 0;
   }
@@ -456,6 +458,8 @@
     else if (challenge.type === "botd") renderBotD(challenge);
     else if (["turnstile", "hcaptcha", "recaptcha"].indexOf(challenge.type) >= 0) renderExternal(challenge);
     else if (challenge.type === "pow") renderPow(challenge);
+    else if (challenge.type === "altcha") renderAltcha(challenge);
+    else if (challenge.type === "integration") renderIntegrationNotice(challenge);
     else if (challenge.type === "combo") renderCombo(challenge);
     else renderFinal();
 
@@ -559,6 +563,59 @@
     }
   }
 
+  function altchaLanguage() {
+    if (currentLocale === "ja") return "ja";
+    if (currentLocale === "en") return "en";
+    return "zh";
+  }
+
+  function renderAltcha(challenge) {
+    var configured = challenge.data.configured;
+    if (!configured) {
+      $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p>' +
+        '<p class="empty-state">' + (challenge.data.note || "ALTCHA 尚未配置，不能签发官方 challenge。") + '</p>';
+      return;
+    }
+
+    $("challenge-card").innerHTML = '<p class="challenge-prompt">' + challenge.data.prompt + '</p>' +
+      '<p class="empty-state">这是官方 ALTCHA widget，使用 PBKDF2/SHA-256 做浏览器端 PoW；提交前需要它显示已验证。</p>' +
+      '<div class="altcha-wrap"><altcha-widget id="altcha-widget" name="altcha" auto="off" type="checkbox" workers="2"></altcha-widget></div>';
+
+    var widget = $("altcha-widget");
+    state.altchaWidget = widget;
+    if (!widget || !window.customElements) return;
+
+    window.customElements.whenDefined("altcha-widget").then(function () {
+      widget.configure({
+        challenge: challenge.data.challenge,
+        language: altchaLanguage(),
+        minDuration: 1200,
+        workers: Math.min(4, Math.max(1, navigator.hardwareConcurrency || 2))
+      });
+      widget.addEventListener("statechange", function (event) {
+        if (event.detail && event.detail.state === "verifying") {
+          setMessage("ALTCHA 正在计算官方 PoW...");
+        }
+      });
+      widget.addEventListener("verified", function () {
+        setMessage("ALTCHA 已生成 payload，可以提交验证。");
+      });
+    }).catch(function () {
+      setMessage("ALTCHA widget 加载失败，可以跳过此关。");
+    });
+  }
+
+  function renderIntegrationNotice(challenge) {
+    var data = challenge.data || {};
+    $("challenge-card").innerHTML = '<p class="challenge-prompt">' + data.prompt + '</p>' +
+      '<p class="empty-state">' + (data.note || "此层需要真实服务接入。") + '</p>' +
+      '<div class="integration-box">' +
+      '<strong>' + (data.provider || "Provider") + '</strong>' +
+      '<span>当前状态：未接入真服务</span>' +
+      (data.docsUrl ? '<a href="' + data.docsUrl + '" target="_blank" rel="noopener noreferrer">查看官方项目</a>' : '') +
+      '</div>';
+  }
+
   async function solvePow(seed, difficulty) {
     var prefix = "0".repeat(difficulty);
     var nonce = 0;
@@ -604,6 +661,13 @@
     } else if (challenge.type === "pow") {
       setMessage("正在计算 PoW...");
       payload.nonce = await solvePow(challenge.data.seed, challenge.data.difficulty);
+    } else if (challenge.type === "altcha") {
+      if (state.altchaWidget && state.altchaWidget.getState && state.altchaWidget.getState() !== "verified") {
+        setMessage("正在等待 ALTCHA widget 完成官方 PoW...");
+        await state.altchaWidget.verify();
+      }
+      var altchaInput = document.querySelector('input[name="altcha"]');
+      payload.altcha = altchaInput ? altchaInput.value : "";
     } else if (challenge.type === "combo") {
       setMessage("正在计算 Boss PoW...");
       payload.selected = state.selected.slice();
