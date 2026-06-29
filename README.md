@@ -71,4 +71,5 @@ Pages 项目名：`exam-kara`
 
 - [部署说明](docs/deployment.md)
 - [人机测试闯关方案](docs/human-challenge.md)
+- [人机测试重构方案](docs/human-challenge-redesign-plan.md)
 - [夏番测试资料依据](docs/result.md)

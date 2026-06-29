@@ -11,3 +11,14 @@ pnpm-debug.log*
 
 .env
 .env.*
+.env.local
+.env.*.local
+.dev.vars
+.dev.vars.*
+
+*.pem
+*.key
+*.p8
+*.p12
+secrets.*
+wrangler-*.log
