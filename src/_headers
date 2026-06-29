@@ -17,6 +17,21 @@
 /tests/anime-summer-2026/index.html
   Cache-Control: no-store
 
+/tests/galgame-test/
+  Cache-Control: no-store
+
+/tests/galgame-test/index.html
+  Cache-Control: no-store
+
+/tests/human-challenge/
+  Cache-Control: no-store
+
+/tests/human-challenge/index.html
+  Cache-Control: no-store
+
+/api/human-challenge/*
+  Cache-Control: no-store
+
 /tests-manifest.json
   Cache-Control: no-store
 

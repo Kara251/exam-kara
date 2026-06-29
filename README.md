@@ -6,6 +6,7 @@
 
 - `/tests/anime-summer-2026/`：2026 夏季番性格测验
 - `/tests/galgame-test/`：GalGame 命定路线测验（100 题池随机抽 15 题）
+- `/tests/human-challenge/`：免费优先的人机测试闯关
 
 兼容旧链接：
 
@@ -23,6 +24,8 @@
 - `src/`：EXAM KARA 首页源码
 - `tests-src/anime-summer-2026/`：站内版动漫测试源码
 - `tests-src/galgame-test/`：站内版 GalGame 测试源码
+- `tests-src/human-challenge/`：站内版人机测试闯关源码
+- `functions/api/human-challenge/`：人机测试 Orchestrator API
 - `scripts/build.mjs`：构建脚本
 - `docs/`：部署与资料说明
 
@@ -50,6 +53,7 @@ Pages 项目名：`exam-kara`
 - 把 `src/` 输出到站点根目录
 - 把 `tests-src/anime-summer-2026/` 输出到 `/tests/anime-summer-2026/`
 - 把 `tests-src/galgame-test/` 输出到 `/tests/galgame-test/`
+- 把 `tests-src/human-challenge/` 输出到 `/tests/human-challenge/`
 - 生成 `/tests/galgame-match/` 到新 GalGame 路由的跳转页
 - 为首页与测试页写入新的构建版本号，用于强制刷新静态缓存
 
@@ -62,4 +66,5 @@ Pages 项目名：`exam-kara`
 ## 文档
 
 - [部署说明](docs/deployment.md)
+- [人机测试闯关方案](docs/human-challenge.md)
 - [夏番测试资料依据](docs/result.md)

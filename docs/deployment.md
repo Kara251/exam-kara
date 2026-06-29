@@ -29,6 +29,8 @@ npm run deploy:pages
 - `/` -> EXAM KARA 首页
 - `/tests/anime-summer-2026/` -> 夏季番测试
 - `/tests/galgame-test/` -> GalGame 测试
+- `/tests/human-challenge/` -> 人机测试闯关
+- `/api/human-challenge/*` -> 人机测试 Orchestrator API
 - `/tests/galgame-match/` -> 兼容旧地址，自动跳转到 `/tests/galgame-test/`
 
 ## Build Notes
@@ -38,8 +40,24 @@ npm run deploy:pages
 - `src/`
 - `tests-src/anime-summer-2026/`
 - `tests-src/galgame-test/`
+- `tests-src/human-challenge/`
+- `functions/api/human-challenge/`
 
 不再依赖外部兄弟目录同步。
+
+## Human Challenge Bindings
+
+人机测试闯关默认不依赖付费服务。正式会话建议绑定：
+
+- `HUMAN_CHALLENGE_KV`：Cloudflare KV namespace，保存 2 小时会话。
+
+可选免费云验证：
+
+- `TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`
+- `HCAPTCHA_SITE_KEY` / `HCAPTCHA_SECRET_KEY`
+- `RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET_KEY`，仅作为隐藏彩蛋层
+
+未配置的云验证层会显示为未启用，用户可跳过并扣分。
 
 ## Custom Domain
 

@@ -10,8 +10,10 @@ const testsSrcDir = path.join(rootDir, "tests-src");
 const distDir = path.join(rootDir, "dist");
 const localAnimeDir = path.join(testsSrcDir, "anime-summer-2026");
 const localGalgameDir = path.join(testsSrcDir, "galgame-test");
+const localHumanChallengeDir = path.join(testsSrcDir, "human-challenge");
 const animeRouteDir = path.join(distDir, "tests", "anime-summer-2026");
 const galgameRouteDir = path.join(distDir, "tests", "galgame-test");
+const humanChallengeRouteDir = path.join(distDir, "tests", "human-challenge");
 const legacyGalgameRouteDir = path.join(distDir, "tests", "galgame-match");
 const syncOnly = process.argv.includes("--sync-only");
 const buildVersion = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -133,7 +135,8 @@ async function applyBuildVersion() {
     replaceBuildVersionPlaceholders(path.join(distDir, "index.html")),
     replaceBuildVersionPlaceholders(path.join(distDir, "shared-runtime.js")),
     replaceBuildVersionPlaceholders(path.join(animeRouteDir, "index.html")),
-    replaceBuildVersionPlaceholders(path.join(galgameRouteDir, "index.html"))
+    replaceBuildVersionPlaceholders(path.join(galgameRouteDir, "index.html")),
+    replaceBuildVersionPlaceholders(path.join(humanChallengeRouteDir, "index.html"))
   ]);
 }
 
@@ -174,6 +177,13 @@ async function syncGalgameRoute() {
   return { available: true };
 }
 
+async function syncHumanChallengeRoute() {
+  await fs.access(localHumanChallengeDir);
+  await removeAndRecreate(humanChallengeRouteDir);
+  await copyDir(localHumanChallengeDir, humanChallengeRouteDir, includeSiblingEntry);
+  return { available: true };
+}
+
 async function main() {
   if (!syncOnly) {
     await removeAndRecreate(distDir);
@@ -184,6 +194,7 @@ async function main() {
 
   const animeStatus = await syncAnimeRoute();
   const galgameStatus = await syncGalgameRoute();
+  const humanChallengeStatus = await syncHumanChallengeRoute();
   await assertNoEmptyImageSources([srcDir, testsSrcDir, distDir]);
 
   const manifest = {
@@ -203,6 +214,13 @@ async function main() {
         href: "/tests/galgame-test/",
         source: "tests-src/galgame-test",
         synced: galgameStatus.available
+      },
+      {
+        slug: "human-challenge",
+        name: "你能闖過幾個人機測試",
+        href: "/tests/human-challenge/",
+        source: "tests-src/human-challenge",
+        synced: humanChallengeStatus.available
       }
     ]
   };

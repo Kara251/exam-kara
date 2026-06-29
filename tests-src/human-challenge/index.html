@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="exam-kara-build" content="__BUILD_VERSION__">
+  <title>你能闯过几个人机测试</title>
+  <meta name="description" content="免费优先、中国玩家优先的人机测试闯关页，挑战字母验证码、拖拽、轨迹、PoW 与云验证码。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=__BUILD_VERSION__">
+</head>
+<body>
+  <div class="lang-gate" id="lang-gate" aria-labelledby="lang-gate-title">
+    <div class="lang-gate-panel">
+      <div class="rule-double"></div>
+      <p class="kicker">LANGUAGE CHECKPOINT</p>
+      <h2 id="lang-gate-title">先选择语言</h2>
+      <p id="lang-gate-subtitle">进入后右上角仍然可以切换。文字类关卡只使用英文字母。</p>
+      <div class="lang-gate-options" id="lang-gate-options"></div>
+      <div class="rule-double"></div>
+    </div>
+  </div>
+
+  <div class="lang-control">
+    <label class="sr-only" for="lang-select">Language</label>
+    <select id="lang-select" class="lang-select" aria-label="Language"></select>
+  </div>
+
+  <main class="page-shell">
+    <header class="masthead">
+      <a class="brand" href="/">EXAM<br>KARA</a>
+      <div class="masthead-center">
+        <span>VOL. 04 -- HUMAN CHALLENGE</span>
+        <strong id="masthead-title">你能闯过几个人机测试</strong>
+      </div>
+      <span class="masthead-date">2026.06.29</span>
+    </header>
+
+    <section class="hero">
+      <aside class="side-rail">
+        <span>人机闯关</span>
+      </aside>
+      <div class="hero-copy">
+        <span class="tag">号外 EXTRA</span>
+        <h1>人类<br><em>通行证</em></h1>
+        <p id="hero-lead">从老派英文字母验证码开始，一路穿过拖拽、轨迹、蜜罐、PoW 和免费云验证。你能走到第几层？</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="start-btn" type="button">开始闯关</button>
+          <a class="btn btn-ghost" href="/">更多测验</a>
+          <button class="btn btn-ghost" id="reset-btn" type="button">重置会话</button>
+        </div>
+      </div>
+      <div class="hero-stack" aria-hidden="true">
+        <div class="stamp stamp-a">FREE FIRST</div>
+        <div class="stamp stamp-b">NO PAID VENDOR</div>
+        <div class="stamp stamp-c">A-Z ONLY</div>
+      </div>
+    </section>
+
+    <section class="challenge-layout">
+      <aside class="layer-panel">
+        <div class="panel-head">
+          <p class="kicker">CHECKPOINTS</p>
+          <h2>20 层关卡</h2>
+        </div>
+        <div class="layer-list" id="layer-list"></div>
+      </aside>
+
+      <section class="arena">
+        <div class="arena-top">
+          <div>
+            <p class="kicker" id="current-kicker">CURRENT LAYER</p>
+            <h2 id="current-title">等待开始</h2>
+          </div>
+          <div class="score-box">
+            <span id="score-title">验证码新兵</span>
+            <strong id="score-value">0</strong>
+          </div>
+        </div>
+
+        <div class="rule"></div>
+
+        <div class="challenge-card" id="challenge-card">
+          <p class="empty-state">点击“开始闯关”，从第一层开始称量你的浏览器灵魂。</p>
+        </div>
+
+        <div class="arena-actions">
+          <button class="btn btn-primary" id="verify-btn" type="button" disabled>提交验证</button>
+          <button class="btn btn-ghost" id="skip-btn" type="button" disabled>跳过此关</button>
+          <button class="btn btn-ghost" id="next-btn" type="button" disabled>下一层</button>
+        </div>
+
+        <div class="message-line" id="message-line" aria-live="polite"></div>
+      </section>
+
+      <aside class="log-panel">
+        <div class="panel-head">
+          <p class="kicker">SESSION LOG</p>
+          <h2>通关记录</h2>
+        </div>
+        <div class="session-stats">
+          <span>通过 <strong id="passed-count">0</strong></span>
+          <span>跳过 <strong id="skipped-count">0</strong></span>
+          <span>失败 <strong id="failed-count">0</strong></span>
+        </div>
+        <ol class="event-log" id="event-log"></ol>
+      </aside>
+    </section>
+
+    <section class="result-panel" id="result-panel" hidden>
+      <div class="result-card" id="result-card">
+        <p class="kicker">RESULT</p>
+        <h2 id="result-title">验证码新兵</h2>
+        <p id="result-copy">你已经完成本轮人机测试闯关。</p>
+        <div class="result-grid">
+          <span>最高层数 <strong id="result-passed">0</strong></span>
+          <span>总分 <strong id="result-score">0</strong></span>
+          <span>跳过 <strong id="result-skipped">0</strong></span>
+        </div>
+        <div class="result-qr">
+          <div id="result-qr-code"></div>
+          <span>exam.kara251.com/tests/human-challenge/</span>
+        </div>
+      </div>
+      <div class="result-actions">
+        <button class="btn btn-primary" id="save-result-btn" type="button">保存结果图</button>
+        <button class="btn btn-ghost" id="preview-result-btn" type="button">查看结果图</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="image-preview-modal" id="image-preview-modal" hidden aria-hidden="true">
+    <div class="image-preview-backdrop" id="image-preview-backdrop"></div>
+    <div class="image-preview-panel" role="dialog" aria-modal="true">
+      <button class="image-preview-close" id="image-preview-close" type="button">关闭</button>
+      <img id="image-preview-image" alt="">
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="/shared-runtime.js?v=__BUILD_VERSION__" defer></script>
+  <script src="/shared-locale.js?v=__BUILD_VERSION__" defer></script>
+  <script src="app.js?v=__BUILD_VERSION__" defer></script>
+</body>
+</html>

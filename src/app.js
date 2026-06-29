@@ -8,6 +8,10 @@ var manifestState = {
   galgame: {
     synced: true,
     href: "/tests/galgame-test/"
+  },
+  human: {
+    synced: true,
+    href: "/tests/human-challenge/"
   }
 };
 var HERO_TYPEWRITER_LINES = [
@@ -47,7 +51,7 @@ var SITE_COPY = {
     heroHomeAction: "返回主頁",
     heroSecondaryPrefix: "進入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME + HUMAN",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗集合",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
@@ -95,7 +99,7 @@ var SITE_COPY = {
     heroHomeAction: "返回主页",
     heroSecondaryPrefix: "进入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME + HUMAN",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互动测验集合",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
@@ -143,7 +147,7 @@ var SITE_COPY = {
     heroHomeAction: "返主頁",
     heroSecondaryPrefix: "進入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME + HUMAN",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗合集",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
@@ -191,7 +195,7 @@ var SITE_COPY = {
     heroHomeAction: "返主頁",
     heroSecondaryPrefix: "入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME + HUMAN",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗總錄",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
@@ -239,7 +243,7 @@ var SITE_COPY = {
     heroHomeAction: "Back to Home",
     heroSecondaryPrefix: "Open ",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME + HUMAN",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "test collection",
     heroSparkle: "ARCHIVE MODE",
@@ -287,7 +291,7 @@ var SITE_COPY = {
     heroHomeAction: "返主頁",
     heroSecondaryPrefix: "入",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME + HUMAN",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "互動測驗集合",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
@@ -335,7 +339,7 @@ var SITE_COPY = {
     heroHomeAction: "ホームへ戻る",
     heroSecondaryPrefix: "",
     heroMetaDomain: "DOMAIN: exam.kara251.com",
-    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME",
+    heroMetaRoute: "CURRENT LINEUP: ANIME + GALGAME + HUMAN",
     heroFooterPrimary: "INTERACTIVE TEST INDEX",
     heroFooterSecondary: "テスト一覧",
     heroSparkle: "☆ﾟ.*･｡ﾟ",
@@ -514,6 +518,51 @@ var SITE_COPY_EXTENSIONS = {
 Object.keys(SITE_COPY_EXTENSIONS).forEach(function (locale) {
   Object.assign(SITE_COPY[locale], SITE_COPY_EXTENSIONS[locale]);
 });
+
+var HUMAN_TEST_COPY = {
+  tc: {
+    title: "你能闖過幾個人機測試",
+    cta: "人機闖關",
+    description: "免費優先、中國玩家優先的人機驗證闖關。從英文字母、拖拽、軌跡到 PoW 與雲驗證。",
+    note: "20 層關卡，付費企業驗證不進主線。"
+  },
+  sc: {
+    title: "你能闯过几个人机测试",
+    cta: "人机闯关",
+    description: "免费优先、中国玩家优先的人机验证闯关。从英文字母、拖拽、轨迹到 PoW 与云验证。",
+    note: "20 层关卡，付费企业验证不进主线。"
+  },
+  hx: {
+    title: "伱能闖過幾個人機測試",
+    cta: "人機闖關",
+    description: "免費優先，中國玩家優先の人機驗證闖關。英文字母、拖拽、軌跡、PoW，全都安排上。",
+    note: "20層關卡，付費企業驗證卟進主線。"
+  },
+  wy: {
+    title: "汝可過幾重人機之試",
+    cta: "人機關",
+    description: "以免費可用者為先，為中國玩家設關。英字、拖拽、行跡、算力驗證，次第而上。",
+    note: "凡二十重，需付費之企業驗證不入主線。"
+  },
+  en: {
+    title: "Human Challenge Tower",
+    cta: "Human Challenge",
+    description: "A free-first human-check tower for China-first players: letters, dragging, tracing, PoW, and cloud checks.",
+    note: "20 layers. Paid enterprise checks are not in the main route."
+  },
+  yue: {
+    title: "你過到幾多人機測試",
+    cta: "人機闖關",
+    description: "免費優先、中國玩家優先嘅人機驗證闖關。由英文字母、拖拽、軌跡去到 PoW 同雲驗證。",
+    note: "20 層關卡，付費企業驗證唔入主線。"
+  },
+  ja: {
+    title: "人間判定チャレンジ",
+    cta: "人間判定へ",
+    description: "無料優先、中国プレイヤー優先の検証タワー。英字、ドラッグ、軌跡、PoW、クラウド検証へ進みます。",
+    note: "20層構成。有料エンタープライズ検証は主ルートに入れません。"
+  }
+};
 
 function currentCopy() {
   return SITE_COPY[currentLocale] || SITE_COPY.tc;
@@ -800,6 +849,8 @@ function applyStaticCopy(copy) {
 function buildTests(copy) {
   var animeLive = manifestState.anime && manifestState.anime.synced;
   var galgameLive = manifestState.galgame && manifestState.galgame.synced;
+  var humanLive = manifestState.human && manifestState.human.synced;
+  var humanCopy = HUMAN_TEST_COPY[currentLocale] || HUMAN_TEST_COPY.sc;
 
   return [
     {
@@ -827,6 +878,19 @@ function buildTests(copy) {
       cta: copy.tests.galgame.cta,
       description: copy.tests.galgame.description,
       note: galgameLive ? copy.tests.galgame.note : copy.unavailableNote
+    },
+    {
+      title: humanCopy.title,
+      href: humanLive ? manifestState.human.href : "",
+      route: "/tests/human-challenge/",
+      source: "FREE CAPTCHA / POW / BOT CHECK",
+      repoHref: "https://github.com/Kara251/exam-kara",
+      repoName: "github.com/Kara251/exam-kara",
+      status: humanLive ? "live" : "pending",
+      statusLabel: humanLive ? copy.statusLive : copy.statusWaiting,
+      cta: humanCopy.cta,
+      description: humanCopy.description,
+      note: humanLive ? humanCopy.note : copy.unavailableNote
     }
   ];
 }
@@ -1137,8 +1201,11 @@ async function loadManifestState() {
     var syncedGalgame = manifest.tests.find(function (test) {
       return test.slug === "galgame-test";
     });
+    var syncedHuman = manifest.tests.find(function (test) {
+      return test.slug === "human-challenge";
+    });
 
-    if (!syncedAnime && !syncedGalgame) {
+    if (!syncedAnime && !syncedGalgame && !syncedHuman) {
       return;
     }
 
@@ -1150,6 +1217,10 @@ async function loadManifestState() {
       galgame: {
         synced: !!(syncedGalgame && syncedGalgame.synced),
         href: (syncedGalgame && syncedGalgame.href) || "/tests/galgame-test/"
+      },
+      human: {
+        synced: !!(syncedHuman && syncedHuman.synced),
+        href: (syncedHuman && syncedHuman.href) || "/tests/human-challenge/"
       }
     };
   } catch {}
