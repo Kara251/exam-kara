@@ -7,7 +7,7 @@
     "sync:anime": "node ./scripts/build.mjs --sync-only",
     "sync:tests": "node ./scripts/build.mjs --sync-only",
     "dev": "npm run build && python3 -m http.server 4173 -d dist",
-    "deploy:pages": "npm run build && npx wrangler@4 pages deploy dist --project-name exam-kara",
+    "deploy:pages": "npm run build && npx wrangler@4 pages deploy --branch main",
     "cf:login": "npx wrangler@4 login",
     "cf:project:create": "npx wrangler@4 pages project create exam-kara"
   }

@@ -8,5 +8,23 @@
       "binding": "HUMAN_CHALLENGE_KV",
       "id": "99d3434d2b2047d1ade27f26fefe4186"
     }
-  ]
+  ],
+  "env": {
+    "production": {
+      "kv_namespaces": [
+        {
+          "binding": "HUMAN_CHALLENGE_KV",
+          "id": "99d3434d2b2047d1ade27f26fefe4186"
+        }
+      ]
+    },
+    "preview": {
+      "kv_namespaces": [
+        {
+          "binding": "HUMAN_CHALLENGE_KV",
+          "id": "99d3434d2b2047d1ade27f26fefe4186"
+        }
+      ]
+    }
+  }
 }
