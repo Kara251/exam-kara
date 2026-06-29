@@ -1,5 +1,5 @@
 import { createChallenge, randomInt, verifySolution } from "altcha-lib";
-import { deriveKey } from "altcha-lib/algorithms/pbkdf2";
+import { deriveKey } from "altcha-lib/algorithms/web/pbkdf2";
 
 const SESSION_TTL_MS = 2 * 60 * 60 * 1000;
 const CHALLENGE_TTL_MS = 8 * 60 * 1000;
