@@ -39,8 +39,7 @@ body {
 }
 
 body.image-preview-open,
-body.lang-gate-open,
-body.contact-modal-open {
+body.lang-gate-open {
   overflow: hidden;
 }
 
@@ -2065,76 +2064,7 @@ body[data-script="latin"] .result-anime-name {
   place-items: center;
 }
 
-.contact-modal-panel {
-  width: min(92vw, 420px);
-  max-height: calc(100vh - 24px);
-  max-height: calc(100dvh - 24px);
-  margin: 12px auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.contact-modal-head {
-  align-items: flex-start;
-}
-
-.contact-modal-handle {
-  margin-top: 8px;
-}
-
-.contact-modal-body {
-  gap: 14px;
-  text-align: center;
-}
-
-.contact-modal-qr-frame {
-  width: min(100%, 260px);
-  padding: 10px;
-  border: 1px solid rgba(250, 248, 244, 0.22);
-  background: #fff;
-}
-
-.contact-modal-qr-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.contact-modal-note {
-  max-width: 280px;
-}
-
 @media (max-width: 640px) {
-  .contact-modal-panel {
-    width: min(calc(100vw - 20px), 380px);
-    max-height: calc(100dvh - 20px);
-    padding: 12px;
-    gap: 10px;
-  }
-
-  .contact-modal-head {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .contact-modal-head .image-preview-close {
-    width: 100%;
-    min-height: 40px;
-  }
-
-  .contact-modal-body {
-    gap: 10px;
-  }
-
-  .contact-modal-qr-frame {
-    width: min(100%, 220px);
-    padding: 8px;
-  }
-
-  .contact-modal-note {
-    font-size: 12px;
-    line-height: 1.55;
-  }
 }
 
 .image-preview-body img {
