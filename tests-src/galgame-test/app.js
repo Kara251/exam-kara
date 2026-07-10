@@ -20,11 +20,11 @@
   var homeScrollHintTimer = 0;
   var exportCache = { key: "", blob: null };
   var previewObjectUrl = "";
-  var MOTION_OFF = Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var motionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
   var seenPages = {};
 
   function motionMs(ms) {
-    return MOTION_OFF ? 0 : ms;
+    return motionQuery && motionQuery.matches ? 0 : ms;
   }
   var scenePickOffsets = {};
   var homeStageWorks = {};
@@ -357,7 +357,7 @@
 
     pageTransitionTimers.push(window.setTimeout(function () {
       pageTransition.classList.remove("is-active");
-    }, 640));
+    }, 1100));
   }
 
   function showPage(page, options) {
@@ -1804,12 +1804,12 @@
         window.setTimeout(function () {
           renderQuestion();
           quizBody.classList.remove("is-transitioning");
-        }, motionMs(220));
+        }, motionMs(340));
       } else {
         progressFill.style.width = "100%";
-        window.setTimeout(renderResult, motionMs(240));
+        window.setTimeout(renderResult, motionMs(420));
       }
-    }, motionMs(180));
+    }, motionMs(240));
   }
 
   function goBack() {
@@ -2209,7 +2209,7 @@
     if (!originRect || !langControl || prefersReducedMotion) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, 200);
+      window.setTimeout(closeLanguageGate, prefersReducedMotion ? 0 : 820);
       return;
     }
 
@@ -2234,7 +2234,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 620);
+    }, 1080);
   }
 
   function renderLanguageGateButtons() {

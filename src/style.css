@@ -238,7 +238,7 @@ a {
   padding: 84px 20px 28px;
   background: rgba(242, 237, 228, 0.94);
   backdrop-filter: blur(8px);
-  transition: opacity 0.32s ease, visibility 0.32s ease;
+  transition: opacity 0.76s ease, visibility 0.76s ease;
 }
 
 .lang-gate.is-dismissing,
@@ -363,7 +363,7 @@ a {
   font-size: 11px;
   letter-spacing: 2px;
   transform: translate(-50%, -50%);
-  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.48s ease;
+  transition: transform 0.96s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.96s ease;
   pointer-events: none;
 }
 

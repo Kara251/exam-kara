@@ -12,11 +12,11 @@
   var TEST_PUBLIC_URL = "https://exam.kara251.com/tests/anime-summer-2026/";
   var exportCache = { key: "", blob: null };
   var previewObjectUrl = "";
-  var MOTION_OFF = Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var motionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
   var seenPages = {};
 
   function motionMs(ms) {
-    return MOTION_OFF ? 0 : ms;
+    return motionQuery && motionQuery.matches ? 0 : ms;
   }
 
   QUIZ_DATA.traits.forEach(function (trait) {
@@ -203,7 +203,7 @@
     window.clearTimeout(page.__entryTimer);
     page.__entryTimer = window.setTimeout(function () {
       page.classList.remove("page-entering");
-    }, motionMs(800));
+    }, motionMs(1080));
   }
 
   function hideHomeScrollHint() {
@@ -299,7 +299,7 @@
       schedulePageEntryCleanup(page);
       scheduleMarqueeRefresh();
       updateHomeScrollHint();
-    }, motionMs(240));
+    }, motionMs(440));
   }
 
   function populateLanguageSelect() {
@@ -573,12 +573,12 @@
           quizBody.classList.add("entering");
           void quizBody.offsetHeight;
           quizBody.classList.remove("entering");
-        }, motionMs(220));
+        }, motionMs(380));
       } else {
         progressFill.style.width = "100%";
-        setTimeout(showResult, motionMs(240));
+        setTimeout(showResult, motionMs(420));
       }
-    }, motionMs(180));
+    }, motionMs(260));
   }
 
   function goBack() {
@@ -1065,7 +1065,7 @@
 
     var nameEl = document.getElementById("result-anime-name");
     nameEl.textContent = localizedName(top.work);
-    wrapChars(nameEl, 150);
+    wrapChars(nameEl, 300);
 
     document.getElementById("result-anime-romaji").textContent = localizedSecondaryName(top.work);
     document.getElementById("result-type-name").textContent = buildTypeLabel(top);
@@ -1445,7 +1445,7 @@
     if (prefersReducedMotion || !originRect) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, 200);
+      window.setTimeout(closeLanguageGate, prefersReducedMotion ? 0 : 820);
       return;
     }
 
@@ -1470,7 +1470,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 620);
+    }, 1160);
   }
 
   function selectGateLocale(localeCode, button) {
