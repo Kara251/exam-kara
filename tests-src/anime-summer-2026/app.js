@@ -203,7 +203,7 @@
     window.clearTimeout(page.__entryTimer);
     page.__entryTimer = window.setTimeout(function () {
       page.classList.remove("page-entering");
-    }, motionMs(1080));
+    }, motionMs(1420));
   }
 
   function hideHomeScrollHint() {
@@ -299,7 +299,7 @@
       schedulePageEntryCleanup(page);
       scheduleMarqueeRefresh();
       updateHomeScrollHint();
-    }, motionMs(440));
+    }, motionMs(660));
   }
 
   function populateLanguageSelect() {
@@ -1065,7 +1065,7 @@
 
     var nameEl = document.getElementById("result-anime-name");
     nameEl.textContent = localizedName(top.work);
-    wrapChars(nameEl, 300);
+    wrapChars(nameEl, 380);
 
     document.getElementById("result-anime-romaji").textContent = localizedSecondaryName(top.work);
     document.getElementById("result-type-name").textContent = buildTypeLabel(top);
@@ -1445,7 +1445,7 @@
     if (prefersReducedMotion || !originRect) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, prefersReducedMotion ? 0 : 820);
+      window.setTimeout(closeLanguageGate, prefersReducedMotion ? 0 : 640);
       return;
     }
 
@@ -1470,7 +1470,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 1160);
+    }, 1820);
   }
 
   function selectGateLocale(localeCode, button) {

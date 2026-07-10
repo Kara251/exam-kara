@@ -357,7 +357,7 @@
 
     pageTransitionTimers.push(window.setTimeout(function () {
       pageTransition.classList.remove("is-active");
-    }, 1100));
+    }, 980));
   }
 
   function showPage(page, options) {
@@ -2209,7 +2209,7 @@
     if (!originRect || !langControl || prefersReducedMotion) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, prefersReducedMotion ? 0 : 820);
+      window.setTimeout(closeLanguageGate, prefersReducedMotion ? 0 : 560);
       return;
     }
 
@@ -2234,7 +2234,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 1080);
+    }, 1240);
   }
 
   function renderLanguageGateButtons() {

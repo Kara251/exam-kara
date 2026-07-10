@@ -1008,7 +1008,7 @@ function animateGateGuide(originRect, label) {
   window.setTimeout(function () {
     chip.remove();
     closeLanguageGate();
-  }, 1040);
+  }, 1360);
 }
 
 function selectGateLocale(localeCode, button) {
