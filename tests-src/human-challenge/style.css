@@ -269,6 +269,15 @@ input {
   color: var(--ink);
   font-weight: 900;
   cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .btn:disabled {
@@ -570,15 +579,19 @@ input {
   margin: 20px 0;
 }
 
+/* Gameplay gauge: 1.6s duration is the challenge itself, so it stays linear
+   and full length; scaleX keeps it off the layout path. */
 .timing-fill {
-  width: 0;
+  width: 100%;
   height: 100%;
   background: var(--teal);
-  transition: width 1.6s linear;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.6s linear;
 }
 
 .timing-fill.is-running {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 .altcha-wrap {
@@ -825,4 +838,15 @@ altcha-widget {
   .challenge-card {
     min-height: 320px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .lang-gate-button {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  /* The timing gauge stays animated: its 1.6s sweep is the challenge itself,
+     not decoration. */
 }

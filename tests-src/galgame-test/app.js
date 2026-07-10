@@ -20,6 +20,12 @@
   var homeScrollHintTimer = 0;
   var exportCache = { key: "", blob: null };
   var previewObjectUrl = "";
+  var MOTION_OFF = Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var seenPages = {};
+
+  function motionMs(ms) {
+    return MOTION_OFF ? 0 : ms;
+  }
   var scenePickOffsets = {};
   var homeStageWorks = {};
   var homeCoverResizeFrame = 0;
@@ -297,6 +303,12 @@
 
   function triggerAnims(page) {
     var nodes = page.querySelectorAll(".anim");
+    var pageKey = page.id || "page";
+
+    // Full entrance choreography plays once per page per session;
+    // repeat visits collapse to a quick uniform fade (.anim-quick).
+    page.classList.toggle("anim-quick", Boolean(seenPages[pageKey]));
+    seenPages[pageKey] = true;
 
     nodes.forEach(function (node) {
       node.classList.remove("anim-in");
@@ -345,7 +357,7 @@
 
     pageTransitionTimers.push(window.setTimeout(function () {
       pageTransition.classList.remove("is-active");
-    }, 980));
+    }, 640));
   }
 
   function showPage(page, options) {
@@ -1792,12 +1804,12 @@
         window.setTimeout(function () {
           renderQuestion();
           quizBody.classList.remove("is-transitioning");
-        }, 340);
+        }, motionMs(220));
       } else {
         progressFill.style.width = "100%";
-        window.setTimeout(renderResult, 520);
+        window.setTimeout(renderResult, motionMs(240));
       }
-    }, 360);
+    }, motionMs(180));
   }
 
   function goBack() {
@@ -2197,7 +2209,7 @@
     if (!originRect || !langControl || prefersReducedMotion) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, 560);
+      window.setTimeout(closeLanguageGate, 200);
       return;
     }
 
@@ -2222,7 +2234,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 1240);
+    }, 620);
   }
 
   function renderLanguageGateButtons() {

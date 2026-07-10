@@ -12,6 +12,12 @@
   var TEST_PUBLIC_URL = "https://exam.kara251.com/tests/anime-summer-2026/";
   var exportCache = { key: "", blob: null };
   var previewObjectUrl = "";
+  var MOTION_OFF = Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var seenPages = {};
+
+  function motionMs(ms) {
+    return MOTION_OFF ? 0 : ms;
+  }
 
   QUIZ_DATA.traits.forEach(function (trait) {
     traitLookup[trait.id] = trait;
@@ -166,6 +172,12 @@
   function triggerAnims(page) {
     var elements = page.querySelectorAll(".anim");
     var chars = Array.prototype.slice.call(page.querySelectorAll(".char"));
+    var pageKey = page.id || "page";
+
+    // Full entrance choreography plays once per page per session;
+    // repeat visits collapse to a quick uniform fade (.anim-quick).
+    page.classList.toggle("anim-quick", Boolean(seenPages[pageKey]));
+    seenPages[pageKey] = true;
 
     elements.forEach(function (element) {
       element.classList.remove("anim-in");
@@ -191,7 +203,7 @@
     window.clearTimeout(page.__entryTimer);
     page.__entryTimer = window.setTimeout(function () {
       page.classList.remove("page-entering");
-    }, 1420);
+    }, motionMs(800));
   }
 
   function hideHomeScrollHint() {
@@ -287,7 +299,7 @@
       schedulePageEntryCleanup(page);
       scheduleMarqueeRefresh();
       updateHomeScrollHint();
-    }, 660);
+    }, motionMs(240));
   }
 
   function populateLanguageSelect() {
@@ -561,12 +573,12 @@
           quizBody.classList.add("entering");
           void quizBody.offsetHeight;
           quizBody.classList.remove("entering");
-        }, 420);
+        }, motionMs(220));
       } else {
         progressFill.style.width = "100%";
-        setTimeout(showResult, 460);
+        setTimeout(showResult, motionMs(240));
       }
-    }, 420);
+    }, motionMs(180));
   }
 
   function goBack() {
@@ -1053,7 +1065,7 @@
 
     var nameEl = document.getElementById("result-anime-name");
     nameEl.textContent = localizedName(top.work);
-    wrapChars(nameEl, 380);
+    wrapChars(nameEl, 150);
 
     document.getElementById("result-anime-romaji").textContent = localizedSecondaryName(top.work);
     document.getElementById("result-type-name").textContent = buildTypeLabel(top);
@@ -1433,7 +1445,7 @@
     if (prefersReducedMotion || !originRect) {
       gate.classList.add("is-dismissing");
       showLanguageToast();
-      window.setTimeout(closeLanguageGate, 640);
+      window.setTimeout(closeLanguageGate, 200);
       return;
     }
 
@@ -1458,7 +1470,7 @@
     window.setTimeout(function () {
       chip.remove();
       closeLanguageGate();
-    }, 1820);
+    }, 620);
   }
 
   function selectGateLocale(localeCode, button) {

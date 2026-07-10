@@ -124,16 +124,18 @@ a {
   pointer-events: none;
 }
 
+/* Motion contract: one ambient loop per viewport (the marquee).
+   Glitch plays once on load instead of looping. */
 .glitch-text::before {
   color: var(--accent);
   clip-path: inset(0 0 58% 0);
-  animation: glitch-top 4.8s ease-in-out infinite;
+  animation: glitch-top 2.4s ease-in-out 1;
 }
 
 .glitch-text::after {
   color: var(--teal);
   clip-path: inset(58% 0 0 0);
-  animation: glitch-bottom 4.8s ease-in-out infinite 0.24s;
+  animation: glitch-bottom 2.4s ease-in-out 1 0.24s;
 }
 
 @keyframes glitch-top {
@@ -236,7 +238,7 @@ a {
   padding: 84px 20px 28px;
   background: rgba(242, 237, 228, 0.94);
   backdrop-filter: blur(8px);
-  transition: opacity 0.96s ease, visibility 0.96s ease;
+  transition: opacity 0.32s ease, visibility 0.32s ease;
 }
 
 .lang-gate.is-dismissing,
@@ -361,7 +363,7 @@ a {
   font-size: 11px;
   letter-spacing: 2px;
   transform: translate(-50%, -50%);
-  transition: transform 1.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.32s ease;
+  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.48s ease;
   pointer-events: none;
 }
 
@@ -476,12 +478,7 @@ a {
   padding-top: 4px;
   font-size: 10px;
   letter-spacing: 6px;
-  animation: breathe 4.6s ease-in-out infinite;
-}
-
-@keyframes breathe {
-  0%, 100% { opacity: 0.36; }
-  50% { opacity: 0.84; }
+  opacity: 0.6;
 }
 
 .hero-title {
